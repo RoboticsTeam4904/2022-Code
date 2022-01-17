@@ -97,8 +97,6 @@ public class RobotMap {
         Component.turretPID = new CustomPIDController(PID.Turret.P,
 			PID.Turret.I, PID.Turret.D, PID.Turret.F,
 			Component.turretEncoder);
-        new PositionSensorMotor("Turret", Component.turretPID,
-				Component.turretMotor);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
     }
 }
