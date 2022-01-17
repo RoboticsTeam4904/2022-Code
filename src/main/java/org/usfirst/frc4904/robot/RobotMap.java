@@ -16,8 +16,8 @@ public class RobotMap {
         }
 
         public static class CANMotor {
-            public static final int AXLE_INTAKE_MOTOR = -1; //TODO set port for axel intake motor
-            public static final int DRAWBRIDGE_INTAKE_MOTOR = -1; //TODO set port for drawbridge intake motor
+            public static final int AXLE_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
+            public static final int DRAWBRIDGE_INTAKE_MOTOR = -1; //TODO: set port for drawbridge intake motor
         }
 
         public static class PWM {
@@ -78,7 +78,8 @@ public class RobotMap {
     public RobotMap() {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
-        Component.intakeDrawbridgeMotor = new Motor("intakeDrawbridgeMotor", false, new CANTalonFX(Port.CANMotor.DRAWBRIDGE_INTAKE_MOTOR)); //todo: check if CANTalonFX or SRX
-        Component.intakeAxleMotor = new Motor("intakeAxleMotor", false, new CANTalonFX(Port.CANMotor.AXLE_INTAKE_MOTOR)); //todo: check if CANTalonFX or SRX
+
+        Component.intakeDrawbridgeMotor = new Motor("intakeDrawbridgeMotor", false, new CANTalonFX(Port.CANMotor.DRAWBRIDGE_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
+        Component.intakeAxleMotor = new Motor("intakeAxleMotor", false, new CANTalonFX(Port.CANMotor.AXLE_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
     }
 }
