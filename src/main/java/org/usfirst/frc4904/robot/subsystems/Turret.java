@@ -4,14 +4,17 @@
 
 package org.usfirst.frc4904.robot.subsystems;
 
-import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-    public final Motor turretMotor; // TODO: confirm type of motor
+    public static final double ENCODER_TICKS = 1024;
+	public static final double TICK_MULTIPLIER = 360.0 / ENCODER_TICKS; // TODO: CHANGE CONSTS, took this from 2019 elevator
+    public final PositionSensorMotor turretMotor; // TODO: confirm type of motor
 
     /** Creates a new Turret. */
-    public Turret(Motor turretMotor) {
+    public Turret(PositionSensorMotor turretMotor) {
         this.turretMotor = turretMotor;
     }
     /*
