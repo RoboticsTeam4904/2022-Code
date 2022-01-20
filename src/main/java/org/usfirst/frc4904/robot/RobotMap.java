@@ -103,7 +103,7 @@ public class RobotMap {
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
         CANTalonFX flywheelATalon = new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_A);
-        // flywheelATalon.setInverted(false);
+        flywheelATalon.setInverted(true); // todo: check if flywheel is in the correct direction (check if it is inverted)
         CANTalonFX flywheelBTalon = new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_B);
 
         Component.flywheelEncoderB = new CANTalonEncoder(flywheelBTalon, false,
