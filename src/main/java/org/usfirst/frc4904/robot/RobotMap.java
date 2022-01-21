@@ -78,7 +78,6 @@ public class RobotMap {
     }
 
     public static class Component {
-        public static Flywheel flywheel;
         public static CANTalonEncoder flywheelEncoderA;
         public static CANTalonEncoder flywheelEncoderB;
         public static Flywheel shooter;

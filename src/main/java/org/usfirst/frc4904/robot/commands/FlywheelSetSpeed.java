@@ -17,6 +17,6 @@ public class FlywheelSetSpeed extends MotorVelocitySet {
   }
 
   public FlywheelSetSpeed(double speed) {
-    this(RobotMap.Component.flywheel, speed);
+    this(RobotMap.Component.shooter, speed);
   }
 }

@@ -15,6 +15,6 @@ public class FlywheelOff extends FlywheelSetSpeed {
   }
 
   public FlywheelOff() {
-    super(RobotMap.Component.flywheel, 0.0);
+    super(RobotMap.Component.shooter, 0.0);
   }
 }
