@@ -1,40 +1,17 @@
 package org.usfirst.frc4904.robot.subsystems;
-
+import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
 public class Intake {
-    public final static double DEFAULT_AXEL_MOTOR_SPEED = 0.0; //needs value
-    public final static double DEFAULT_DRAWBRIDGE_MOTOR_SPEED = 0.0; //needs value
+    public final static double DEFAULT_INTAKE_MOTOR_SPEED = 0.0; //needs value
+    // public final static double DEFAULT_DRAWBRIDGE_MOTOR_SPEED = 0.0; //needs value
     public final static double DEFAULT_OFF_SPEED = 0.0;
 
-    public Motor drawbridgeMotor;
-    public Motor axelMotor;
+    public final SolenoidSubsystem drawbridgeSolenoid;
+    public final Motor axelMotor;
     
-    public Intake(Motor axelMotor, Motor drawbridgeMotor) {
+    public Intake(Motor axelMotor, SolenoidSubsystem drawbridgeSolenoid) {
         this.axelMotor = axelMotor;
-        this.drawbridgeMotor = drawbridgeMotor;
+        this.drawbridgeSolenoid = drawbridgeSolenoid;
     }
-
-    public void setAxelIntakeSpeed(double speed) {
-        axelMotor.set(speed);
-    }
-
-    public void setDrawBridgeSpeed(double speed) {
-        drawbridgeMotor.set(speed);
-    }
-
-    public void setSpeed(double axelIntakeSpeed, double drawbridgeIntakeSpeed) {
-        setDrawBridgeSpeed(drawbridgeIntakeSpeed);
-        setAxelIntakeSpeed(axelIntakeSpeed);
-    }
-
-    public void setSpeed() {
-        setSpeed(DEFAULT_AXEL_MOTOR_SPEED, DEFAULT_DRAWBRIDGE_MOTOR_SPEED);
-    }
-    public void stop() {
-        setSpeed(DEFAULT_OFF_SPEED, DEFAULT_OFF_SPEED); //maybe retract drawbridge?
-    }
-    // public void retractDrawBridge(double speed) {
-    //     setDrawBridgeSpeed(-speed); //needs value
-    // }
-    }
+}
