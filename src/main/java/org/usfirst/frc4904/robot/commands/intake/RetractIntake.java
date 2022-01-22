@@ -3,8 +3,11 @@ package org.usfirst.frc4904.robot.commands.intake;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.commands.solenoid.SolenoidRetract;
 
-public class RetractIntake extends SolenoidRetract { //It extends the drawbridge which has the intake mechanism attached to it.
+/**
+ * Retracts the drawbridge which has the intake mechanism attached to it.
+ */
+public class RetractIntake extends SolenoidRetract {
     public RetractIntake() {
-        super("Retract Intake Drawbridge", RobotMap.Component.intakeDrawbridgeSolenoid);
+        super("retractIntakeDrawbridge", RobotMap.Component.intakeDrawbridgeSolenoid);
     }
 }

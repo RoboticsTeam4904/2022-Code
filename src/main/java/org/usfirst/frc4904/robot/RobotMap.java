@@ -11,7 +11,6 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
-import org.usfirst.frc4904.robot.subsystems.Intake;
 
 
 public class RobotMap {
@@ -32,7 +31,7 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
-            public static final PCMPort DRAWBRIDGE_INTAKE_SOLENOID = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake motor
+            public static final PCMPort DRAWBRIDGE_INTAKE_SOLENOID = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake solenoid
         }
 
         public static class Digital {
@@ -63,7 +62,6 @@ public class RobotMap {
     }
 
     public static class Component {
-        public static Intake intake;
         public static Motor intakeAxleMotor;
         public static SolenoidSubsystem intakeDrawbridgeSolenoid;
     }
