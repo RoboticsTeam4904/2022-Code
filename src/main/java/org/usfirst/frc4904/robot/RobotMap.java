@@ -1,8 +1,12 @@
 package org.usfirst.frc4904.robot;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+
+import org.usfirst.frc4904.standard.custom.PCMPort;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
+import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 
 public class RobotMap {
     public static class Port {
@@ -21,6 +25,7 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
+            public static final PCMPort SCISSOR_LIFT = new PCMPort(0, PneumaticsModuleType.CTREPCM, -1, -1); // TODO: set port
         }
 
         public static class Digital {
@@ -51,6 +56,7 @@ public class RobotMap {
     }
 
     public static class Component {
+        public static SolenoidSubsystem scissorLift;
     }
 
     public static class Input {
@@ -70,5 +76,6 @@ public class RobotMap {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
+        Component.scissorLift = new SolenoidSubsystem(Port.Pneumatics.SCISSOR_LIFT.buildDoubleSolenoid());
     }
 }
