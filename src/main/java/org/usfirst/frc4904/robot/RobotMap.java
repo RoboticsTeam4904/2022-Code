@@ -3,6 +3,10 @@ package org.usfirst.frc4904.robot;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
+import org.usfirst.frc4904.standard.custom.PCMPort;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
+import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 
 public class RobotMap {
     public static class Port {
@@ -21,6 +25,7 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
+            public static final PCMPort INDEXER_SOLENOID = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for indexer solenoid
         }
 
         public static class Digital {
@@ -51,6 +56,7 @@ public class RobotMap {
     }
 
     public static class Component {
+        public static SolenoidSubsystem indexerSolenoid;
     }
 
     public static class Input {
@@ -69,6 +75,7 @@ public class RobotMap {
     public RobotMap() {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+        Component.indexerSolenoid = new SolenoidSubsystem("Indexer Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.INDEXER_SOLENOID.buildDoubleSolenoid());
 
     }
 }
