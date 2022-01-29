@@ -8,6 +8,6 @@ import org.usfirst.frc4904.standard.commands.solenoid.SolenoidExtend;
  */
 public class ExtendIndexer extends SolenoidExtend {
     public ExtendIndexer() {
-        super("extendIndexer", RobotMap.Component.indexerSolenoid);
+        super("extendIndexer", RobotMap.Component.indexerSolenoids);
     }
 }

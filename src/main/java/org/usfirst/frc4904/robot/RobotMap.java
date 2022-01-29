@@ -25,7 +25,8 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
-            public static final PCMPort INDEXER_SOLENOID = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for indexer solenoid
+            public static final PCMPort INDEXER_SOLENOID1 = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for indexer solenoid
+            public static final PCMPort INDEXER_SOLENOID2 = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for indexer solenoid
         }
 
         public static class Digital {
@@ -56,7 +57,7 @@ public class RobotMap {
     }
 
     public static class Component {
-        public static SolenoidSubsystem indexerSolenoid;
+        public static SolenoidSubsystem indexerSolenoids;
     }
 
     public static class Input {
@@ -75,7 +76,7 @@ public class RobotMap {
     public RobotMap() {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
-        Component.indexerSolenoid = new SolenoidSubsystem("Indexer Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.INDEXER_SOLENOID.buildDoubleSolenoid());
+        Component.indexerSolenoids = new SolenoidSubsystem("Indexer Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.INDEXER_SOLENOID1.buildDoubleSolenoid(), Port.Pneumatics.INDEXER_SOLENOID2.buildDoubleSolenoid());
 
     }
 }

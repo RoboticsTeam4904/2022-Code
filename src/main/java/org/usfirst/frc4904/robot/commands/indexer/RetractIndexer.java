@@ -9,6 +9,6 @@ import org.usfirst.frc4904.standard.commands.solenoid.SolenoidRetract;
  */
 public class RetractIndexer extends SolenoidRetract {
     public RetractIndexer() {
-        super("retractIndexer", RobotMap.Component.indexerSolenoid);
+        super("retractIndexer", RobotMap.Component.indexerSolenoids);
     }
 }
