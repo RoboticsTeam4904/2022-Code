@@ -75,6 +75,6 @@ public class RobotMap {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
-        Component.indexerMotor = new Motor("indexerMotor", false, new CANTalonFX(Port.CANMotor.indexerMotor));
+        Component.indexerMotor = new Motor("indexerMotor", false, new CANTalonFX(Port.CANMotor.indexerMotor)); // TODO: Need to check motor inversion
     }
 }
