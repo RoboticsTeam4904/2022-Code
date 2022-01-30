@@ -55,6 +55,7 @@ public class RobotMap {
 
     public static class Component {
         public static Motor indexerMotor;
+        public static Motor motor;
     }
 
     public static class Input {
