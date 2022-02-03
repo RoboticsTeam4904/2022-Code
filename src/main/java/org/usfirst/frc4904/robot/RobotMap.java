@@ -22,6 +22,8 @@ public class RobotMap {
 
         public static class CANMotor {
             public static final int AXLE_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
+            public static final int SECONDARY_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
+
         }
 
         public static class PWM {
@@ -63,6 +65,7 @@ public class RobotMap {
 
     public static class Component {
         public static Motor intakeAxleMotor;
+        public static Motor intakeSecondaryMotor;
         public static SolenoidSubsystem intakeDrawbridgeSolenoid;
     }
 
@@ -85,5 +88,7 @@ public class RobotMap {
 
         Component.intakeDrawbridgeSolenoid = new SolenoidSubsystem("Intake Drawbridge Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.DRAWBRIDGE_INTAKE_SOLENOID.buildDoubleSolenoid());
         Component.intakeAxleMotor = new Motor("Intake Motor", false, new CANTalonFX(Port.CANMotor.AXLE_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
+        Component.intakeSecondaryMotor = new Motor("Intake Secondary Motor", false, new CANTalonFX(Port.CANMotor.SECONDARY_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
+
     }
 }
