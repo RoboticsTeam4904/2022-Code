@@ -3,15 +3,21 @@ package org.usfirst.frc4904.robot;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
+import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
+import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
+import org.usfirst.frc4904.robot.subsystems.Turret;
 
 public class RobotMap {
     public static class Port {
         public static class HumanInput {
             public static final int joystick = 0;
-			public static final int xboxController = 1;
+            public static final int xboxController = 1;
         }
 
         public static class CANMotor {
+            public static final int turretMotor = -1; // TODO: confirm port
         }
 
         public static class PWM {
@@ -48,9 +54,23 @@ public class RobotMap {
         public static class Turn {
         }
 
+        public static class Turret {
+            public static final double P = -1; // TODO: TUNE
+            public static final double I = -1;
+            public static final double D = -1;
+            public static final double F = -1;
+            public static final double tolerance = -1;
+            public static final double dTolerance = -1;
+        }
+
     }
 
     public static class Component {
+        public static Turret turret;
+        public static CustomPIDController turretPID;
+        public static CANTalonEncoder turretEncoder;
+        public static CANTalonSRX turretMotor; // TODO: confirm motor type, could be srx
+
     }
 
     public static class Input {
@@ -68,7 +88,14 @@ public class RobotMap {
 
     public RobotMap() {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
-		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+        HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
+        Component.turretMotor = new CANTalonSRX(Port.CANMotor.turretMotor);
+        Component.turretEncoder = new CANTalonEncoder(Component.turretMotor,
+                Turret.TICK_MULTIPLIER);
+        Component.turretPID = new CustomPIDController(PID.Turret.P,
+                PID.Turret.I, PID.Turret.D, PID.Turret.F,
+                Component.turretEncoder);
+        Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
     }
 }
