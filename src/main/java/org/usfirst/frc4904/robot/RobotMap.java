@@ -1,8 +1,17 @@
 package org.usfirst.frc4904.robot;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+
+import org.usfirst.frc4904.standard.custom.PCMPort;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
+import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
+import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
+import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+
 
 public class RobotMap {
     public static class Port {
@@ -12,6 +21,9 @@ public class RobotMap {
         }
 
         public static class CANMotor {
+            public static final int AXLE_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
+            public static final int SECONDARY_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
+
         }
 
         public static class PWM {
@@ -21,6 +33,7 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
+            public static final PCMPort DRAWBRIDGE_INTAKE_SOLENOID = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake solenoid
         }
 
         public static class Digital {
@@ -51,6 +64,9 @@ public class RobotMap {
     }
 
     public static class Component {
+        public static Motor intakeAxleMotor;
+        public static Motor intakeSecondaryMotor;
+        public static SolenoidSubsystem intakeDrawbridgeSolenoid;
     }
 
     public static class Input {
@@ -69,6 +85,10 @@ public class RobotMap {
     public RobotMap() {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+
+        Component.intakeDrawbridgeSolenoid = new SolenoidSubsystem("Intake Drawbridge Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.DRAWBRIDGE_INTAKE_SOLENOID.buildDoubleSolenoid());
+        Component.intakeAxleMotor = new Motor("Intake Motor", false, new CANTalonFX(Port.CANMotor.AXLE_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
+        Component.intakeSecondaryMotor = new Motor("Intake Secondary Motor", false, new CANTalonFX(Port.CANMotor.SECONDARY_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
 
     }
 }
