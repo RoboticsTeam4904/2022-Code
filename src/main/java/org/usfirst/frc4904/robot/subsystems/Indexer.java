@@ -4,7 +4,6 @@
 
 package org.usfirst.frc4904.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
 
