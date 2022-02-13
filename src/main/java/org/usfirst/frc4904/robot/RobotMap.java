@@ -1,10 +1,10 @@
 package org.usfirst.frc4904.robot;
-
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import org.usfirst.frc4904.robot.subsystems.Indexer;
+
 
 public class RobotMap {
     public static class Port {
@@ -14,7 +14,9 @@ public class RobotMap {
         }
 
         public static class CANMotor {
-            public static final int indexerMotor = -1; // TODO: set port
+            public static final int indexerMotor1 = -1; // TODO: set port
+            public static final int indexerMotor2 = -1; // TODO: set port
+
         }
 
         public static class PWM {
@@ -54,7 +56,7 @@ public class RobotMap {
     }
 
     public static class Component {
-        public static Motor indexerMotor;
+        public static Indexer indexer;
         public static Motor motor;
     }
 
@@ -75,6 +77,9 @@ public class RobotMap {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
-        Component.indexerMotor = new Motor("indexerMotor", false, new CANTalonFX(Port.CANMotor.indexerMotor)); // TODO: Need to check motor inversion
+        Component.indexer = new Indexer(new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.indexerMotor1)), new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.indexerMotor2)));
+        
+       
+
     }
 }
