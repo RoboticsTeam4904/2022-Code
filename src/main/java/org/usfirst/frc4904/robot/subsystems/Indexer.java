@@ -10,6 +10,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 public class Indexer extends SubsystemBase {
 
   public static final double DEFAULT_INDEXER_SPEED = .5; //TODO: Set value
+  public static final double DEFAULT_REVERSE_INDEXER_SPEED = -DEFAULT_INDEXER_SPEED;
   public final Motor indexerMotor1;
   public final Motor indexerMotor2;
   public Indexer(Motor indexerMotor1, Motor indexerMotor2) {
