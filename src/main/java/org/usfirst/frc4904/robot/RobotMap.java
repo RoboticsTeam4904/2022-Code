@@ -11,20 +11,17 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import org.usfirst.frc4904.standard.custom.PCMPort;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
-<<<<<<< HEAD
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
-=======
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
->>>>>>> origin/turret
 
 public class RobotMap {
     public static class Port {
@@ -34,14 +31,11 @@ public class RobotMap {
         }
 
         public static class CANMotor {
-<<<<<<< HEAD
             public static final int indexerMotor1 = -1; // TODO: set port
             public static final int indexerMotor2 = -1; // TODO: set port
 
             public static final int AXLE_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
-=======
             public static final int turretMotor = -1; // TODO: confirm port
->>>>>>> origin/turret
         }
 
         public static class PWM {
@@ -91,18 +85,15 @@ public class RobotMap {
     }
 
     public static class Component {
-<<<<<<< HEAD
         public static Indexer indexer;
         public static Motor motor;
         public static Motor intakeAxleMotor;
         public static SolenoidSubsystem intakeDrawbridgeSolenoid;
-=======
         public static Turret turret;
         public static CustomPIDController turretPID;
         public static CANTalonEncoder turretEncoder;
         public static CANTalonSRX turretMotor; // TODO: confirm motor type, could be srx
 
->>>>>>> origin/turret
     }
 
     public static class Input {
@@ -120,7 +111,6 @@ public class RobotMap {
 
     public RobotMap() {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
-<<<<<<< HEAD
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
         Component.indexer = new Indexer(new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.indexerMotor1)), new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.indexerMotor2)));
@@ -129,7 +119,6 @@ public class RobotMap {
 
         Component.intakeDrawbridgeSolenoid = new SolenoidSubsystem("Intake Drawbridge Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.DRAWBRIDGE_INTAKE_SOLENOID.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeAxleMotor = new Motor("Intake Motor", false, new CANTalonFX(Port.CANMotor.AXLE_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
-=======
         HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
         Component.turretMotor = new CANTalonSRX(Port.CANMotor.turretMotor);
@@ -139,6 +128,5 @@ public class RobotMap {
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
->>>>>>> origin/turret
     }
 }
