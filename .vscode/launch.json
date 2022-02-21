@@ -8,6 +8,13 @@
       "type": "java",
       "name": "Launch UDPTest",
       "request": "launch",
+      "mainClass": "org.usfirst.frc4904.standard.udp.tests.UDPTest",
+      "projectName": "2022-Code"
+    },
+    {
+      "type": "java",
+      "name": "Launch UDPTest",
+      "request": "launch",
       "mainClass": "org.usfirst.frc4904.standard.udp.UDPTest",
       "projectName": "2022-Code"
     },
