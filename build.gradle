@@ -50,7 +50,8 @@ def includeDesktopSupport = false
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
-    implementation wpi.java.deps.wpilib()
+    implementation 'org.msgpack:msgpack-core:0.9.0'
+    implementation wpi.java.deps.wpilib()    
     implementation wpi.java.vendor.java()
 
     roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
