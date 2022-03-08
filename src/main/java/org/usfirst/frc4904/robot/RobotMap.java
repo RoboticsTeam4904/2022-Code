@@ -10,7 +10,11 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import org.usfirst.frc4904.standard.custom.PCMPort;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
+<<<<<<< HEAD
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
@@ -22,6 +26,11 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
+=======
+import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
+import org.usfirst.frc4904.robot.subsystems.Flywheel;
+import org.usfirst.frc4904.standard.custom.CustomPIDSourceType;
+>>>>>>> origin/shooter
 
 public class RobotMap {
     public static class Port {
@@ -31,6 +40,7 @@ public class RobotMap {
         }
 
         public static class CANMotor {
+<<<<<<< HEAD
             public static final int indexerMotor1 = -1; // TODO: set port
             public static final int indexerMotor2 = -1; // TODO: set port
 
@@ -39,6 +49,10 @@ public class RobotMap {
 
             public static final int turretMotor = -1; // TODO: set port
 
+=======
+            public static final int FLYWHEEL_MOTOR_A = -1; // TODO: set port
+            public static final int FLYWHEEL_MOTOR_B = -1;
+>>>>>>> origin/shooter
         }
 
         public static class PWM {
@@ -67,9 +81,28 @@ public class RobotMap {
             public static final double INCHES_PER_TICK = Metrics.Chassis.CIRCUMFERENCE_INCHES
                     / Metrics.Chassis.TICKS_PER_REVOLUTION;
         }
+
+        public static class Encoders {
+            public static class TalonEncoders {
+                public static final double TICKS_PER_REVOLUTION = 2048.0;
+                public static final double REVOLUTIONS_PER_TICK = 1 / TICKS_PER_REVOLUTION;
+            }
+
+            public static class CANCoders {
+                public static final double TICKS_PER_REVOLUTION = 4096.0;
+                public static final double REVOLUTIONS_PER_TICK = 1 / TICKS_PER_REVOLUTION;
+            }
+        }
     }
 
     public static class PID {
+        public static class Flywheel {
+            public static final double P = -1; // TODO: tune PID constants
+            public static final double I = -1;
+            public static final double D = -1;
+            public static final double F = -1;
+        }
+
         public static class Drive {
         }
 
@@ -98,6 +131,10 @@ public class RobotMap {
         public static CANTalonEncoder turretEncoder;
         public static CANTalonSRX turretMotor; // TODO: confirm motor type, could be srx
 
+        public static CANTalonEncoder flywheelEncoderA;
+        public static CANTalonEncoder flywheelEncoderB;
+        public static Flywheel shooter;
+        public static CustomPIDController flywheelPID;
     }
 
     public static class Input {
@@ -133,5 +170,21 @@ public class RobotMap {
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
+        CANTalonFX flywheelATalon = new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_A);
+        flywheelATalon.setInverted(true); // todo: check if flywheel is in the correct direction (check if it is inverted)
+        CANTalonFX flywheelBTalon = new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_B);
+
+        Component.flywheelEncoderB = new CANTalonEncoder(flywheelBTalon, false,
+            Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK);
+        Component.flywheelEncoderB.setCustomPIDSourceType(CustomPIDSourceType.kRate);
+        /** Motion Controllers */
+        Component.flywheelPID = new CustomPIDController(PID.Flywheel.P, PID.Flywheel.I, PID.Flywheel.D, PID.Flywheel.F,
+                Component.flywheelEncoderB);
+
+        Component.shooter = new Flywheel("Shooter", Component.flywheelPID, flywheelATalon, flywheelBTalon);
+        /** Classes */
+        // Component.intake = new Intake(Component.intakeRollerMotor,
+        // Component.liftBeltMotor, Component.funnelMotor,
+        // Component.intakeSolenoid);
     }
 }
