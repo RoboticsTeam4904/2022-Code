@@ -37,6 +37,8 @@ public class RobotMap {
             public static final int AXLE_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
             public static final int SECONDARY_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
 
+            public static final int turretMotor = -1; // TODO: set port
+
         }
 
         public static class PWM {
