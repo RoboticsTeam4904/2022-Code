@@ -41,12 +41,10 @@ public class RobotMap {
             public static final int indexerMotor2 = -1; // TODO: set port
 
             public static final int AXLE_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
-            public static final int SECONDARY_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
 
             public static final int turretMotor = -1; // TODO: set port
 
-            public static final int FLYWHEEL_MOTOR_A = -1; // TODO: set port
-            public static final int FLYWHEEL_MOTOR_B = -1;
+            public static final int SHOOTER_MOTOR = -1; // TODO: set port
         }
 
         public static class PWM {
@@ -56,7 +54,8 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
-            public static final PCMPort DRAWBRIDGE_INTAKE_SOLENOID = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake solenoid
         }
 
         public static class Digital {
@@ -115,10 +114,12 @@ public class RobotMap {
     }
 
     public static class Component {
-        public static Indexer indexer;
         public static Motor intakeAxleMotor;
-        public static Motor intakeSecondaryMotor;
-        public static SolenoidSubsystem intakeDrawbridgeSolenoid;
+        public static SolenoidSubsystem intakeExtender1;
+        public static SolenoidSubsystem intakeExtender2;
+        
+        public static Indexer indexer;
+
         public static Turret turret;
         public static CustomPIDController turretPID;
         public static CANTalonEncoder turretEncoder;
@@ -142,16 +143,15 @@ public class RobotMap {
     public RobotMap() {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
-
-        Component.indexer = new Indexer(new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.indexerMotor1)), new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.indexerMotor2)));
         
-       
-
-        Component.intakeDrawbridgeSolenoid = new SolenoidSubsystem("Intake Drawbridge Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.DRAWBRIDGE_INTAKE_SOLENOID.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
+        Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
+        Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeAxleMotor = new Motor("Intake Motor", false, new CANTalonFX(Port.CANMotor.AXLE_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
-        Component.intakeSecondaryMotor = new Motor("Intake Secondary Motor", false, new CANTalonFX(Port.CANMotor.SECONDARY_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
-        HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
+        Motor indexerMotor1 = new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.indexerMotor1));
+        Motor indexerMotor2 = new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.indexerMotor2));
+        Component.indexer = new Indexer(indexerMotor1, indexerMotor2);
+        
         Component.turretMotor = new CANTalonSRX(Port.CANMotor.turretMotor);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor,
                 Turret.TICK_MULTIPLIER);
@@ -159,7 +159,7 @@ public class RobotMap {
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
-        Component.shooterMotor = new Motor("Shooter", false, new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_A));
+        Component.shooterMotor = new Motor("Shooter", false, new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR));
 
         /** Classes */
         // Component.intake = new Intake(Component.intakeRollerMotor,
