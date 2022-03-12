@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class IndexerSet extends ParallelCommandGroup {
     public IndexerSet(double speed1, double speed2) {
         this.addCommands(
-            new MotorConstant(RobotMap.Component.indexer.indexerMotor1, speed1),
-            new MotorConstant(RobotMap.Component.indexer.indexerMotor2, speed2)
+            new MotorConstant(RobotMap.Component.indexer.holderMotor, speed1),
+            new MotorConstant(RobotMap.Component.indexer.beltMotor, speed2)
         );
     }
 }

@@ -13,8 +13,8 @@ public class IndexerOff extends ParallelCommandGroup {
    */
   public IndexerOff() {
     this.addCommands(
-      new MotorIdle(RobotMap.Component.indexer.indexerMotor1),
-      new MotorIdle(RobotMap.Component.indexer.indexerMotor2)
+      new MotorIdle(RobotMap.Component.indexer.holderMotor),
+      new MotorIdle(RobotMap.Component.indexer.beltMotor)
     );
   }
 }

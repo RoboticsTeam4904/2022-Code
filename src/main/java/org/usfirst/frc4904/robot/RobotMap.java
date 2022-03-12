@@ -6,28 +6,16 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import org.usfirst.frc4904.standard.custom.PCMPort;
-import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
-import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
-import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
-import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
-import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
-import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
-import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
-import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
-import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
-import org.usfirst.frc4904.robot.subsystems.Flywheel;
-import org.usfirst.frc4904.standard.custom.CustomPIDSourceType;
 
 public class RobotMap {
     public static class Port {
@@ -37,12 +25,12 @@ public class RobotMap {
         }
 
         public static class CANMotor {
-            public static final int indexerMotor1 = -1; // TODO: set port
-            public static final int indexerMotor2 = -1; // TODO: set port
+            public static final int INTAKE_AXLE_MOTOR = -1; //TODO: set port for axel intake motor
 
-            public static final int AXLE_INTAKE_MOTOR = -1; //TODO: set port for axel intake motor
+            public static final int INDEXER_HOLDER_MOTOR = -1; // TODO: set port
+            public static final int INDEXER_BELT_MOTOR = -1; // TODO: set port
 
-            public static final int turretMotor = -1; // TODO: set port
+            public static final int TURRET_MOTOR = -1; // TODO: set port
 
             public static final int SHOOTER_MOTOR = -1; // TODO: set port
         }
@@ -146,13 +134,13 @@ public class RobotMap {
         
         Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
-        Component.intakeAxleMotor = new Motor("Intake Motor", false, new CANTalonFX(Port.CANMotor.AXLE_INTAKE_MOTOR)); //TODO: check if CANTalonFX or SRX
+        Component.intakeAxleMotor = new Motor("Intake Motor", false, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); //TODO: check if CANTalonFX or SRX
 
-        Motor indexerMotor1 = new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.indexerMotor1));
-        Motor indexerMotor2 = new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.indexerMotor2));
-        Component.indexer = new Indexer(indexerMotor1, indexerMotor2);
+        Motor indexerHolderMotor = new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR));
+        Motor indexerBeltMotor = new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR));
+        Component.indexer = new Indexer(indexerHolderMotor, indexerBeltMotor);
         
-        Component.turretMotor = new CANTalonSRX(Port.CANMotor.turretMotor);
+        Component.turretMotor = new CANTalonSRX(Port.CANMotor.TURRET_MOTOR);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor,
                 Turret.TICK_MULTIPLIER);
         Component.turretPID = new CustomPIDController(PID.Turret.P,
