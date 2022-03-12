@@ -14,7 +14,6 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
-<<<<<<< HEAD
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
@@ -26,11 +25,9 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
-=======
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.robot.subsystems.Flywheel;
 import org.usfirst.frc4904.standard.custom.CustomPIDSourceType;
->>>>>>> origin/shooter
 
 public class RobotMap {
     public static class Port {
@@ -40,7 +37,6 @@ public class RobotMap {
         }
 
         public static class CANMotor {
-<<<<<<< HEAD
             public static final int indexerMotor1 = -1; // TODO: set port
             public static final int indexerMotor2 = -1; // TODO: set port
 
@@ -49,10 +45,8 @@ public class RobotMap {
 
             public static final int turretMotor = -1; // TODO: set port
 
-=======
             public static final int FLYWHEEL_MOTOR_A = -1; // TODO: set port
             public static final int FLYWHEEL_MOTOR_B = -1;
->>>>>>> origin/shooter
         }
 
         public static class PWM {
