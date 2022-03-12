@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 
 public class IndexerSet extends ParallelCommandGroup {
-    public IndexerSet(double speed1, double speed2) {
+    public IndexerSet(double holderSpeed, double beltSpeed) {
         this.addCommands(
-            new MotorConstant(RobotMap.Component.indexer.holderMotor, speed1),
-            new MotorConstant(RobotMap.Component.indexer.beltMotor, speed2)
+            new MotorConstant(RobotMap.Component.indexer.holderMotor, holderSpeed),
+            new MotorConstant(RobotMap.Component.indexer.beltMotor, beltSpeed)
         );
     }
 }
