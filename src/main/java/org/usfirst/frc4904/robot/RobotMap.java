@@ -30,7 +30,8 @@ public class RobotMap {
             public static int RIGHT_DRIVE_B = 3;
             public static int LEFT_DRIVE_A = 4;
             public static int LEFT_DRIVE_B = 5;
-            public static int CLIMBER = 6;
+            public static int CLIMBER_A = 6;
+            public static int CLIMBER_B = 7;
         }
 
         public static class PWM {
@@ -94,7 +95,8 @@ public class RobotMap {
         public static Motor rightWheelB;
         public static Motor leftWheelA;
         public static Motor leftWheelB;
-        public static Motor climber;
+        public static Motor climberA;
+        public static Motor climberB;
         public static TankDrive chassis;
         public static CustomPIDController drivePID;
     }
@@ -122,14 +124,12 @@ public class RobotMap {
         CANTalonFX leftWheelBTalon = new CANTalonFX(Port.CANMotor.LEFT_DRIVE_B);
         CANTalonFX rightWheelATalon = new CANTalonFX(Port.CANMotor.RIGHT_DRIVE_A);
         CANTalonFX rightWheelBTalon = new CANTalonFX(Port.CANMotor.RIGHT_DRIVE_B);
-        CANTalonFX climberTalon = new CANTalonFX(Port.CANMotor.CLIMBER);
 
         // Wheels
         Component.rightWheelA = new Motor("rightWheelA", false, rightWheelATalon);
         Component.rightWheelB = new Motor("rightWheelB", false, rightWheelBTalon);
         Component.leftWheelA = new Motor("leftWheelA", true, leftWheelATalon);
         Component.leftWheelB = new Motor("leftWheelB", true, leftWheelBTalon);
-        Component.climber = new Motor("climber", false, climberTalon);
 
         // Wheel Encoders
         Component.leftWheelCANCoder = new CustomCANCoder(Port.CAN.LEFT_WHEEL_ENCODER,
@@ -146,6 +146,15 @@ public class RobotMap {
 
         Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder);
         Component.chassisCANCoders = new EncoderPair(Component.leftWheelCANCoder, Component.rightWheelCANCoder);
+
+        /* Climber */
+        // TalonFX
+        CANTalonFX climberATalon = new CANTalonFX(Port.CANMotor.CLIMBER_A);
+        CANTalonFX climberBTalon = new CANTalonFX(Port.CANMotor.CLIMBER_B);
+        
+        // Climber components
+        Component.climberA = new Motor("climberA", false, climberATalon);
+        Component.climberB = new Motor("climberB", false, climberBTalon);
 
         // General Chassis
         Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
