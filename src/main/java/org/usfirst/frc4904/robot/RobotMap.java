@@ -116,7 +116,6 @@ public class RobotMap {
 
     public static class Component {
         public static Indexer indexer;
-        public static Motor motor;
         public static Motor intakeAxleMotor;
         public static Motor intakeSecondaryMotor;
         public static SolenoidSubsystem intakeDrawbridgeSolenoid;
@@ -124,11 +123,7 @@ public class RobotMap {
         public static CustomPIDController turretPID;
         public static CANTalonEncoder turretEncoder;
         public static CANTalonSRX turretMotor; // TODO: confirm motor type, could be srx
-
-        public static CANTalonEncoder flywheelEncoderA;
-        public static CANTalonEncoder flywheelEncoderB;
-        public static Flywheel shooter;
-        public static CustomPIDController flywheelPID;
+        public static Motor shooterMotor;
     }
 
     public static class Input {
@@ -164,18 +159,8 @@ public class RobotMap {
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
-        CANTalonFX flywheelATalon = new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_A);
-        flywheelATalon.setInverted(true); // todo: check if flywheel is in the correct direction (check if it is inverted)
-        CANTalonFX flywheelBTalon = new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_B);
+        Component.shooterMotor = new Motor("Shooter", false, new CANTalonFX(Port.CANMotor.FLYWHEEL_MOTOR_A));
 
-        Component.flywheelEncoderB = new CANTalonEncoder(flywheelBTalon, false,
-            Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK);
-        Component.flywheelEncoderB.setCustomPIDSourceType(CustomPIDSourceType.kRate);
-        /** Motion Controllers */
-        Component.flywheelPID = new CustomPIDController(PID.Flywheel.P, PID.Flywheel.I, PID.Flywheel.D, PID.Flywheel.F,
-                Component.flywheelEncoderB);
-
-        Component.shooter = new Flywheel("Shooter", Component.flywheelPID, flywheelATalon, flywheelBTalon);
         /** Classes */
         // Component.intake = new Intake(Component.intakeRollerMotor,
         // Component.liftBeltMotor, Component.funnelMotor,
