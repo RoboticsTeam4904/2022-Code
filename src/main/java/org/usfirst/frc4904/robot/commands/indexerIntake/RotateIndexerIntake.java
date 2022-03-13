@@ -5,7 +5,7 @@ import org.usfirst.frc4904.robot.commands.intake.AxleIntakeOn;
 
 
 public class RotateIndexerIntake extends ParallelCommandGroup {
-    public RotateIndexerIntake(double speed1, double speed2) {
+    public RotateIndexerIntake() {
         this.addCommands(
             new IndexerOn(),
             new AxleIntakeOn()
