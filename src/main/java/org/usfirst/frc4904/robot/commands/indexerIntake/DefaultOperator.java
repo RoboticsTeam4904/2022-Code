@@ -2,12 +2,11 @@ package org.usfirst.frc4904.robot.commands.indexerIntake;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.FlywheelSetSpeed;
 import org.usfirst.frc4904.robot.commands.intake.ExtendIntake;
 import org.usfirst.frc4904.robot.commands.intake.RetractIntake;
 import org.usfirst.frc4904.standard.humaninput.Operator;
 import org.usfirst.frc4904.standard.commands.RunFor;
-import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
-
 public class DefaultOperator extends Operator {
 	public DefaultOperator() {
 		super("DefaultOperator");
@@ -20,7 +19,7 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 
-    RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new Command()); 
+    RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new RunFor("FlywheelSetSpeed", new FlywheelSetSpeed(RobotMap.Component.shooter, 1), 1.5)); 
     RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunFor(new RotateIndexerIntake(), 1.0));
 //  RobotMap.HumanInput.Operator.jostick.button2.whenPressed(RunFor(CommandBase IndexerOn(), double 4));
 
