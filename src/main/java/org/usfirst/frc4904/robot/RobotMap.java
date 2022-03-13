@@ -39,14 +39,14 @@ public class RobotMap {
             public static final int LEFT_DRIVE_A = 4;
             public static final int LEFT_DRIVE_B = 5;
 
-            public static final int INTAKE_AXLE_MOTOR = -1; //TODO: set port for axel intake motor
+            public static final int INTAKE_AXLE_MOTOR = 7; //TODO: set port for axel intake motor
 
-            public static final int INDEXER_HOLDER_MOTOR = -1; // TODO: set port
-            public static final int INDEXER_BELT_MOTOR = -1; // TODO: set port
+            public static final int INDEXER_HOLDER_MOTOR = 13; // TODO: set port
+            public static final int INDEXER_BELT_MOTOR = 12; // TODO: set port
 
-            public static final int TURRET_MOTOR = -1; // TODO: set port
+            public static final int TURRET_MOTOR = 15; // TODO: set port
 
-            public static final int SHOOTER_MOTOR = -1; // TODO: set port
+            public static final int SHOOTER_MOTOR = 8; // TODO: set port
         }
 
         public static class PWM {
@@ -56,8 +56,8 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
-            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake solenoid
-            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(-1, PneumaticsModuleType.CTREPCM, -1, -1); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 1); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 3); //TODO: set port for drawbridge intake solenoid
         }
 
         public static class Digital {
