@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import org.usfirst.frc4904.standard.custom.PCMPort;
@@ -56,15 +57,15 @@ public class RobotMap {
 
     public static class Metrics {
         public static class Chassis {
-            public static final double TICKS_PER_REVOLUTION = -1; // TODO: CHANGE CONSTS
-            public static final double DIAMETER_INCHES = -1;
-            public static final double CIRCUMFERENCE_INCHES = Metrics.Chassis.DIAMETER_INCHES * Math.PI;
-            public static final double TICKS_PER_INCH = Metrics.Chassis.TICKS_PER_REVOLUTION
-                    / Metrics.Chassis.CIRCUMFERENCE_INCHES;
-            public static final double DISTANCE_FRONT_BACK = -1;
-            public static final double DISTANCE_SIDE_SIDE = -1;
-            public static final double INCHES_PER_TICK = Metrics.Chassis.CIRCUMFERENCE_INCHES
-                    / Metrics.Chassis.TICKS_PER_REVOLUTION;
+            public static final double DIAMETER_METERS = Units.inchesToMeters(-1.0); // TODO: Check values 
+            public static final double CIRCUMFERENCE_METERS = Metrics.Chassis.DIAMETER_METERS * Math.PI;
+            public static final double TICKS_PER_METER = Metrics.Encoders.CANCoders.TICKS_PER_REVOLUTION
+                    / Metrics.Chassis.CIRCUMFERENCE_METERS;
+            public static final double DISTANCE_FRONT_BACK = Units.inchesToMeters(-1.0); // TODO: DOUBLE CHECK DISTANCES
+            public static final double DISTANCE_SIDE_SIDE = Units.inchesToMeters(-1.0); // The robot's a square
+            public static final double METERS_PER_TICK = Metrics.Chassis.CIRCUMFERENCE_METERS
+                    / Metrics.Encoders.CANCoders.TICKS_PER_REVOLUTION;
+            public static final double TURN_CORRECTION = 0.0;
         }
 
         public static class Encoders {
@@ -153,10 +154,5 @@ public class RobotMap {
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
         
         Component.shooterMotor = new Motor("Shooter", false, new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR));
-
-        /** Classes */
-        // Component.intake = new Intake(Component.intakeRollerMotor,
-        // Component.liftBeltMotor, Component.funnelMotor,
-        // Component.intakeSolenoid);
     }
 }
