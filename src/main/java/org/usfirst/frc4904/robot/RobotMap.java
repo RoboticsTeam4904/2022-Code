@@ -6,17 +6,21 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
+import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.custom.PCMPort;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
+import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
 
+import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.custom.sensors.CustomCANCoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
@@ -30,6 +34,11 @@ public class RobotMap {
         }
 
         public static class CANMotor {
+            public static final int RIGHT_DRIVE_A = 2; // TODO: Check chassis motor IDs
+            public static final int RIGHT_DRIVE_B = 3;
+            public static final int LEFT_DRIVE_A = 4;
+            public static final int LEFT_DRIVE_B = 5;
+
             public static final int INTAKE_AXLE_MOTOR = -1; //TODO: set port for axel intake motor
 
             public static final int INDEXER_HOLDER_MOTOR = -1; // TODO: set port
@@ -107,6 +116,15 @@ public class RobotMap {
     }
 
     public static class Component {
+        public static CANTalonEncoder leftWheelTalonEncoder;
+        public static CANTalonEncoder rightWheelTalonEncoder;
+        public static EncoderPair chassisTalonEncoders;
+        public static Motor rightWheelA;
+        public static Motor rightWheelB;
+        public static Motor leftWheelA;
+        public static Motor leftWheelB;
+        public static TankDrive chassis;
+
         public static Motor intakeAxleMotor;
         public static SolenoidSubsystem intakeExtender1;
         public static SolenoidSubsystem intakeExtender2;
@@ -154,5 +172,33 @@ public class RobotMap {
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
         
         Component.shooterMotor = new Motor("Shooter", false, new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR));
+
+        // Chassis
+
+        /* Drive Train */
+        // TalonFX
+        CANTalonFX leftWheelATalon = new CANTalonFX(Port.CANMotor.LEFT_DRIVE_A);
+        CANTalonFX leftWheelBTalon = new CANTalonFX(Port.CANMotor.LEFT_DRIVE_B);
+        CANTalonFX rightWheelATalon = new CANTalonFX(Port.CANMotor.RIGHT_DRIVE_A);
+        CANTalonFX rightWheelBTalon = new CANTalonFX(Port.CANMotor.RIGHT_DRIVE_B);
+
+        // Wheels
+        Component.rightWheelA = new Motor("rightWheelA", false, rightWheelATalon);
+        Component.rightWheelB = new Motor("rightWheelB", false, rightWheelBTalon);
+        Component.leftWheelA = new Motor("leftWheelA", true, leftWheelATalon);
+        Component.leftWheelB = new Motor("leftWheelB", true, leftWheelBTalon);
+
+        // Wheel Encoders
+        Component.leftWheelTalonEncoder = new CANTalonEncoder("leftWheel", leftWheelATalon, true,
+                Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK);
+        Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, true,
+                Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK);
+
+        Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder);
+
+        // General Chassis
+        Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
+                Component.rightWheelA, Component.rightWheelB);
+        Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
     }
 }
