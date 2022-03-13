@@ -3,6 +3,9 @@ import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -14,6 +17,7 @@ import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
+import org.usfirst.frc4904.standard.custom.sensors.CustomCANCoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
 
@@ -111,7 +115,8 @@ public class RobotMap {
         public static Turret turret;
         public static CustomPIDController turretPID;
         public static CANTalonEncoder turretEncoder;
-        public static CANTalonSRX turretMotor; // TODO: confirm motor type, could be srx
+        public static CANTalonFX turretMotor;
+
         public static Motor shooterMotor;
     }
 
@@ -140,13 +145,13 @@ public class RobotMap {
         Motor indexerBeltMotor = new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR));
         Component.indexer = new Indexer(indexerHolderMotor, indexerBeltMotor);
         
-        Component.turretMotor = new CANTalonSRX(Port.CANMotor.TURRET_MOTOR);
-        Component.turretEncoder = new CANTalonEncoder(Component.turretMotor,
-                Turret.TICK_MULTIPLIER);
+        Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
+        Component.turretEncoder = new CANTalonEncoder(Component.turretMotor, Turret.TICK_MULTIPLIER);
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
+        
         Component.shooterMotor = new Motor("Shooter", false, new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR));
 
         /** Classes */

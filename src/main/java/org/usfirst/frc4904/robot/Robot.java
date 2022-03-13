@@ -6,9 +6,9 @@
 /*----------------------------------------------------------------------------*/
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import org.usfirst.frc4904.standard.LogKitten;
 
 public class Robot extends CommandRobotBase {
@@ -24,6 +24,8 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopExecute() {
+        Command turretControl = new TurnTurret(RobotMap.HumanInput.Operator.joystick.getX() / 10.0);
+        turretControl.execute();
     }
 
     @Override
