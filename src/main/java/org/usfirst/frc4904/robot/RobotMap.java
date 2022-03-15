@@ -26,6 +26,7 @@ import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
+import org.usfirst.frc4904.robot.subsystems.Climber;
 import org.usfirst.frc4904.robot.subsystems.Flywheel;
 import org.usfirst.frc4904.standard.custom.CustomPIDSourceType;
 
@@ -44,6 +45,7 @@ public class RobotMap {
             public static final int turretMotor = -1; // TODO: confirm port
             public static final int FLYWHEEL_MOTOR_A = -1; // TODO: set port
             public static final int FLYWHEEL_MOTOR_B = -1;
+            public static final int climberMotor = -1;  //TODO: set port
         }
 
         public static class PWM {
@@ -112,6 +114,7 @@ public class RobotMap {
     }
 
     public static class Component {
+        public static Motor climber;
         public static Indexer indexer;
         public static Motor motor;
         public static Motor intakeAxleMotor;
@@ -145,7 +148,7 @@ public class RobotMap {
 
 
         Component.indexer = new Indexer(new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.indexerMotor1)), new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.indexerMotor2)));
-        
+        Component.climber = new Climber(new Motor("climber motor", false, new CANTalonFX(Port.CANMotor.climberMotor)));
        
 
         Component.intakeDrawbridgeSolenoid = new SolenoidSubsystem("Intake Drawbridge Solenoid", false, SolenoidState.RETRACT, Port.Pneumatics.DRAWBRIDGE_INTAKE_SOLENOID.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
