@@ -6,6 +6,8 @@ import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.Shoot;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.humaninput.Operator;
 
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 public class DefaultOperator extends Operator {
 	public DefaultOperator() {
 		super("DefaultOperator");
@@ -17,6 +19,9 @@ public class DefaultOperator extends Operator {
 
 	@Override
 	public void bindCommands() {
-		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new RunFor(new Shoot(0), 1)); // TODO: set shooter speed or create method to fetch this (NEEDS TO BE NEGATIVE)
+		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
+			new RunFor(new Shoot(1.0), 2),
+			new Shoot(0.0)
+		));
 	}
 }

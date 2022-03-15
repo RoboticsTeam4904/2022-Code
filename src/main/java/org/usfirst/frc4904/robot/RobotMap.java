@@ -171,7 +171,7 @@ public class RobotMap {
                 Component.turretEncoder);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
         
-        Component.shooterMotor = new Motor("Shooter", false, new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR));
+        Component.shooterMotor = new Motor("Shooter", true, new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR));
 
         // Chassis
 
