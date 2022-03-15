@@ -7,7 +7,7 @@ import org.usfirst.frc4904.robot.subsystems.Indexer;
 public class StoreBall extends ParallelCommandGroup {
     public StoreBall() {
         this.addCommands(
-            new IndexerSet(Indexer.DEFAULT_REVERSE_INDEXER_SPEED, Indexer.DEFAULT_REVERSE_INDEXER_SPEED),
+            new IndexerSet(Indexer.DEFAULT_INTAKE_SPEED, Indexer.DEFAULT_INTAKE_SPEED),
             new AxleIntakeOn()
         );
     }
