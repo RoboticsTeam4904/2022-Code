@@ -6,6 +6,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 
@@ -129,6 +130,8 @@ public class RobotMap {
         public static SolenoidSubsystem intakeExtender1;
         public static SolenoidSubsystem intakeExtender2;
         
+        public static CANTalonFX indexerHolderTalon;
+        public static CANTalonFX indexerBeltTalon;
         public static Indexer indexer;
 
         public static Turret turret;
@@ -136,6 +139,7 @@ public class RobotMap {
         public static CANTalonEncoder turretEncoder;
         public static CANTalonFX turretMotor;
 
+        public static CANTalonFX shooterTalon;
         public static Motor shooterMotor;
     }
 
@@ -160,8 +164,10 @@ public class RobotMap {
         Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); //TODO: check if CANTalonFX or SRX
 
-        Motor indexerHolderMotor = new Motor("Indexer 1", false, new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR));
-        Motor indexerBeltMotor = new Motor("Indexer 2", false, new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR));
+        Component.indexerHolderTalon = new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR);
+        Component.indexerBeltTalon = new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR);
+        Motor indexerHolderMotor = new Motor("Indexer 1", false, Component.indexerHolderTalon);
+        Motor indexerBeltMotor = new Motor("Indexer 2", false, Component.indexerBeltTalon);
         Component.indexer = new Indexer(indexerHolderMotor, indexerBeltMotor);
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
@@ -171,7 +177,8 @@ public class RobotMap {
                 Component.turretEncoder);
         Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
         
-        Component.shooterMotor = new Motor("Shooter", true, new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR));
+        Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
+        Component.shooterMotor = new Motor("Shooter", true, Component.shooterTalon);
 
         // Chassis
 

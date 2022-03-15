@@ -2,7 +2,9 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.indexer.IndexerOff;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.Shoot;
+import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.humaninput.Operator;
 
@@ -21,7 +23,8 @@ public class DefaultOperator extends Operator {
 	public void bindCommands() {
 		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
 			new RunFor(new Shoot(1.0), 2),
-			new Shoot(0.0)
+			new ShooterBrake(),
+			new IndexerOff()
 		));
 	}
 }
