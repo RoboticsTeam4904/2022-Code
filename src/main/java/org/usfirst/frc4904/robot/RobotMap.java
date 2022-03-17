@@ -13,10 +13,14 @@ import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
-import org.usfirst.frc4904.standard.custom.sensors.CustomCANCoder;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
+import edu.wpi.first.wpilibj.SerialPort;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import org.usfirst.frc4904.standard.custom.sensors.NavX;
+
+import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
+
 
 public class RobotMap {
     public static class Port {
@@ -85,16 +89,16 @@ public class RobotMap {
     public static class Component {
         public static CANTalonEncoder leftWheelTalonEncoder;
         public static CANTalonEncoder rightWheelTalonEncoder;
-        public static CustomCANCoder leftWheelCANCoder;
-        public static CustomCANCoder rightWheelCANCoder;
         public static EncoderPair chassisTalonEncoders;
         public static EncoderPair chassisCANCoders;
         public static Motor rightWheelA;
         public static Motor rightWheelB;
         public static Motor leftWheelA;
         public static Motor leftWheelB;
+        public static SensorDrive sensorDrive;
         public static TankDrive chassis;
         public static CustomPIDController drivePID;
+        public static NavX navx;
     }
 
     public static class Input {
@@ -111,6 +115,8 @@ public class RobotMap {
     }
 
     public RobotMap() {
+        Component.navx = new NavX(SerialPort.Port.kMXP);
+
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
@@ -128,20 +134,18 @@ public class RobotMap {
         Component.leftWheelB = new Motor("leftWheelB", true, leftWheelBTalon);
 
         // Wheel Encoders
-        Component.leftWheelCANCoder = new CustomCANCoder(Port.CAN.LEFT_WHEEL_ENCODER,
-                Metrics.Chassis.METERS_PER_TICK);
-        Component.rightWheelCANCoder = new CustomCANCoder(Port.CAN.RIGHT_WHEEL_ENCODER,
-                Metrics.Chassis.METERS_PER_TICK);
-
         Component.leftWheelTalonEncoder = new CANTalonEncoder("leftWheel", leftWheelATalon, true,
                 Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK, CustomPIDSourceType.kDisplacement,
                 FeedbackDevice.IntegratedSensor);
         Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, true,
                 Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK, CustomPIDSourceType.kDisplacement,
                 FeedbackDevice.IntegratedSensor);
+        
+        Component.sensorDrive = new SensorDrive(Component.chassis, Component.leftWheelTalonEncoder,
+        Component.rightWheelTalonEncoder, Component.navx);
 
         Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder);
-        Component.chassisCANCoders = new EncoderPair(Component.leftWheelCANCoder, Component.rightWheelCANCoder);
+        //Component.chassisCANCoders = new EncoderPair(Component.leftWheelCANCoder, Component.rightWheelCANCoder);
 
         // General Chassis
         Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
