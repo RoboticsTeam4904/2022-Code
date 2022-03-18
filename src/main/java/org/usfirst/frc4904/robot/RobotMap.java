@@ -23,7 +23,13 @@ import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
 
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
-import org.usfirst.frc4904.standard.custom.sensors.CustomCANCoder;
+import edu.wpi.first.wpilibj.SerialPort;
+import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
+import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import org.usfirst.frc4904.standard.custom.sensors.NavX;
+
+import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
+
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
 
@@ -124,7 +130,10 @@ public class RobotMap {
         public static Motor rightWheelB;
         public static Motor leftWheelA;
         public static Motor leftWheelB;
+        public static SensorDrive sensorDrive;
         public static TankDrive chassis;
+        public static CustomPIDController drivePID;
+        public static NavX navx;
 
         public static Motor intakeAxleMotor;
         public static SolenoidSubsystem intakeExtender1;
@@ -157,6 +166,8 @@ public class RobotMap {
     }
 
     public RobotMap() {
+        Component.navx = new NavX(SerialPort.Port.kMXP);
+
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
         
@@ -199,7 +210,9 @@ public class RobotMap {
         Component.leftWheelTalonEncoder = new CANTalonEncoder("leftWheel", leftWheelATalon, true,
                 Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK);
         Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, true,
-                Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK);
+                                                               Metrics.Encoders.TalonEncoders.REVOLUTIONS_PER_TICK);      
+        Component.sensorDrive = new SensorDrive(Component.chassis, Component.leftWheelTalonEncoder,
+        Component.rightWheelTalonEncoder, Component.navx);
 
         Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder);
 
