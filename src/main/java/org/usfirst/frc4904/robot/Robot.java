@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
+import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
+import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import org.usfirst.frc4904.standard.LogKitten;
 
 public class Robot extends CommandRobotBase {
@@ -16,6 +18,8 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void initialize() {
+        driverChooser.setDefaultOption(new NathanGain());
+        operatorChooser.setDefaultOption(new DefaultOperator());
     }
 
     @Override
@@ -24,6 +28,8 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopExecute() {
+        Command turretControl = new TurnTurret(RobotMap.HumanInput.Operator.joystick.getX() / 10.0);
+        turretControl.execute();
     }
 
     @Override
