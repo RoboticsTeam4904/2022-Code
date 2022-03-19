@@ -9,9 +9,9 @@ import org.usfirst.frc4904.standard.commands.motor.MotorPositionConstant;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class TurnTurret2 extends MotorPositionConstant {
+public class TurnTurretExtended extends MotorPositionConstant {
 
-	public TurnTurret2(PositionSensorMotor motor, double turretPosition) {
+	public TurnTurretExtended(PositionSensorMotor motor, double turretPosition) {
 		super(motor, turretPosition * Turret.GEAR_RATIO);
 	}
 }
