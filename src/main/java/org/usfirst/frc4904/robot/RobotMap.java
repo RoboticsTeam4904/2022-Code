@@ -73,12 +73,12 @@ public class RobotMap {
 
     public static class Metrics {
         public static class Chassis {
-            public static final double DIAMETER_METERS = Units.inchesToMeters(-1.0); // TODO: Check values 
+            public static final double DIAMETER_METERS = Units.inchesToMeters(5.0); // TODO: Check values 
             public static final double CIRCUMFERENCE_METERS = Metrics.Chassis.DIAMETER_METERS * Math.PI;
             public static final double TICKS_PER_METER = Metrics.Encoders.CANCoders.TICKS_PER_REVOLUTION
                     / Metrics.Chassis.CIRCUMFERENCE_METERS;
-            public static final double DISTANCE_FRONT_BACK = Units.inchesToMeters(-1.0); // TODO: DOUBLE CHECK DISTANCES
-            public static final double DISTANCE_SIDE_SIDE = Units.inchesToMeters(-1.0); // The robot's a square
+            public static final double DISTANCE_FRONT_BACK = Units.inchesToMeters(31.0); // TODO: DOUBLE CHECK DISTANCES
+            public static final double DISTANCE_SIDE_SIDE = Units.inchesToMeters(28.0); // The robot's a square
             public static final double METERS_PER_TICK = Metrics.Chassis.CIRCUMFERENCE_METERS
                     / Metrics.Encoders.CANCoders.TICKS_PER_REVOLUTION;
             public static final double TURN_CORRECTION = 0.0;
