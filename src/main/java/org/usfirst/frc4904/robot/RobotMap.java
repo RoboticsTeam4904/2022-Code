@@ -32,9 +32,15 @@ import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
 
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
+import org.usfirst.frc4904.robot.udp.RobotUDPClient;
 
 public class RobotMap {
     public static class Port {
+        public static class UDPPorts{
+            public static final int receivingUDPSocket = 1437;
+            public static final int sendingUDPSocket = 5827;
+        }
+
         public static class HumanInput {
             public static final int joystick = 0;
             public static final int xboxController = 1;
@@ -73,25 +79,20 @@ public class RobotMap {
 
     public static class Metrics {
         public static class Chassis {
-            public static final double DIAMETER_METERS = Units.inchesToMeters(-1.0); // TODO: Check values 
+            public static final double DIAMETER_METERS = Units.inchesToMeters(5.0); // TODO: Check values 
             public static final double CIRCUMFERENCE_METERS = Metrics.Chassis.DIAMETER_METERS * Math.PI;
-            public static final double TICKS_PER_METER = Metrics.Encoders.CANCoders.TICKS_PER_REVOLUTION
+            public static final double TICKS_PER_METER = Metrics.Encoders.TalonEncoders.TICKS_PER_REVOLUTION
                     / Metrics.Chassis.CIRCUMFERENCE_METERS;
             public static final double DISTANCE_FRONT_BACK = Units.inchesToMeters(-1.0); // TODO: DOUBLE CHECK DISTANCES
             public static final double DISTANCE_SIDE_SIDE = Units.inchesToMeters(-1.0); // The robot's a square
             public static final double METERS_PER_TICK = Metrics.Chassis.CIRCUMFERENCE_METERS
-                    / Metrics.Encoders.CANCoders.TICKS_PER_REVOLUTION;
+                    / Metrics.Encoders.TalonEncoders.TICKS_PER_REVOLUTION;
             public static final double TURN_CORRECTION = 0.0;
         }
 
         public static class Encoders {
             public static class TalonEncoders {
                 public static final double TICKS_PER_REVOLUTION = 2048.0;
-                public static final double REVOLUTIONS_PER_TICK = 1 / TICKS_PER_REVOLUTION;
-            }
-
-            public static class CANCoders {
-                public static final double TICKS_PER_REVOLUTION = 4096.0;
                 public static final double REVOLUTIONS_PER_TICK = 1 / TICKS_PER_REVOLUTION;
             }
         }
@@ -150,6 +151,8 @@ public class RobotMap {
 
         public static CANTalonFX shooterTalon;
         public static Motor shooterMotor;
+        
+        public static RobotUDPClient robotUDPClient;
     }
 
     public static class Input {
@@ -173,7 +176,7 @@ public class RobotMap {
         
         Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
-        Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); //TODO: check if CANTalonFX or SRX
+        Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); //TODO: check if CANTalonFX
 
         Component.indexerHolderTalon = new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR);
         Component.indexerBeltTalon = new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR);
@@ -190,6 +193,10 @@ public class RobotMap {
         
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
         Component.shooterMotor = new Motor("Shooter", true, Component.shooterTalon);
+
+        // UDP things
+        Component.robotUDPClient = new RobotUDPClient();
+        Component.robotUDPClient.setup();
 
         // Chassis
 

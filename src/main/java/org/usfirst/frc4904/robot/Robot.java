@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.commands.UDPExecute;
 import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
@@ -58,7 +59,8 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void alwaysExecute() {
-
+        Command UDPExecute = new UDPExecute("name_lmao");
+        UDPExecute.execute();
     }
 
 }
