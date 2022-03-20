@@ -1,0 +1,14 @@
+package org.usfirst.frc4904.robot.auton;
+
+import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
+
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
+public class SimpleRoutine extends SequentialCommandGroup {
+    public SimpleRoutine() {
+        this.addCommands(
+            new ChassisConstant(RobotMap.Component.chassis, 0, -1, 0, 2)
+        );
+    }
+}
