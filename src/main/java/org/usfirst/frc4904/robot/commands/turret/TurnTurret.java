@@ -10,9 +10,8 @@ import org.usfirst.frc4904.standard.commands.motor.MotorPositionConstant;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnTurret extends MotorPositionConstant {
-
-	public TurnTurret(double turretPosition) {
+	public TurnTurret(double turretRadians) {
 		// Restrain position set to be within one turret rotation, reverse to other side if needed
-		super(RobotMap.Component.turret.turretMotor, (turretPosition * Turret.GEAR_RATIO) % (2048 * Turret.GEAR_RATIO) - (1024 * Turret.GEAR_RATIO));
+		super(RobotMap.Component.turret.turretMotor, ((turretRadians % (2 * Math.PI) - Math.PI) * (1 / Turret.TICK_MULTIPLIER) * Turret.GEAR_RATIO));
 	}
 }

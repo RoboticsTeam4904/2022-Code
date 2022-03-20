@@ -21,6 +21,9 @@ public class Robot extends CommandRobotBase {
     public void initialize() {
         driverChooser.setDefaultOption(new NathanGain());
         operatorChooser.setDefaultOption(new DefaultOperator());
+
+        Command UDPExecute = new UDPExecute("name_lmao");
+        UDPExecute.schedule();
     }
 
     @Override
@@ -57,8 +60,6 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void alwaysExecute() {
-        Command UDPExecute = new UDPExecute("name_lmao");
-        UDPExecute.schedule();
     }
 
 }
