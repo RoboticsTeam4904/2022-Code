@@ -52,20 +52,20 @@ public class RobotUDPClient {
     public void encode(Pose2d pos, double accl_x, double accl_y, double accl_gyro, double turret_angle) throws IOException {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
         // x position, odometry y position, gyro angle, x accel, y accel, gyro acceleration, turrent angle, time 
-        // WTF akshar
+        //
         packer
             .packArrayHeader(2)
             .packArrayHeader(3)
             .packArrayHeader(2)
-            .packDouble(pos.getX())
-            .packArrayHeader(2)
-            .packDouble(pos.getY())
             .packDouble(pos.getRotation().getRadians())
             .packArrayHeader(2)
-            .packDouble(accl_x)
+            .packDouble(pos.getX())
+            .packDouble(pos.getY())
             .packArrayHeader(2)
-            .packDouble(accl_y)
             .packDouble(accl_gyro)
+            .packArrayHeader(2)
+            .packDouble(accl_x)
+            .packDouble(accl_y)
             .packDouble(turret_angle)
             .packLong(RobotController.getFPGATime());
         packer.close();
