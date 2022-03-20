@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public class RobotUDPClient {
     Client client;
-    RobotUDPServer server;
+    public RobotUDPServer server;
     
     public int receivingSocketNum = RobotMap.Port.UDPPorts.receivingUDPSocket;
     public int sendingSocketNum = RobotMap.Port.UDPPorts.sendingUDPSocket;

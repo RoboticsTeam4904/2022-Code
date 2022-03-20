@@ -215,9 +215,9 @@ public class RobotMap {
 
         // Wheel Encoders
         Component.leftWheelTalonEncoder = new CANTalonEncoder("leftWheel", leftWheelATalon, true,
-                Metrics.Encoders.TalonEncoders.METERS_PER_TICK);
+                Metrics.Chassis.METERS_PER_TICK);
         Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, true,
-                                                               Metrics.Encoders.TalonEncoders.METERS_PER_TICK);      
+                                                               Metrics.Chassis.METERS_PER_TICK);      
         Component.sensorDrive = new SensorDrive(Component.chassis, Component.leftWheelTalonEncoder,
         Component.rightWheelTalonEncoder, Component.navx);
 
