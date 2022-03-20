@@ -58,7 +58,7 @@ public class Robot extends CommandRobotBase {
     @Override
     public void alwaysExecute() {
         Command UDPExecute = new UDPExecute("name_lmao");
-        UDPExecute.execute();
+        UDPExecute.schedule();
     }
 
 }
