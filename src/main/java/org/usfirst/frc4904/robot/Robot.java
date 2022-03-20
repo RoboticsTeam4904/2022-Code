@@ -29,8 +29,6 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopExecute() {
-        Command turretControl = new TurnTurret(RobotMap.HumanInput.Operator.joystick.getX() / 10.0);
-        turretControl.execute();
     }
 
     @Override
