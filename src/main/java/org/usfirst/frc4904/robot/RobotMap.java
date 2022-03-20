@@ -191,7 +191,9 @@ public class RobotMap {
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
-        Component.turret = new Turret(new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor));
+
+        PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);
+        Component.turret = new Turret(turretPSM, Component.turretEncoder);
         
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
         Component.shooterMotor = new Motor("Shooter", true, Component.shooterTalon);

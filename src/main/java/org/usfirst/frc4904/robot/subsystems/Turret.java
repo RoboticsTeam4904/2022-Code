@@ -4,6 +4,7 @@
 
 package org.usfirst.frc4904.robot.subsystems;
 
+import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,9 +16,16 @@ public class Turret extends SubsystemBase {
     public static final double SMALL_GEAR_RADIUS = 24; // Gear of the motor, TODO: CHANGE CONST
     public static final double GEAR_RATIO = BIG_GEAR_RADIUS / SMALL_GEAR_RADIUS;
     public final PositionSensorMotor turretMotor; // TODO: confirm type of motor
+    public final CANTalonEncoder turretEncoder;
 
     /** Creates a new Turret. */
-    public Turret(PositionSensorMotor turretMotor) {
+    public Turret(PositionSensorMotor turretMotor, CANTalonEncoder turretEncoder) {
         this.turretMotor = turretMotor;
+        this.turretEncoder = turretEncoder;
+    }
+
+     /* Returns angle in radians. */
+     public double getAngle() {
+        return turretEncoder.getDistance() * TICK_MULTIPLIER;
     }
 }
