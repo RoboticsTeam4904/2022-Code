@@ -13,5 +13,6 @@ public class TurnTurret extends MotorPositionConstant {
 	public TurnTurret(double turretRadians) {
 		// Restrain position set to be within one turret rotation, reverse to other side if needed
 		super(RobotMap.Component.turret.turretMotor, ((turretRadians % (2 * Math.PI) - Math.PI) * (1 / Turret.TICK_MULTIPLIER) * Turret.GEAR_RATIO));
+		addRequirements(RobotMap.Component.turret);
 	}
 }
