@@ -30,6 +30,7 @@ public class RobotUDPClient {
     
     public int receivingSocketNum = RobotMap.Port.UDPPorts.receivingUDPSocket;
     public int sendingSocketNum = RobotMap.Port.UDPPorts.sendingUDPSocket;
+    public String nanoHostname = RobotMap.Port.UDPPorts.nanoHostname;
 
     public void setup() {
         System.out.println("Setting up sending on socket #" + sendingSocketNum + ".");
@@ -38,7 +39,7 @@ public class RobotUDPClient {
         try {
             server = new RobotUDPServer(receivingSocketNum);
             server.start();
-            client = new Client("CLIENT##", sendingSocketNum);
+            client = new Client("CLIENT##", nanoHostname, sendingSocketNum);
         } catch (IOException ex) {
             System.out.println("ERR: IOException during setup. This error is from creating the Server.");
             ex.printStackTrace();
