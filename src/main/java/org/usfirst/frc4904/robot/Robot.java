@@ -6,12 +6,15 @@
 /*----------------------------------------------------------------------------*/
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.auton.SimpleRoutine;
 import org.usfirst.frc4904.robot.commands.UDPExecute;
 import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+
 import org.usfirst.frc4904.standard.LogKitten;
 
 public class Robot extends CommandRobotBase {
@@ -36,6 +39,8 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void autonomousInitialize() {
+        CommandGroupBase routine = new SimpleRoutine();
+        routine.schedule();
     }
 
     @Override

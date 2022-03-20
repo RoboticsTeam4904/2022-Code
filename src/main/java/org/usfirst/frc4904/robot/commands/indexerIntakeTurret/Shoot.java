@@ -10,7 +10,7 @@ import org.usfirst.frc4904.robot.subsystems.Indexer;
 public class Shoot extends ParallelCommandGroup {
     public Shoot(double speed) {
         this.addCommands(
-            new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, Indexer.DEFAULT_INDEXER_SPEED),
+            new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED),
             new ShooterSetSpeed(speed)
         );
     }

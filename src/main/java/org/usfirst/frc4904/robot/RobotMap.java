@@ -72,7 +72,7 @@ public class RobotMap {
 
         public static class Pneumatics {
             public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 1); //TODO: set port for drawbridge intake solenoid
-            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 3); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 7); //TODO: set port for drawbridge intake solenoid
         }
 
         public static class Digital {
