@@ -38,7 +38,8 @@ public class RobotMap {
     public static class Port {
         public static class UDPPorts{
             public static final int receivingUDPSocket = 1437;
-            public static final int sendingUDPSocket = 5827;
+            public static final int sendingUDPSocket = 4321;
+            public static final int sourcePort = 3375;
             public static final String nanoHostname = "nano2-4904-frc";
         }
 

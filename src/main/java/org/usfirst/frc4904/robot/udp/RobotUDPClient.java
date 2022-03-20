@@ -14,11 +14,12 @@ import org.msgpack.value.FloatValue;
 import org.msgpack.value.IntegerValue;
 import org.msgpack.value.TimestampValue;
 import org.msgpack.value.Value;
+import org.usfirst.frc4904.robot.Robot;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.udp.Client;
 import org.usfirst.frc4904.standard.udp.Server;
 import java.util.concurrent.TimeUnit;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.math.geometry.Pose2d;
 
 import java.io.*;
@@ -30,6 +31,8 @@ public class RobotUDPClient {
     
     public int receivingSocketNum = RobotMap.Port.UDPPorts.receivingUDPSocket;
     public int sendingSocketNum = RobotMap.Port.UDPPorts.sendingUDPSocket;
+    public int sourcePort = RobotMap.Port.UDPPorts.sourcePort;
+
     public String nanoHostname = RobotMap.Port.UDPPorts.nanoHostname;
 
     public void setup() {
@@ -39,7 +42,7 @@ public class RobotUDPClient {
         try {
             server = new RobotUDPServer(receivingSocketNum);
             server.start();
-            client = new Client("CLIENT##", nanoHostname, sendingSocketNum);
+            client = new Client(nanoHostname, sourcePort, sendingSocketNum);
         } catch (IOException ex) {
             System.out.println("ERR: IOException during setup. This error is from creating the Server.");
             ex.printStackTrace();
@@ -49,15 +52,22 @@ public class RobotUDPClient {
     public void encode(Pose2d pos, double accl_x, double accl_y, double accl_gyro, double turret_angle) throws IOException {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
         // x position, odometry y position, gyro angle, x accel, y accel, gyro acceleration, turrent angle, time 
+        // WTF akshar
         packer
+            .packArrayHeader(2)
+            .packArrayHeader(3)
+            .packArrayHeader(2)
             .packDouble(pos.getX())
+            .packArrayHeader(2)
             .packDouble(pos.getY())
             .packDouble(pos.getRotation().getRadians())
+            .packArrayHeader(2)
             .packDouble(accl_x)
+            .packArrayHeader(2)
             .packDouble(accl_y)
             .packDouble(accl_gyro)
             .packDouble(turret_angle)
-            .packDouble(Timer.getFPGATimestamp());
+            .packLong(RobotController.getFPGATime());
         packer.close();
         client.sendGenericEcho(packer);
         client.close();

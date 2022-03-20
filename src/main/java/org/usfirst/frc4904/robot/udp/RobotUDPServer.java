@@ -17,6 +17,7 @@ import org.msgpack.value.FloatValue;
 import org.msgpack.value.IntegerValue;
 import org.msgpack.value.TimestampValue;
 import org.msgpack.value.Value;
+import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.udp.Client;
 import org.usfirst.frc4904.standard.udp.Server;
 
@@ -29,7 +30,7 @@ public class RobotUDPServer extends Server {
     public double heading;
 
     RobotUDPServer(int SocketNum) throws IOException {
-        super(SocketNum);
+        super(SocketNum, RobotMap.Port.UDPPorts.nanoHostname);
     }
 
     protected void decode(byte[] data) throws IOException {
