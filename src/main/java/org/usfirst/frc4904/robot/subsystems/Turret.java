@@ -9,7 +9,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-    public static final double ENCODER_TICKS = 1024; // TODO: CHANGE CONST, took this from the 2019 elevator
+    public static final double ENCODER_TICKS = 2048; // TODO: CHANGE CONST, took this from the 2019 elevator
 	public static final double TICK_MULTIPLIER = 360.0 / ENCODER_TICKS; 
     public static final double BIG_GEAR_RADIUS = 120; // Gear of the turret, TODO: CHANGE CONST
     public static final double SMALL_GEAR_RADIUS = 24; // Gear of the motor, TODO: CHANGE CONST
