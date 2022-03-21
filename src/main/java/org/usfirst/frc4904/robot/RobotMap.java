@@ -101,13 +101,6 @@ public class RobotMap {
     }
 
     public static class PID {
-        public static class Flywheel {
-            public static final double P = -1; // TODO: tune PID constants
-            public static final double I = -1;
-            public static final double D = -1;
-            public static final double F = -1;
-        }
-
         public static class Drive {
         }
 
