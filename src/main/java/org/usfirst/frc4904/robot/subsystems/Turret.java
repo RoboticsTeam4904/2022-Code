@@ -26,6 +26,6 @@ public class Turret extends SubsystemBase {
 
      /* Returns angle in radians. */
      public double getAngle() {
-        return turretEncoder.getDistance() * TICK_MULTIPLIER;
+        return (turretEncoder.getDistance() * TICK_MULTIPLIER)/GEAR_RATIO;
     }
 }
