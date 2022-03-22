@@ -27,6 +27,7 @@ public class RobotUDP extends UDPSocket {
             update.unpack(unpacker);
 
             localizationData = update;
+            return;
         }
 
         LogKitten.w("Received message from unexpected address: " + address);
