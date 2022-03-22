@@ -21,11 +21,16 @@ public class UDPExecute extends CommandBase {
     @Override
     public void execute() {
         try {
-            robotUDPClient.encode(RobotMap.Component.sensorDrive.getPose(), RobotMap.Component.navx.getWorldLinearAccelX(), RobotMap.Component.navx.getWorldLinearAccelY(), RobotMap.Component.turret.getAngle(), RobotMap.Component.navx.getRate());
+            robotUDPClient.encode(RobotMap.Component.sensorDrive.getPose(), RobotMap.Component.navx.getWorldLinearAccelX(), RobotMap.Component.navx.getWorldLinearAccelY(), RobotMap.Component.navx.getRate(), RobotMap.Component.turret.getAngle());
             //new TurnTurret(robotUDPClient.server.heading).schedule(false); // 0 is forwards / initial position (maybe??)
         } catch (IOException ex) {
             LogKitten.wtf("Skipped encoding " + ex.toString());
         }
         
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        robotUDPClient.close();
     }
 }

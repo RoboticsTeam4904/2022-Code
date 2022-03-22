@@ -10,6 +10,7 @@ import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
@@ -40,7 +41,7 @@ public class RobotMap {
             public static final int receivingUDPSocket = 1437;
             public static final int sendingUDPSocket = 4321;
             public static final int sourcePort = 3375;
-            public static final String nanoHostname = "nano2-4904-frc";
+            public static final String nanoHostname = "nano2-4904-frc.local";
         }
 
         public static class HumanInput {
@@ -148,6 +149,7 @@ public class RobotMap {
         public static Motor shooterMotor;
         
         public static RobotUDPClient robotUDPClient;
+        public static Pose2d initialPose;
     }
 
     public static class Input {
@@ -214,9 +216,10 @@ public class RobotMap {
         Component.leftWheelTalonEncoder = new CANTalonEncoder("leftWheel", leftWheelATalon, true,
                 Metrics.Chassis.METERS_PER_TICK);
         Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, true,
-                                                               Metrics.Chassis.METERS_PER_TICK);      
+                                                               Metrics.Chassis.METERS_PER_TICK);
+        Component.initialPose = new Pose2d(); // TODO double x, double y, rotation2d
         Component.sensorDrive = new SensorDrive(Component.chassis, Component.leftWheelTalonEncoder,
-        Component.rightWheelTalonEncoder, Component.navx);
+        Component.rightWheelTalonEncoder, Component.navx, Component.initialPose);
 
         Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder);
 

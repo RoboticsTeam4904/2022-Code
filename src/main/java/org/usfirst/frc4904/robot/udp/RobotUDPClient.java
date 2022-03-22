@@ -21,6 +21,7 @@ import org.usfirst.frc4904.standard.udp.Server;
 import java.util.concurrent.TimeUnit;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.math.geometry.Pose2d;
+import org.usfirst.frc4904.standard.LogKitten;
 
 import java.io.*;
 import java.util.HashMap;
@@ -70,6 +71,9 @@ public class RobotUDPClient {
             .packLong(RobotController.getFPGATime());
         packer.close();
         client.sendGenericEcho(packer);
+    }
+    
+    public void close() {
         client.close();
     }
 }

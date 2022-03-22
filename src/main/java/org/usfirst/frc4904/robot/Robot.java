@@ -19,22 +19,23 @@ import org.usfirst.frc4904.standard.LogKitten;
 
 public class Robot extends CommandRobotBase {
     private RobotMap map = new RobotMap();
+    private UDPExecute udpExecute;
 
     @Override
     public void initialize() {
         driverChooser.setDefaultOption(new NathanGain());
         operatorChooser.setDefaultOption(new DefaultOperator());
-
-        Command UDPExecute = new UDPExecute("name_lmao");
-        UDPExecute.schedule();
     }
 
     @Override
     public void teleopInitialize() {
+        udpExecute = new UDPExecute("UDPExecute");
+        udpExecute.schedule(false);
     }
 
     @Override
     public void teleopExecute() {
+        
     }
 
     @Override
