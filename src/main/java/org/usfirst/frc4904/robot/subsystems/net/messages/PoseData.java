@@ -32,5 +32,4 @@ public final class PoseData implements Packable {
         packRotation(packer);
         packTranslation(packer);
     }
-
 }
