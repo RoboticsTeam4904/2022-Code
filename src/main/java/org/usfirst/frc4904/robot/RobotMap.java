@@ -1,8 +1,13 @@
 package org.usfirst.frc4904.robot;
+
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
@@ -14,6 +19,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
+import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.custom.PCMPort;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
@@ -33,15 +39,13 @@ import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
 
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
-import org.usfirst.frc4904.robot.udp.RobotUDPClient;
+import org.usfirst.frc4904.robot.subsystems.net.RobotUDP;
 
 public class RobotMap {
     public static class Port {
-        public static class UDPPorts{
-            public static final int receivingUDPSocket = 1437;
-            public static final int sendingUDPSocket = 4321;
-            public static final int sourcePort = 3375;
-            public static final String nanoHostname = "nano2-4904-frc.local";
+        public static class Network {
+            public static SocketAddress LOCAL_SOCKET_ADDRESS = new InetSocketAddress(1437);
+            public static SocketAddress LOCALIZATION_ADDRESS = new InetSocketAddress("nano2-4904-frc.local", 4321);
         }
 
         public static class HumanInput {
@@ -55,7 +59,7 @@ public class RobotMap {
             public static final int LEFT_DRIVE_A = 4;
             public static final int LEFT_DRIVE_B = 5;
 
-            public static final int INTAKE_AXLE_MOTOR = 7; //TODO: set port for axel intake motor
+            public static final int INTAKE_AXLE_MOTOR = 7; // TODO: set port for axel intake motor
 
             public static final int INDEXER_HOLDER_MOTOR = 13; // TODO: set port
             public static final int INDEXER_BELT_MOTOR = 12; // TODO: set port
@@ -72,8 +76,9 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
-            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 1); //TODO: set port for drawbridge intake solenoid
-            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 7); //TODO: set port for drawbridge intake solenoid
+            // TODO: set ports for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 1);
+            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 7);
         }
 
         public static class Digital {
@@ -82,7 +87,7 @@ public class RobotMap {
 
     public static class Metrics {
         public static class Chassis {
-            public static final double DIAMETER_METERS = Units.inchesToMeters(5.0); // TODO: Check values 
+            public static final double DIAMETER_METERS = Units.inchesToMeters(5.0); // TODO: Check values
             public static final double CIRCUMFERENCE_METERS = Metrics.Chassis.DIAMETER_METERS * Math.PI;
             public static final double TICKS_PER_METER = Metrics.Encoders.TalonEncoders.TICKS_PER_REVOLUTION
                     / Metrics.Chassis.CIRCUMFERENCE_METERS;
@@ -135,7 +140,7 @@ public class RobotMap {
         public static Motor intakeAxleMotor;
         public static SolenoidSubsystem intakeExtender1;
         public static SolenoidSubsystem intakeExtender2;
-        
+
         public static CANTalonFX indexerHolderTalon;
         public static CANTalonFX indexerBeltTalon;
         public static Indexer indexer;
@@ -147,8 +152,8 @@ public class RobotMap {
 
         public static CANTalonFX shooterTalon;
         public static Motor shooterMotor;
-        
-        public static RobotUDPClient robotUDPClient;
+
+        public static RobotUDP robotUDP;
         public static Pose2d initialPose;
     }
 
@@ -169,18 +174,20 @@ public class RobotMap {
         Component.navx = new NavX(SerialPort.Port.kMXP);
 
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
-		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
-        
-        Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
-        Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
-        Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); //TODO: check if CANTalonFX
+        HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 
+        Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT,
+                Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); // TODO: check if CANTalonFX or SRX
+        Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT,
+                Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); // TODO: check if CANTalonFX or SRX
+        // TODO: check if CANTalonFX
+        Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR));
         Component.indexerHolderTalon = new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR);
         Component.indexerBeltTalon = new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR);
         Motor indexerHolderMotor = new Motor("Indexer 1", false, Component.indexerHolderTalon);
         Motor indexerBeltMotor = new Motor("Indexer 2", false, Component.indexerBeltTalon);
         Component.indexer = new Indexer(indexerHolderMotor, indexerBeltMotor);
-        
+
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor, Turret.TICK_MULTIPLIER);
         Component.turretPID = new CustomPIDController(PID.Turret.P,
@@ -189,13 +196,17 @@ public class RobotMap {
 
         PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);
         Component.turret = new Turret(turretPSM, Component.turretEncoder);
-        
+
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
         Component.shooterMotor = new Motor("Shooter", true, Component.shooterTalon);
 
         // UDP things
-        Component.robotUDPClient = new RobotUDPClient();
-        Component.robotUDPClient.setup();
+        try {
+            Component.robotUDP = new RobotUDP(Port.Network.LOCAL_SOCKET_ADDRESS, Port.Network.LOCALIZATION_ADDRESS);
+        } catch (IOException ex) {
+            LogKitten.f("Failed to initialize UDP subsystem");
+            LogKitten.ex(ex);
+        }
 
         // Chassis
 
@@ -216,12 +227,13 @@ public class RobotMap {
         Component.leftWheelTalonEncoder = new CANTalonEncoder("leftWheel", leftWheelATalon, true,
                 Metrics.Chassis.METERS_PER_TICK);
         Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, true,
-                                                               Metrics.Chassis.METERS_PER_TICK);
+                Metrics.Chassis.METERS_PER_TICK);
         Component.initialPose = new Pose2d(); // TODO double x, double y, rotation2d
         Component.sensorDrive = new SensorDrive(Component.chassis, Component.leftWheelTalonEncoder,
-        Component.rightWheelTalonEncoder, Component.navx, Component.initialPose);
+                Component.rightWheelTalonEncoder, Component.navx, Component.initialPose);
 
-        Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder);
+        Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder,
+                Component.rightWheelTalonEncoder);
 
         // General Chassis
         Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
