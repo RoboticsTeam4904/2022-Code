@@ -15,4 +15,11 @@ public class TurnTurret extends MotorPositionConstant {
 		super(RobotMap.Component.turret.turretMotor, ((turretRadians % (2 * Math.PI) - Math.PI) * (1 / Turret.TICK_MULTIPLIER) * Turret.GEAR_RATIO));
 		addRequirements(RobotMap.Component.turret);
 	}
+	@Override
+	public boolean isFinished() {
+		if (RobotMap.Component.turret.turretEncoder.getFwdLimitSwitchClosed() == 1 || RobotMap.Component.turret.turretEncoder.getRevLimitSwitchClosed() == 1) {
+			return true;
+		}
+		return super.isFinished();
+	}
 }

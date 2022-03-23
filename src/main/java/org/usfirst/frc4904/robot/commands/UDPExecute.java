@@ -26,7 +26,6 @@ public class UDPExecute extends CommandBase {
         } catch (IOException ex) {
             LogKitten.wtf("Skipped encoding " + ex.toString());
         }
-        
     }
 
     @Override
