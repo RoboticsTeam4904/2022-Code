@@ -16,6 +16,7 @@ import org.msgpack.value.TimestampValue;
 import org.msgpack.value.Value;
 import org.usfirst.frc4904.robot.Robot;
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.udp.Client;
 import org.usfirst.frc4904.standard.udp.Server;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 
 public class RobotUDPClient {
     Client client;
+    public boolean goNow = true;
     public RobotUDPServer server;
     
     public int receivingSocketNum = RobotMap.Port.UDPPorts.receivingUDPSocket;
@@ -53,6 +55,7 @@ public class RobotUDPClient {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
         // x position, odometry y position, gyro angle, x accel, y accel, gyro acceleration, turrent angle, time 
         //
+
         packer
             .packArrayHeader(2)
             .packArrayHeader(3)
@@ -70,6 +73,9 @@ public class RobotUDPClient {
             .packLong(RobotController.getFPGATime());
         packer.close();
         client.sendGenericEcho(packer);
+    }
+
+    public void close() {
         client.close();
     }
 }

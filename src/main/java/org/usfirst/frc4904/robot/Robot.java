@@ -16,25 +16,31 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 
 import org.usfirst.frc4904.standard.LogKitten;
-
+import org.usfirst.frc4904.standard.commands.KittenCommand;
 public class Robot extends CommandRobotBase {
     private RobotMap map = new RobotMap();
+    UDPExecute udpExecute;
 
     @Override
     public void initialize() {
         driverChooser.setDefaultOption(new NathanGain());
         operatorChooser.setDefaultOption(new DefaultOperator());
 
-        Command UDPExecute = new UDPExecute("name_lmao");
-        UDPExecute.schedule();
+        // udpExecute = new UDPExecute("test");
+        // udpExecute.schedule(false);
     }
 
     @Override
     public void teleopInitialize() {
+        udpExecute = new UDPExecute("UDPExecute");
+        udpExecute.schedule(false);
     }
 
     @Override
     public void teleopExecute() {
+        // new KittenCommand(Double.toString(RobotMap.HumanInput.Operator.joystick.getX()), LogKitten.KittenLevel.WTF).schedule();
+        TurnTurret turretRotate = new TurnTurret(RobotMap.HumanInput.Operator.joystick.getX());
+        turretRotate.schedule();
     }
 
     @Override

@@ -5,6 +5,8 @@ import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.IndexerIntakeOff;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.StoreBall;
 import org.usfirst.frc4904.robot.commands.intake.ExtendIntake;
 import org.usfirst.frc4904.robot.commands.intake.RetractIntake;
+import org.usfirst.frc4904.robot.commands.shooter.ShooterSetSpeed;
+import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.humaninput.Driver;
 
@@ -26,10 +28,13 @@ public class NathanGain extends Driver {
 
 	@Override
 	public void bindCommands() {
-		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 1.0));
+		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 5.0));
 		RobotMap.HumanInput.Driver.xbox.rb.whenPressed(new ExtendIntake());
 		RobotMap.HumanInput.Driver.xbox.lb.whenPressed(new RetractIntake());
 		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new IndexerIntakeOff());
+		// RobotMap.HumanInput.Driver.xbox.y.whenPressed(new ShooterSetSpeed(1));
+		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(new TurnTurret(0.0));
+
 	}
 
 	@Override

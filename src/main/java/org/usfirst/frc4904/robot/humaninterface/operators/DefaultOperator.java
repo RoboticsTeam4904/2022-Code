@@ -21,10 +21,10 @@ public class DefaultOperator extends Operator {
 
 	@Override
 	public void bindCommands() {
-		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
-			new RunFor(new Shoot(1.0), 2),
-			new ShooterBrake(),
-			new IndexerOff()
-		));
+		// RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
+		// 	new RunFor(new Shoot(1.0), 2),
+		// 	new ShooterBrake(),
+		// 	new IndexerOff()
+		// ));
 	}
 }

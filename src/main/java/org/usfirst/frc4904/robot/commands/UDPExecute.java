@@ -19,13 +19,25 @@ public class UDPExecute extends CommandBase {
 	}
     
     @Override
+    public void initialize() {
+    }
+
+    @Override
     public void execute() {
         try {
-            robotUDPClient.encode(RobotMap.Component.sensorDrive.getPose(), RobotMap.Component.navx.getWorldLinearAccelX(), RobotMap.Component.navx.getWorldLinearAccelY(), RobotMap.Component.turret.getAngle(), RobotMap.Component.navx.getRate());
+            if (robotUDPClient.goNow) {
+                robotUDPClient.encode(RobotMap.Component.sensorDrive.getPose(), RobotMap.Component.navx.getVelocityX(), RobotMap.Component.navx.getVelocityY(), RobotMap.Component.turret.getAngle(), RobotMap.Component.navx.getRate());
+            }
             //new TurnTurret(robotUDPClient.server.heading).schedule(false); // 0 is forwards / initial position (maybe??)
         } catch (IOException ex) {
             LogKitten.wtf("Skipped encoding " + ex.toString());
         }
+        robotUDPClient.goNow = !robotUDPClient.goNow;
         
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        robotUDPClient.close();
     }
 }
