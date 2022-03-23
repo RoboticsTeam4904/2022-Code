@@ -17,6 +17,9 @@ import org.usfirst.frc4904.robot.subsystems.Indexer;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import org.usfirst.frc4904.standard.LogKitten;
@@ -157,6 +160,23 @@ public class RobotMap {
         public static Pose2d initialPose;
     }
 
+    public static class NetworkTables {
+        public static NetworkTableInstance instance;
+
+        public static class Odometry {
+            public static NetworkTable table;
+            public static NetworkTableEntry pose;
+            public static NetworkTableEntry accel;
+            public static NetworkTableEntry turretAngle;
+        }
+
+        public static class Localization {
+            public static NetworkTable table;
+            public static NetworkTableEntry goalDistance;
+            public static NetworkTableEntry goalRelativeAngle;
+        }
+    }
+
     public static class Input {
     }
 
@@ -239,5 +259,18 @@ public class RobotMap {
         Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
                 Component.rightWheelA, Component.rightWheelB);
         Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
+
+        // NetworkTables setup
+
+        final var nt = NetworkTables.instance = NetworkTableInstance.getDefault();
+
+        final var localizationTable = NetworkTables.Localization.table = nt.getTable("localization");
+        NetworkTables.Localization.goalDistance = localizationTable.getEntry("distance");
+        NetworkTables.Localization.goalRelativeAngle = localizationTable.getEntry("angle");
+
+        final var odometryTable = NetworkTables.Odometry.table = nt.getTable("odometry");
+        NetworkTables.Odometry.pose = odometryTable.getEntry("pose");
+        NetworkTables.Odometry.accel = odometryTable.getEntry("accel");
+        NetworkTables.Odometry.turretAngle = odometryTable.getEntry("turretAngle");
     }
 }

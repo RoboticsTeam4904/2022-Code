@@ -8,10 +8,14 @@ import org.usfirst.frc4904.standard.subsystems.net.message.Packable;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public final class PoseData implements Packable {
-    public Pose2d pose;
+    private Pose2d pose;
 
     public PoseData(Pose2d pose) {
         this.pose = pose;
+    }
+
+    public Pose2d pose() {
+        return pose;
     }
 
     private void packRotation(MessagePacker packer) throws IOException {

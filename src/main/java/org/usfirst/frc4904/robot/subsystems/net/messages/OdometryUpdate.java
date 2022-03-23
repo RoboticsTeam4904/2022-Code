@@ -8,16 +8,31 @@ import org.usfirst.frc4904.standard.subsystems.net.message.Packable;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public final class OdometryUpdate implements Packable {
-    public PoseData pose;
-    public PoseData accel;
-    public double turretAngle;
-    public long timestamp;
+    private PoseData pose;
+    private PoseData accel;
+    private double turretAngle;
+    private long timestamp;
 
-    public OdometryUpdate(Pose2d pose, Pose2d accel, double turretAngle,
-            long timestamp) {
+    public OdometryUpdate(Pose2d pose, Pose2d accel, double turretAngle, long timestamp) {
         this.pose = new PoseData(pose);
         this.accel = new PoseData(accel);
         this.timestamp = timestamp;
+    }
+
+    public PoseData pose() {
+        return pose;
+    }
+
+    public PoseData accel() {
+        return accel;
+    }
+
+    public double turretAngle() {
+        return turretAngle;
+    }
+
+    public long timestamp() {
+        return timestamp;
     }
 
     @Override

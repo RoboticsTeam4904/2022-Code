@@ -12,6 +12,7 @@ import org.usfirst.frc4904.standard.subsystems.net.UDPSocket;
 public class RobotUDP extends UDPSocket {
     private SocketAddress localizationAddr;
 
+    private OdometryUpdate odometryData;
     private LocalizationUpdate localizationData;
 
     public RobotUDP(SocketAddress localAddr, SocketAddress localizationAddr) throws IOException {
@@ -33,12 +34,18 @@ public class RobotUDP extends UDPSocket {
         LogKitten.w("Received message from unexpected address: " + address);
     }
 
-    public void updateOdometry(OdometryUpdate message) {
+    public void updateOdometry(OdometryUpdate update) {
+        odometryData = update;
+
         try {
-            send(localizationAddr, message);
+            send(localizationAddr, update);
         } catch (IOException ex) {
             LogKitten.ex(ex);
         }
+    }
+
+    public OdometryUpdate getOdometryData() {
+        return odometryData;
     }
 
     public LocalizationUpdate getLocalizationData() {
