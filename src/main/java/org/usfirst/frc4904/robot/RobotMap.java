@@ -20,6 +20,7 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
+import org.usfirst.frc4904.robot.subsystems.Climber;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
 
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
@@ -61,6 +62,8 @@ public class RobotMap {
             public static final int INDEXER_BELT_MOTOR = 12; // TODO: set port
 
             public static final int TURRET_MOTOR = 15; // TODO: set port
+
+            public static final int CLIMBER_MOTOR = -1;  //TODO: set port
 
             public static final int SHOOTER_MOTOR = 8; // TODO: set port
         }
@@ -150,6 +153,10 @@ public class RobotMap {
         
         public static RobotUDPClient robotUDPClient;
         public static Pose2d initialPose;
+        
+        public static CANTalonFX climberTalon;
+        public static Motor climberMotor;
+        public static Climber climber;
     }
 
     public static class Input {
@@ -180,6 +187,10 @@ public class RobotMap {
         Motor indexerHolderMotor = new Motor("Indexer 1", false, Component.indexerHolderTalon);
         Motor indexerBeltMotor = new Motor("Indexer 2", false, Component.indexerBeltTalon);
         Component.indexer = new Indexer(indexerHolderMotor, indexerBeltMotor);
+
+        Component.climberTalon = new CANTalonFX(Port.CANMotor.CLIMBER_MOTOR);
+        Component.climberMotor = new Motor("Climber Motor", false, Component.climberTalon);
+        Component.climber = new Climber(Component.climberMotor);
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor, Turret.TICK_MULTIPLIER);
