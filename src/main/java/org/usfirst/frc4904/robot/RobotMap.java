@@ -118,7 +118,7 @@ public class RobotMap {
             public static final double P = 5e-6; // TODO: TUNE
             public static final double I = 0; // 3E-8
             public static final double D = 1e-9;
-            public static final double F = 1e-2;
+            public static final double F = 0;
         }
 
     }
