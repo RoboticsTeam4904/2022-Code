@@ -193,6 +193,7 @@ public class RobotMap {
         Component.climber = new Climber(Component.climberMotor);
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
+        Component.turretMotor.setSelectedSensorPosition(-512);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor, Turret.TICK_MULTIPLIER); 
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
