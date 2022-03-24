@@ -28,8 +28,6 @@ public class OdometrySend extends CommandBase {
         this.sensorDrive = sensorDrive;
         this.navx = navx;
         this.turret = turret;
-
-        addRequirements(net, sensorDrive, turret);
     }
 
     @Override
