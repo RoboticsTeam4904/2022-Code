@@ -17,6 +17,7 @@ public class Turret extends SubsystemBase {
     public static final double GEAR_RATIO = BIG_GEAR_RADIUS / SMALL_GEAR_RADIUS;
     public final PositionSensorMotor turretMotor; // TODO: confirm type of motor
     public final CANTalonEncoder turretEncoder;
+    public boolean swivvle = true; // TODO maybe tune
 
     /** Creates a new Turret. */
     public Turret(PositionSensorMotor turretMotor, CANTalonEncoder turretEncoder) {

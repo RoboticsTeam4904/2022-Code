@@ -10,6 +10,7 @@ import org.usfirst.frc4904.robot.commands.indexer.IndexerSet;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.Shoot;
 import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
 import org.usfirst.frc4904.robot.commands.shooter.ShooterSetSpeed;
+import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.humaninput.Operator;
@@ -36,5 +37,6 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberUp());
 		RobotMap.HumanInput.Operator.joystick.button8.whenPressed(new ClimberDown());
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new ClimberOff());
+		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurnTurret(RobotMap.Component.turret.getAngle() + RobotMap.Component.robotUDPClient.server.heading));
 	}
 }
