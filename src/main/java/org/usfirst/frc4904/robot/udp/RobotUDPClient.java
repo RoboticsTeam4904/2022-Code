@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.math.geometry.Pose2d;
 import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.LogKitten;
 
 import java.io.*;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 public class RobotUDPClient {
     Client client;
     public RobotUDPServer server;
+    public boolean goNow = true;
     
     public int receivingSocketNum = RobotMap.Port.UDPPorts.receivingUDPSocket;
     public int sendingSocketNum = RobotMap.Port.UDPPorts.sendingUDPSocket;
@@ -72,7 +74,7 @@ public class RobotUDPClient {
         packer.close();
         client.sendGenericEcho(packer);
     }
-    
+
     public void close() {
         client.close();
     }

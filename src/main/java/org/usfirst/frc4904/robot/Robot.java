@@ -14,6 +14,7 @@ import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import org.usfirst.frc4904.standard.commands.KittenCommand;
 
 import org.usfirst.frc4904.standard.LogKitten;
 
@@ -29,17 +30,17 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopInitialize() {
-        udpExecute = new UDPExecute("UDPExecute");
-        udpExecute.schedule(false);
     }
 
     @Override
     public void teleopExecute() {
-        
+
     }
 
     @Override
     public void autonomousInitialize() {
+        udpExecute = new UDPExecute("UDPExecute");
+        udpExecute.schedule(false);
         CommandGroupBase routine = new SimpleRoutine();
         routine.schedule();
     }
