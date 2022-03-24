@@ -6,8 +6,11 @@ import org.usfirst.frc4904.robot.commands.climber.ClimberDown;
 import org.usfirst.frc4904.robot.commands.climber.ClimberOff;
 import org.usfirst.frc4904.robot.commands.climber.ClimberUp;
 import org.usfirst.frc4904.robot.commands.indexer.IndexerOff;
+import org.usfirst.frc4904.robot.commands.indexer.IndexerSet;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.Shoot;
 import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
+import org.usfirst.frc4904.robot.commands.shooter.ShooterSetSpeed;
+import org.usfirst.frc4904.robot.subsystems.Indexer;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.humaninput.Operator;
 
@@ -25,7 +28,8 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
-			new RunFor(new Shoot(1.0), 2),
+			new RunFor(new Shoot(), 5),
+			new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED),
 			new ShooterBrake(),
 			new IndexerOff()
 		));
