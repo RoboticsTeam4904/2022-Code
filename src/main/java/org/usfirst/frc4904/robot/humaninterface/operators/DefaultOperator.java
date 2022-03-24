@@ -2,6 +2,9 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.climber.ClimberDown;
+import org.usfirst.frc4904.robot.commands.climber.ClimberOff;
+import org.usfirst.frc4904.robot.commands.climber.ClimberUp;
 import org.usfirst.frc4904.robot.commands.indexer.IndexerOff;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.Shoot;
 import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
@@ -26,5 +29,8 @@ public class DefaultOperator extends Operator {
 			new ShooterBrake(),
 			new IndexerOff()
 		));
+		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberUp());
+		RobotMap.HumanInput.Operator.joystick.button8.whenPressed(new ClimberDown());
+		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new ClimberOff());
 	}
 }
