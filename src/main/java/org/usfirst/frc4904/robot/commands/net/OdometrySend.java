@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class OdometrySend extends CommandBase {
-    private final static double SECS_PER_MICROSEC = Math.pow(10.0, 6);
+    private final static double SECS_PER_MICROSEC = 1 / Math.pow(10.0, 6);
 
     private final RobotUDP net;
 
