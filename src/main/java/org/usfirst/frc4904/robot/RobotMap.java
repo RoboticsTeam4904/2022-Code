@@ -112,9 +112,9 @@ public class RobotMap {
         }
 
         public static class Turret {
-            public static final double P = 1.5e-4; // TODO: TUNE
+            public static final double P = 8e-5; // TODO: TUNE
             public static final double I = 0; // 3E-8
-            public static final double D = -5e-5;
+            public static final double D = -2e-5;
             public static final double F = 0;
             // public static final double tolerance = -1;
             // public static final double dTolerance = -1;
@@ -194,7 +194,7 @@ public class RobotMap {
         Component.climber = new Climber(Component.climberMotor);
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
-        Component.turretMotor.setSelectedSensorPosition(-2560);
+        Component.turretMotor.setSelectedSensorPosition(2560);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor); 
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
