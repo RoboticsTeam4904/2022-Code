@@ -1,8 +1,11 @@
 package org.usfirst.frc4904.robot.commands.net;
 
+import java.util.concurrent.TimeUnit;
+
 import org.usfirst.frc4904.robot.subsystems.Turret;
 import org.usfirst.frc4904.robot.subsystems.net.RobotUDP;
 import org.usfirst.frc4904.robot.subsystems.net.messages.OdometryUpdate;
+import org.usfirst.frc4904.standard.Util;
 import org.usfirst.frc4904.standard.custom.sensors.NavX;
 import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
 
@@ -12,7 +15,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class OdometrySend extends CommandBase {
-    private final static double SECS_PER_MICROSEC = 1 / Math.pow(10.0, 6);
+    private final static double SECS_PER_MICROSEC = Util.timeConversionFactor(TimeUnit.MICROSECONDS, TimeUnit.SECONDS);
 
     private final RobotUDP net;
 
