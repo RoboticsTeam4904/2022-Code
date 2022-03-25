@@ -39,10 +39,10 @@ import org.usfirst.frc4904.robot.udp.RobotUDPClient;
 public class RobotMap {
     public static class Port {
         public static class UDPPorts{
-            public static final int receivingUDPSocket = 1437;
+            public static final int receivingUDPSocket = 3375;
             public static final int sendingUDPSocket = 4321;
-            public static final int sourcePort = 3375;
-            public static final String nanoHostname = "nano1-4904-frc.local";
+            public static final int sourcePort = 1111;
+            public static final String nanoHostname = "nano2-4904-frc.local";
         }
 
         public static class HumanInput {
@@ -112,12 +112,13 @@ public class RobotMap {
         }
 
         public static class Turret {
-            public static final double P = 5e-6; // TODO: TUNE
+            public static final double P = 1.5e-4; // TODO: TUNE
             public static final double I = 0; // 3E-8
-            public static final double D = 1e-9;
-            public static final double F = 1e-2;
+            public static final double D = -5e-5;
+            public static final double F = 0;
             // public static final double tolerance = -1;
             // public static final double dTolerance = -1;
+
         }
 
     }
@@ -193,7 +194,7 @@ public class RobotMap {
         Component.climber = new Climber(Component.climberMotor);
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
-        Component.turretMotor.setSelectedSensorPosition(-512);
+        Component.turretMotor.setSelectedSensorPosition(-2560);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor); 
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,

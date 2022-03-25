@@ -13,7 +13,6 @@ import org.usfirst.frc4904.standard.commands.RunFor;
 public class Shoot extends ParallelCommandGroup {
     public Shoot() {
         this.addCommands(
-            new ShooterSetSpeed(((818.05 * RobotMap.Component.robotUDPClient.server.distance*RobotMap.Component.robotUDPClient.server.distance) - (639.71 * RobotMap.Component.robotUDPClient.server.distance) + 270.6))
-        );
+            new ShooterSetSpeed((39.37*0.025*RobotMap.Component.robotUDPClient.server.distance + 0.01)));
     }
 }

@@ -29,7 +29,7 @@ public class UDPExecute extends CommandBase {
                 RobotMap.Component.turret.getAngle());
             }
             if (RobotMap.Component.turret.swivvle) {
-                new TurnTurret(RobotMap.Component.turret.getAngle() + robotUDPClient.server.heading).schedule(false); // 0 is forwards / initial position (maybe??)
+                //new TurnTurret(RobotMap.Component.turret.getAngle() + robotUDPClient.server.heading).schedule(false); // 0 is forwards / initial position (maybe??)
             }
         } catch (IOException ex) {
             LogKitten.wtf("Skipped encoding " + ex.toString());

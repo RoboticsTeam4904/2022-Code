@@ -18,6 +18,7 @@ import org.msgpack.value.IntegerValue;
 import org.msgpack.value.TimestampValue;
 import org.msgpack.value.Value;
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.udp.Client;
 import org.usfirst.frc4904.standard.udp.Server;
 
@@ -38,5 +39,6 @@ public class RobotUDPServer extends Server {
         distance = unpacker.unpackDouble();
         heading  = unpacker.unpackDouble();
         unpacker.close();
+        LogKitten.wtf("D: "+ distance + " H: "+heading);
     }
 }
