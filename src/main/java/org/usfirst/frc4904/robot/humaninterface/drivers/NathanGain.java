@@ -26,7 +26,7 @@ public class NathanGain extends Driver {
 
 	@Override
 	public void bindCommands() {
-		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 2.0));
+		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 3.0));
 		RobotMap.HumanInput.Driver.xbox.rb.whenPressed(new ExtendIntake());
 		RobotMap.HumanInput.Driver.xbox.lb.whenPressed(new RetractIntake());
 		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new IndexerIntakeOff());
