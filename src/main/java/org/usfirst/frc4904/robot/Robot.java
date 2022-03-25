@@ -39,7 +39,7 @@ public class Robot extends CommandRobotBase {
         final double TURRET_MAX_ANGLE = 170;    // used to rescale controller input [-1, 1] to safe turret angles; TODO: update
         final double CONTROL_SPEED = 0.05;
         final double target_radians = Math.max(Math.min((RobotMap.Component.turret.getAngle() + CONTROL_SPEED * RobotMap.HumanInput.Operator.joystick.getX()), 1), -1) * (TURRET_MAX_ANGLE/180)*Math.PI;
-        new TurnTurret(target_radians).schedule(false);
+        //new TurnTurret(target_radians).schedule(false);
     }
 
     @Override

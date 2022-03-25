@@ -37,6 +37,6 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberUp());
 		RobotMap.HumanInput.Operator.joystick.button8.whenPressed(new ClimberDown());
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new ClimberOff());
-		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurnTurret(0));//RobotMap.Component.turret.getAngle() + RobotMap.Component.robotUDPClient.server.heading));
+		//RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurnTurret(0));//RobotMap.Component.turret.getAngle() + RobotMap.Component.robotUDPClient.server.heading));
 	}
 }
