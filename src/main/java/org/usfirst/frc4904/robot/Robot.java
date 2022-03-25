@@ -29,14 +29,11 @@ public class Robot extends CommandRobotBase {
     }
 
     @Override
-    public void teleopInitialize() {
-        // udpExecute = new UDPExecute("UDPExecute");
-        // udpExecute.schedule(false);
-    }
+    public void teleopInitialize() { 
 
     @Override
     public void teleopExecute() {
-
+        new TurnTurret(RobotMap.HumanInput.Operator.joystick.getX()).schedule();
     }
 
     @Override
@@ -54,7 +51,7 @@ public class Robot extends CommandRobotBase {
     @Override
     public void disabledInitialize() {
     }
-
+ 
     @Override
     public void disabledExecute() {
     }
