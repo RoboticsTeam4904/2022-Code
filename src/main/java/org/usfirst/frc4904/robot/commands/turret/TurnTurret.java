@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurnTurret extends MotorPositionConstant {
 	public TurnTurret(double turretRadians) {
 		// Restrain position set to be within one turret rotation, reverse to other side if needed
-		final double pos = turretModulo(turretRadians)  // turret radians
-            / Turret.RADIANS_PER_REV                    // turret revs
-            * Turret.MOTOR_REV_PER_TURRET_REV           // motor revs
-            * Turret.TICKS_PER_REVM;                    // encoder ticks
+		// final double pos =;                    // encoder ticks
 
-		super(RobotMap.Component.turret.turretMotor, pos);
+		super(RobotMap.Component.turret.turretMotor,  turretModulo(turretRadians)  // turret radians
+		/ Turret.RADIANS_PER_REV                    // turret revs
+		* Turret.MOTOR_REV_PER_TURRET_REV           // motor revs
+		* Turret.TICKS_PER_REVM);
 		addRequirements(RobotMap.Component.turret);
 	}
 

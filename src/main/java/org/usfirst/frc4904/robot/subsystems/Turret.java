@@ -16,6 +16,8 @@ public class Turret extends SubsystemBase {
     public static final double SMALL_GEAR_RADIUS = 24;
     public static final double MOTOR_REV_PER_TURRET_REV = BIG_GEAR_RADIUS/SMALL_GEAR_RADIUS;
 
+    public PositionSensorMotor turretMotor;
+    public CANTalonEncoder turretEncoder;
 
     /** Creates a new Turret. */
     public Turret(PositionSensorMotor turretMotor, CANTalonEncoder turretEncoder) {
@@ -27,7 +29,7 @@ public class Turret extends SubsystemBase {
     /* Returns turret angle in radians, output in range [-pi, pi] */
     public double getAngle() {
        return turretEncoder.getDistance()  // ticks
-           / TICKS_PER_REVM,               // motor revolutions
+           / TICKS_PER_REVM                // motor revolutions
            / MOTOR_REV_PER_TURRET_REV      // turret revolutions
            * RADIANS_PER_REV;              // turret radians
     }

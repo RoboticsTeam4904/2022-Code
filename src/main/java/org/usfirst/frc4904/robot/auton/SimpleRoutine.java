@@ -17,8 +17,8 @@ public class SimpleRoutine extends SequentialCommandGroup {
     public SimpleRoutine() {
         // first backup, then shoot
         this.addCommands(
+            new ChassisConstant(RobotMap.Component.chassis, 0, -0.5, 0, 0.5), // TODO: tune num of seconds, currently 2
             new RunFor(new ExtendIntake(), 2),
-            new ChassisConstant(RobotMap.Component.chassis, 0, -0.1, 0, 0.5), // TODO: tune num of seconds, currently 2
             new TurnTurret(0.0),
             new TurnTurret(RobotMap.Component.turret.getAngle() + RobotMap.Component.robotUDPClient.server.heading),
             new RunFor(new Shoot(), 5),

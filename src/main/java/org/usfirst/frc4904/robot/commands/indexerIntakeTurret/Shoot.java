@@ -17,7 +17,7 @@ public class Shoot extends ParallelCommandGroup {
         final double v = RobotController.getBatteryVoltage();
         // (d-29*v+383)/370 from mar 24 23:26 https://discord.com/channels/898058908915073024/898059350772441148/956801260940566589
         this.addCommands(
-            new ShooterSetSpeed((d - 29*v + 383)/370)
+            new ShooterSetSpeed(0.55)//(d*39.37 - 29*v + 383)/370)
         );
     }
 }
