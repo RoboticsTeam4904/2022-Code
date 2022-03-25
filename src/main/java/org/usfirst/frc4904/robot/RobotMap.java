@@ -47,8 +47,8 @@ import org.usfirst.frc4904.robot.subsystems.net.RobotUDP;
 public class RobotMap {
     public static class Port {
         public static class Network {
-            public static SocketAddress LOCAL_SOCKET_ADDRESS = new InetSocketAddress(1437);
-            public static SocketAddress LOCALIZATION_ADDRESS = new InetSocketAddress("nano2-4904-frc.local", 4321);
+            public static SocketAddress LOCAL_SOCKET_ADDRESS = new InetSocketAddress(3375);
+            public static SocketAddress LOCALIZATION_ADDRESS = new InetSocketAddress("10.49.04.9", 4321);
         }
 
         public static class HumanInput {
