@@ -16,6 +16,7 @@ import org.usfirst.frc4904.standard.CommandRobotBase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import org.usfirst.frc4904.standard.commands.KittenCommand;
 
 import org.usfirst.frc4904.standard.LogKitten;
 
@@ -31,12 +32,11 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopInitialize() {
-
     }
 
     @Override
     public void teleopExecute() {
-
+        new TurnTurret(RobotMap.HumanInput.Operator.joystick.getX()).schedule();
     }
 
     @Override

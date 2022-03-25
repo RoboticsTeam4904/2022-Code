@@ -29,6 +29,7 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
+import org.usfirst.frc4904.robot.subsystems.Climber;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
 
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
@@ -68,6 +69,8 @@ public class RobotMap {
             public static final int INDEXER_BELT_MOTOR = 12; // TODO: set port
 
             public static final int TURRET_MOTOR = 15; // TODO: set port
+
+            public static final int CLIMBER_MOTOR = 9; // TODO: set port
 
             public static final int SHOOTER_MOTOR = 8; // TODO: set port
         }
@@ -117,12 +120,13 @@ public class RobotMap {
         }
 
         public static class Turret {
-            public static final double P = -1; // TODO: TUNE
-            public static final double I = -1;
-            public static final double D = -1;
-            public static final double F = -1;
-            public static final double tolerance = -1;
-            public static final double dTolerance = -1;
+            public static final double P = 1.5e-4; // TODO: TUNE
+            public static final double I = 0; // 3E-8
+            public static final double D = -5e-5;
+            public static final double F = 0;
+            // public static final double tolerance = -1;
+            // public static final double dTolerance = -1;
+
         }
 
     }
@@ -158,6 +162,10 @@ public class RobotMap {
 
         public static RobotUDP robotUDP;
         public static Pose2d initialPose;
+
+        public static CANTalonFX climberTalon;
+        public static Motor climberMotor;
+        public static Climber climber;
     }
 
     public static class NetworkTables {
@@ -208,8 +216,13 @@ public class RobotMap {
         Motor indexerBeltMotor = new Motor("Indexer 2", false, Component.indexerBeltTalon);
         Component.indexer = new Indexer(indexerHolderMotor, indexerBeltMotor);
 
+        Component.climberTalon = new CANTalonFX(Port.CANMotor.CLIMBER_MOTOR);
+        Component.climberMotor = new Motor("Climber Motor", false, Component.climberTalon);
+        Component.climber = new Climber(Component.climberMotor);
+
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
-        Component.turretEncoder = new CANTalonEncoder(Component.turretMotor, Turret.TICK_MULTIPLIER);
+        Component.turretMotor.setSelectedSensorPosition(-2560);
+        Component.turretEncoder = new CANTalonEncoder(Component.turretMotor);
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
