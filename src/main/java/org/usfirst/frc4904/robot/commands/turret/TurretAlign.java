@@ -23,7 +23,7 @@ public final class TurretAlign extends CommandBase {
     public void initialize() {
         final var angleGoal = turret.getAngle() + net.getLocalizationData().goalRelativeAngle();
 
-        turnCommand = new TurnTurret(angleGoal);
+        turnCommand = new TurnTurret(angleGoal, turret);
         turnCommand.initialize();
     }
 

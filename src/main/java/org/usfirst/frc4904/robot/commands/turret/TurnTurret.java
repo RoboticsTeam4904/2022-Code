@@ -10,24 +10,22 @@ import org.usfirst.frc4904.standard.commands.motor.MotorPositionConstant;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnTurret extends MotorPositionConstant {
-	public TurnTurret(double turretRadians) {
-		// Restrain position set to be within one turret rotation, reverse to other side
-		// if needed
-		super(RobotMap.Component.turret.turretMotor,
-				(positiveModulo(turretRadians, 2 * Math.PI) * (1 / Turret.TICK_MULTIPLIER) * Turret.GEAR_RATIO));
-		addRequirements(RobotMap.Component.turret);
+	private final Turret turret;
+
+	public TurnTurret(double angle, Turret turret) {
+		super(turret.getMotor(), Turret.convertTurretAngleToMotorPosition(angle));
+
+		this.turret = turret;
+
+		addRequirements(turret);
 	}
 
 	@Override
 	public boolean isFinished() {
-		if (RobotMap.Component.turret.turretEncoder.getFwdLimitSwitchClosed() == 1
-				|| RobotMap.Component.turret.turretEncoder.getRevLimitSwitchClosed() == 1) {
+		if (turret.isLimitSwitchClosed()) {
 			return true;
 		}
-		return super.isFinished();
-	}
 
-	private static double positiveModulo(double num, double mod) {
-		return ((num % mod) + mod) % mod;
+		return super.isFinished();
 	}
 }

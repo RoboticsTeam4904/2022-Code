@@ -40,7 +40,7 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void autonomousInitialize() {
-        final var routine = new SimpleRoutine();
+        final var routine = new SimpleRoutine(RobotMap.Component.turret);
         routine.schedule();
 
         final var odometrySend = new OdometrySend(

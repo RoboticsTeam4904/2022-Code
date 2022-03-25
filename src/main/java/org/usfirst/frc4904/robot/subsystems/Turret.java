@@ -10,23 +10,50 @@ import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-    public static final double ENCODER_TICKS = 2048; // TODO: CHANGE CONST, took this from the 2019 elevator
-	public static final double TICK_MULTIPLIER = (2 * Math.PI) / ENCODER_TICKS; 
-    public static final double BIG_GEAR_RADIUS = 120; // Gear of the turret, TODO: CHANGE CONST
-    public static final double SMALL_GEAR_RADIUS = 24; // Gear of the motor, TODO: CHANGE CONST
-    public static final double GEAR_RATIO = BIG_GEAR_RADIUS / SMALL_GEAR_RADIUS;
-    public final PositionSensorMotor turretMotor; // TODO: confirm type of motor
-    public final CANTalonEncoder turretEncoder;
-    public boolean swivvle = false; // TODO maybe tune
+    public static final double TICKS_PER_REVM = 2048;
+    public static final double RADIANS_PER_REV = 2 * Math.PI;
+    public static final double BIG_GEAR_RADIUS = 120;
+    public static final double SMALL_GEAR_RADIUS = 24;
+    public static final double MOTOR_REV_PER_TURRET_REV = BIG_GEAR_RADIUS / SMALL_GEAR_RADIUS;
+
+    private final PositionSensorMotor motor;
+    private final CANTalonEncoder encoder;
 
     /** Creates a new Turret. */
-    public Turret(PositionSensorMotor turretMotor, CANTalonEncoder turretEncoder) {
-        this.turretMotor = turretMotor;
-        this.turretEncoder = turretEncoder;
+    public Turret(PositionSensorMotor motor, CANTalonEncoder encoder) {
+        this.motor = motor;
+        this.encoder = encoder;
     }
 
-     /* Returns angle in radians. */
-     public double getAngle() {
-        return (turretEncoder.getDistance() * TICK_MULTIPLIER)/GEAR_RATIO;
+    public static double convertTurretAngleToMotorPosition(double angle) {
+        // Restrain position set to be within one turret rotation, reverse to other side
+        // if needed
+        return normalizeAngle(angle, Math.PI) // turret radians
+                / RADIANS_PER_REV // turret revs
+                * MOTOR_REV_PER_TURRET_REV // motor revs
+                * TICKS_PER_REVM; // encoder ticks
+    }
+
+    /// take a radian value and normalize to [-magnitude, magnitude]
+    private static double normalizeAngle(double radians, double magnitude) {
+        final var doubleMagnitude = 2 * magnitude;
+
+        return (((radians + magnitude) % doubleMagnitude) + doubleMagnitude) % doubleMagnitude - magnitude;
+    }
+
+    /* Returns turret angle in radians, output in range [-pi, pi] */
+    public double getAngle() {
+        return encoder.getDistance() // ticks
+                / TICKS_PER_REVM // motor revolutions
+                / MOTOR_REV_PER_TURRET_REV // turret revolutions
+                * RADIANS_PER_REV; // turret radians
+    }
+
+    public boolean isLimitSwitchClosed() {
+        return encoder.isFwdLimitSwitchClosed() || encoder.isRevLimitSwitchClosed();
+    }
+
+    public PositionSensorMotor getMotor() {
+        return motor;
     }
 }
