@@ -11,4 +11,8 @@ public class AxleIntakeOn extends MotorConstant {
     public AxleIntakeOn() {
         super("axleIntakeOn", RobotMap.Component.intakeAxleMotor, DEFAULT_INTAKE_MOTOR_SPEED);
     }
+
+    public AxleIntakeOn(boolean reverse) { // TODO ok this is immensley cringe but I don't want to deal with java right now
+        super("axleIntakeOn", RobotMap.Component.intakeAxleMotor, -DEFAULT_INTAKE_MOTOR_SPEED);
+    }
 }
