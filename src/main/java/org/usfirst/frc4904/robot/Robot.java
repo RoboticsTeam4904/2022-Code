@@ -30,8 +30,8 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopInitialize() {
-        // udpExecute = new UDPExecute("UDPExecute");
-        // udpExecute.schedule(false);
+        udpExecute = new UDPExecute("UDPExecute");
+        udpExecute.schedule(false);
     }
 
     @Override
