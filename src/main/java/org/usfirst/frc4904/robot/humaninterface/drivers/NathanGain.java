@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot.humaninterface.drivers;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.IndexerIntakeOff;
+import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.RejectBall;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.StoreBall;
 import org.usfirst.frc4904.robot.commands.intake.ExtendIntake;
 import org.usfirst.frc4904.robot.commands.intake.RetractIntake;
@@ -29,7 +30,7 @@ public class NathanGain extends Driver {
 		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 3.0));
 		RobotMap.HumanInput.Driver.xbox.rb.whenPressed(new ExtendIntake());
 		RobotMap.HumanInput.Driver.xbox.lb.whenPressed(new RetractIntake());
-		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new IndexerIntakeOff());
+		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new RunFor(new RejectBall(), 3.0));
 	}
 
 	@Override
