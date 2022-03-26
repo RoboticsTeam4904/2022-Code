@@ -22,7 +22,7 @@ import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 import org.usfirst.frc4904.robot.subsystems.Climber;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
-
+import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -31,7 +31,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.custom.sensors.NavX;
 
 import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
-
+import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
 import org.usfirst.frc4904.robot.udp.RobotUDPClient;
@@ -76,7 +76,8 @@ public class RobotMap {
 
         public static class Pneumatics {
             public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 1); //TODO: set port for drawbridge intake solenoid
-            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 7); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 7); //TODO: set port for drawbridge intake 
+            public static final PCMPort SHIFTER = new PCMPort(0, PneumaticsModuleType.CTREPCM, 1, 3); // TODO fix these values maybe?
         }
 
         public static class Digital {
@@ -132,7 +133,7 @@ public class RobotMap {
         public static Motor leftWheelA;
         public static Motor leftWheelB;
         public static SensorDrive sensorDrive;
-        public static TankDrive chassis;
+        public static TankDriveShifting chassis;
         public static CustomPIDController drivePID;
         public static NavX navx;
 
@@ -151,6 +152,8 @@ public class RobotMap {
 
         public static CANTalonFX shooterTalon;
         public static Motor shooterMotor;
+
+        public static SolenoidShifters shifter;
         
         public static RobotUDPClient robotUDPClient;
         public static Pose2d initialPose;
@@ -179,6 +182,8 @@ public class RobotMap {
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
         
+
+
         Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); //TODO: check if CANTalonFX
@@ -192,6 +197,8 @@ public class RobotMap {
         Component.climberTalon = new CANTalonFX(Port.CANMotor.CLIMBER_MOTOR);
         Component.climberMotor = new Motor("Climber Motor", false, Component.climberTalon);
         Component.climber = new Climber(Component.climberMotor);
+
+        Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
         Component.turretMotor.setSelectedSensorPosition(2560);
@@ -238,8 +245,8 @@ public class RobotMap {
         Component.chassisTalonEncoders = new EncoderPair(Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder);
 
         // General Chassis
-        Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
-                Component.rightWheelA, Component.rightWheelB);
+        Component.chassis = new TankDriveShifting("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
+                Component.rightWheelA, Component.rightWheelB, Component.shifter);
         Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
     }
 }
