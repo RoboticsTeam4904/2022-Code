@@ -200,7 +200,7 @@ public class RobotMap {
         Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
-        Component.turretMotor.setSelectedSensorPosition(2560);
+        Component.turretMotor.setSelectedSensorPosition(0);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor); 
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
