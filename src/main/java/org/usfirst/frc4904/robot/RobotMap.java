@@ -185,7 +185,6 @@ public class RobotMap {
 
 
         Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
-        Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
         Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); //TODO: check if CANTalonFX
 
         Component.indexerHolderTalon = new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR);

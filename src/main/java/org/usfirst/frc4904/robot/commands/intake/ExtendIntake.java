@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class ExtendIntake extends ParallelCommandGroup {
     public ExtendIntake() {
         this.addCommands(
-            new SolenoidExtend(RobotMap.Component.intakeExtender1),
-            new SolenoidExtend(RobotMap.Component.intakeExtender2)
+            new SolenoidExtend(RobotMap.Component.intakeExtender1)
         );
     }
 }
