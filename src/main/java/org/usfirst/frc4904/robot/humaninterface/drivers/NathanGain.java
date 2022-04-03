@@ -2,6 +2,10 @@ package org.usfirst.frc4904.robot.humaninterface.drivers;
 
 import org.usfirst.frc4904.robot.Robot;
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.climber.ClimberBreak;
+import org.usfirst.frc4904.robot.commands.climber.ClimberDown;
+import org.usfirst.frc4904.robot.commands.climber.ClimberOff;
+import org.usfirst.frc4904.robot.commands.climber.ClimberUp;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.IndexerIntakeOff;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.RejectBall;
 import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.StoreBall;
@@ -42,6 +46,11 @@ public class NathanGain extends Driver {
 
 		RobotMap.HumanInput.Driver.xbox.dPad.up.whenPressed(new TurnTurret(Math.PI / 2, RobotMap.Component.turret));
 		RobotMap.HumanInput.Driver.xbox.dPad.down.whenPressed(new TurnTurret(0, RobotMap.Component.turret));
+
+		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberUp()); 
+		RobotMap.HumanInput.Operator.joystick.button8.whenPressed(new ClimberDown());
+		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new ClimberBreak());
+		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(new ClimberOff());
 	}
 
 	@Override
