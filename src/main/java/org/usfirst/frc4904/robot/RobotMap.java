@@ -219,7 +219,7 @@ public class RobotMap {
 
         Component.climberTalon = new CANTalonFX(Port.CANMotor.CLIMBER_MOTOR);
         Component.climberMotor = new Motor("Climber Motor", false, Component.climberTalon);
-        Component.climber = new Climber(Component.climberMotor);
+        Component.climber = new Climber(Component.climberMotor, Component.climberTalon);
 
         Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         
