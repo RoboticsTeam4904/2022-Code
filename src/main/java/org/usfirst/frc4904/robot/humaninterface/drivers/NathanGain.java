@@ -1,12 +1,22 @@
 package org.usfirst.frc4904.robot.humaninterface.drivers;
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.IndexerIntakeOff;
+import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.RejectBall;
+import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.StoreBall;
+import org.usfirst.frc4904.robot.commands.intake.ExtendIntake;
+import org.usfirst.frc4904.robot.commands.intake.RetractIntake;
+import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
+import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.RunFor;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisShift;
 import org.usfirst.frc4904.standard.humaninput.Driver;
+import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 
 public class NathanGain extends Driver {
 	public static final double SPEED_GAIN = 1;
 	public static final double SPEED_EXP = 2;
-	public static final double TURN_GAIN = 0.7;
+	public static final double TURN_GAIN = 0.6;
 	public static final double TURN_EXP = 1;
 	public static final double Y_SPEED_SCALE = 1;
 	public static final double TURN_SPEED_SCALE = 1;
@@ -21,6 +31,15 @@ public class NathanGain extends Driver {
 
 	@Override
 	public void bindCommands() {
+		RobotMap.HumanInput.Driver.xbox.y.whenPressed(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.SolenoidState.EXTEND));
+		//RobotMap.HumanInput.Driver.xbox.y.whenReleased(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.SolenoidState.RETRACT));
+		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 3.0));
+		RobotMap.HumanInput.Driver.xbox.rb.whenPressed(new ExtendIntake());
+		RobotMap.HumanInput.Driver.xbox.lb.whenPressed(new RetractIntake());
+		//RobotMap.HumanInput.Driver.xbox.x.whenPressed(new RunFor(new RejectBall(), 3.0));
+
+		RobotMap.HumanInput.Driver.xbox.dPad.up.whenPressed(new TurnTurret(Math.PI / 2));
+		RobotMap.HumanInput.Driver.xbox.dPad.down.whenPressed(new TurnTurret(0));
 	}
 
 	@Override
@@ -32,14 +51,20 @@ public class NathanGain extends Driver {
 	public double getY() {
 		double rawSpeed = RobotMap.HumanInput.Driver.xbox.rt.getX() - RobotMap.HumanInput.Driver.xbox.lt.getX();
 		double speed = scaleGain(rawSpeed, NathanGain.SPEED_GAIN, NathanGain.SPEED_EXP) * NathanGain.Y_SPEED_SCALE;
-		return speed;
+		double precisionDrive = scaleGain(RobotMap.HumanInput.Driver.xbox.rightStick.getY(), 0.08, 1.2);
+		LogKitten.wtf("joystick y " + RobotMap.HumanInput.Operator.joystick.getAxis(1));
+		double operatorDrive = scaleGain(-RobotMap.HumanInput.Operator.joystick.getAxis(1), 0.1, 1.2);
+		return speed + precisionDrive + operatorDrive;
 	}
 
 	@Override
 	public double getTurnSpeed() {
 		double rawTurnSpeed = RobotMap.HumanInput.Driver.xbox.leftStick.getX();
+		double precisionTurnSpeed = scaleGain(RobotMap.HumanInput.Driver.xbox.rightStick.getX(), 0.08, 1.2);
+		double operatorControlTurnSpeed = scaleGain(RobotMap.HumanInput.Operator.joystick.getAxis(0), 0.2, 1.5);
 		double turnSpeed = scaleGain(rawTurnSpeed, NathanGain.TURN_GAIN, NathanGain.TURN_EXP)
 				* NathanGain.TURN_SPEED_SCALE;
-		return turnSpeed;
+		return turnSpeed + precisionTurnSpeed + operatorControlTurnSpeed;
+		// return turnSpeed;
 	}
 }

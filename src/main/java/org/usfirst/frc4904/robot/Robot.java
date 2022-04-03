@@ -6,15 +6,21 @@
 /*----------------------------------------------------------------------------*/
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.auton.SimpleRoutine;
+import org.usfirst.frc4904.robot.commands.UDPExecute;
+import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import org.usfirst.frc4904.standard.commands.KittenCommand;
+
 import org.usfirst.frc4904.standard.LogKitten;
 
 public class Robot extends CommandRobotBase {
     private RobotMap map = new RobotMap();
+    private UDPExecute udpExecute;
 
     @Override
     public void initialize() {
@@ -24,14 +30,24 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopInitialize() {
+        udpExecute = new UDPExecute("UDPExecute");
+        udpExecute.schedule(false);
     }
 
     @Override
     public void teleopExecute() {
+        final double TURRET_MAX_ANGLE = 170;    // used to rescale controller input [-1, 1] to safe turret angles; TODO: update
+        final double CONTROL_SPEED = 0.05;
+        final double target_radians = Math.max(Math.min((RobotMap.Component.turret.getAngle() + CONTROL_SPEED * RobotMap.HumanInput.Operator.joystick.getX()), 1), -1) * (TURRET_MAX_ANGLE/180)*Math.PI;
+        //new TurnTurret(target_radians).schedule(false);
     }
 
     @Override
     public void autonomousInitialize() {
+        udpExecute = new UDPExecute("UDPExecute");
+        udpExecute.schedule(false);
+        CommandGroupBase routine = new SimpleRoutine();
+        routine.schedule();
     }
 
     @Override
@@ -56,7 +72,6 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void alwaysExecute() {
-
     }
 
 }
