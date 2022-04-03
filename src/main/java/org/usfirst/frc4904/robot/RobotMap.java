@@ -120,9 +120,9 @@ public class RobotMap {
         }
 
         public static class Turret {
-            public static final double P = 8e-5; // TODO: TUNE
+            public static final double P = 7e-5; // TODO: TUNE
             public static final double I = 0; // 3E-8
-            public static final double D = -2e-5;
+            public static final double D = -7e-6;
             public static final double F = 0;
             // public static final double tolerance = -1;
             // public static final double dTolerance = -1;
@@ -229,8 +229,7 @@ public class RobotMap {
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
-        Component.turretPID.setAbsoluteTolerance(0.57);
-
+        Component.turretPID.setAbsoluteTolerance(1e-10);
         PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);
         Component.turret = new Turret(turretPSM, Component.turretEncoder);
 
