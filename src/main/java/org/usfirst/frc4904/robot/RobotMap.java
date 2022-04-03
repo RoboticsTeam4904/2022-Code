@@ -277,16 +277,5 @@ public class RobotMap {
         Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
 
         // NetworkTables setup
-
-        final var nt = NetworkTables.instance = NetworkTableInstance.getDefault();
-
-        final var localizationTable = NetworkTables.Localization.table = nt.getTable("localization");
-        NetworkTables.Localization.goalDistance = localizationTable.getEntry("distance");
-        NetworkTables.Localization.goalRelativeAngle = localizationTable.getEntry("angle");
-
-        final var odometryTable = NetworkTables.Odometry.table = nt.getTable("odometry");
-        NetworkTables.Odometry.pose = odometryTable.getEntry("pose");
-        NetworkTables.Odometry.accel = odometryTable.getEntry("accel");
-        NetworkTables.Odometry.turretAngle = odometryTable.getEntry("turretAngle");
     }
 }

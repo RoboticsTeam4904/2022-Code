@@ -76,9 +76,6 @@ public class Robot extends CommandRobotBase {
     public void alwaysExecute() {
         final var localizationData = RobotMap.Component.robotUDP.getLocalizationData();
 
-        RobotMap.NetworkTables.Localization.goalDistance.setDouble(localizationData.goalDistance());
-        RobotMap.NetworkTables.Localization.goalRelativeAngle.setDouble(localizationData.goalRelativeAngle());
-
         final var odometryData = RobotMap.Component.robotUDP.getOdometryData();
 
         final var pose = odometryData.pose().pose();
@@ -90,14 +87,6 @@ public class Robot extends CommandRobotBase {
         });
 
         final var accel = odometryData.accel().pose();
-
-        RobotMap.NetworkTables.Odometry.accel.setDoubleArray(new double[] {
-                accel.getRotation().getRadians(),
-                accel.getX(),
-                accel.getY(),
-        });
-
-        RobotMap.NetworkTables.Odometry.turretAngle.setDouble(odometryData.turretAngle());
     }
 
 }
