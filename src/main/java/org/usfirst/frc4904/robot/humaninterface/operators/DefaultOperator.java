@@ -30,7 +30,7 @@ public class DefaultOperator extends Operator {
 	public void bindCommands() {
 		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
 			new RunFor(new Shoot(), 4),
-			new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2),
+			// new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2),
 			new ShooterBrake(),
 			new IndexerOff()
 		));

@@ -26,6 +26,7 @@ public class TurnTurret extends MotorPositionConstant {
 		if (RobotMap.Component.turret.turretEncoder.getFwdLimitSwitchClosed() == 1 || RobotMap.Component.turret.turretEncoder.getRevLimitSwitchClosed() == 1) {
 			return true;
 		}
+		if(super.isFinished()) LogKitten.wtf("turret command end");
 		return super.isFinished();
 	}
 	
