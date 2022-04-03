@@ -31,7 +31,7 @@ import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 import org.usfirst.frc4904.robot.subsystems.Climber;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
-
+import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -40,7 +40,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.custom.sensors.NavX;
 
 import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
-
+import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
 import org.usfirst.frc4904.robot.subsystems.net.RobotUDP;
@@ -82,9 +82,9 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
-            // TODO: set ports for drawbridge intake solenoid
-            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 1);
-            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 7);
+            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 1, 2); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 3, 4); //TODO: set port for drawbridge intake 
+            public static final PCMPort SHIFTER = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 7); // TODO fix these values maybe?
         }
 
         public static class Digital {
@@ -120,9 +120,9 @@ public class RobotMap {
         }
 
         public static class Turret {
-            public static final double P = 1.5e-4; // TODO: TUNE
+            public static final double P = 8e-5; // TODO: TUNE
             public static final double I = 0; // 3E-8
-            public static final double D = -5e-5;
+            public static final double D = -2e-5;
             public static final double F = 0;
             // public static final double tolerance = -1;
             // public static final double dTolerance = -1;
@@ -140,7 +140,7 @@ public class RobotMap {
         public static Motor leftWheelA;
         public static Motor leftWheelB;
         public static SensorDrive sensorDrive;
-        public static TankDrive chassis;
+        public static TankDriveShifting chassis;
         public static CustomPIDController drivePID;
         public static NavX navx;
 
@@ -160,6 +160,8 @@ public class RobotMap {
         public static CANTalonFX shooterTalon;
         public static Motor shooterMotor;
 
+        public static SolenoidShifters shifter;
+        
         public static RobotUDP robotUDP;
         public static Pose2d initialPose;
 
@@ -202,14 +204,13 @@ public class RobotMap {
         Component.navx = new NavX(SerialPort.Port.kMXP);
 
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
-        HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+        
 
-        Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT,
-                Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); // TODO: check if CANTalonFX or SRX
-        Component.intakeExtender2 = new SolenoidSubsystem("Intake Extender 2", false, SolenoidState.RETRACT,
-                Port.Pneumatics.INTAKE_EXTENDER_2.buildDoubleSolenoid()); // TODO: check if CANTalonFX or SRX
-        // TODO: check if CANTalonFX
-        Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR));
+
+        Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
+        Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); // TODO: check if CANTalonFX
+
         Component.indexerHolderTalon = new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR);
         Component.indexerBeltTalon = new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR);
         Motor indexerHolderMotor = new Motor("Indexer 1", false, Component.indexerHolderTalon);
@@ -220,12 +221,15 @@ public class RobotMap {
         Component.climberMotor = new Motor("Climber Motor", false, Component.climberTalon);
         Component.climber = new Climber(Component.climberMotor);
 
+        Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
+        
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
-        Component.turretMotor.setSelectedSensorPosition(-2560);
+        Component.turretMotor.setSelectedSensorPosition(0);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor);
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
+        Component.turretPID.setAbsoluteTolerance(0.57);
 
         PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);
         Component.turret = new Turret(turretPSM, Component.turretEncoder);
@@ -269,8 +273,8 @@ public class RobotMap {
                 Component.rightWheelTalonEncoder);
 
         // General Chassis
-        Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
-                Component.rightWheelA, Component.rightWheelB);
+        Component.chassis = new TankDriveShifting("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
+                Component.rightWheelA, Component.rightWheelB, Component.shifter);
         Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
 
         // NetworkTables setup

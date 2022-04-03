@@ -19,13 +19,15 @@ public class SimpleRoutine extends SequentialCommandGroup {
     public SimpleRoutine(Turret turret) {
         // first backup, then shoot
         this.addCommands(
-                new ExtendIntake(),
-                new ChassisConstant(RobotMap.Component.chassis, 0, 0.1, 0, 0.5), // TODO: tune seconds, currently 2
-                new TurnTurret(0.0, turret),
-                new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret),
-                new RunFor(new Shoot(RobotMap.Component.robotUDP), 5),
-                new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED),
-                new ShooterBrake(),
-                new IndexerOff());
+
+            new ChassisConstant(RobotMap.Component.chassis, 0, -0.5, 0, 0.5) // TODO: tune num of seconds, currently 2
+            //new RunFor(new ExtendIntake(), 2.2)
+            //new TurnTurret(0.0),
+            //new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret),
+            //new RunFor(new Shoot(RobotMap.Component.robotUDP), 5),
+			// new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED),
+			// new ShooterBrake(),
+			// new IndexerOff()
+        );
     }
 }

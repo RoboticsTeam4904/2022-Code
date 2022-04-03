@@ -14,10 +14,10 @@ public class Turret extends SubsystemBase {
     public static final double RADIANS_PER_REV = 2 * Math.PI;
     public static final double BIG_GEAR_RADIUS = 120;
     public static final double SMALL_GEAR_RADIUS = 24;
-    public static final double MOTOR_REV_PER_TURRET_REV = BIG_GEAR_RADIUS / SMALL_GEAR_RADIUS;
+    public static final double MOTOR_REV_PER_TURRET_REV = BIG_GEAR_RADIUS/SMALL_GEAR_RADIUS;
 
-    private final PositionSensorMotor motor;
-    private final CANTalonEncoder encoder;
+    public PositionSensorMotor motor;
+    public CANTalonEncoder encoder;
 
     /** Creates a new Turret. */
     public Turret(PositionSensorMotor motor, CANTalonEncoder encoder) {
@@ -26,12 +26,13 @@ public class Turret extends SubsystemBase {
     }
 
     public static double convertTurretAngleToMotorPosition(double angle) {
-        // Restrain position set to be within one turret rotation, reverse to other side
-        // if needed
-        return normalizeAngle(angle, Math.PI) // turret radians
-                / RADIANS_PER_REV // turret revs
-                * MOTOR_REV_PER_TURRET_REV // motor revs
-                * TICKS_PER_REVM; // encoder ticks
+		// Restrain position set to be within one turret rotation, reverse to other side if needed
+		// final double pos =;                    // encoder ticks
+
+		return normalizeAngle(angle, Math.PI)  // turret radians
+		/ Turret.RADIANS_PER_REV                    // turret revs
+		* Turret.MOTOR_REV_PER_TURRET_REV           // motor revs
+		* Turret.TICKS_PER_REVM;
     }
 
     /// take a radian value and normalize to [-magnitude, magnitude]
@@ -43,7 +44,7 @@ public class Turret extends SubsystemBase {
 
     /* Returns turret angle in radians, output in range [-pi, pi] */
     public double getAngle() {
-        return encoder.getDistance() // ticks
+        return this.encoder.getDistance() // ticks
                 / TICKS_PER_REVM // motor revolutions
                 / MOTOR_REV_PER_TURRET_REV // turret revolutions
                 * RADIANS_PER_REV; // turret radians
@@ -55,5 +56,11 @@ public class Turret extends SubsystemBase {
 
     public PositionSensorMotor getMotor() {
         return motor;
+    }
+
+    // take a radian value and normalize to [-pi, pi]
+    // TODO remove, just a version of normalize that uses PI explicitly
+    private static double turretModulo(double radians) {
+        return (((radians + Math.PI) % (2*Math.PI)) + (2*Math.PI)) % (2*Math.PI) - Math.PI;
     }
 }

@@ -5,7 +5,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
 public class Climber extends SubsystemBase {
 
-  public static final double DEFAULT_CLIMBER_SPEED = 0.3; //TODO: Set value
+  public static final double DEFAULT_CLIMBER_SPEED = 0.025; //TODO: Set value
   public final Motor climberMotor;
   public Climber(Motor climberMotor) {
     this.climberMotor = climberMotor;

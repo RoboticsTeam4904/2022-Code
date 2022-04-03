@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 public class RetractIntake extends ParallelCommandGroup {
     public RetractIntake() {
         this.addCommands(
-            new SolenoidRetract(RobotMap.Component.intakeExtender1),
-            new SolenoidRetract(RobotMap.Component.intakeExtender2)
+            new SolenoidRetract(RobotMap.Component.intakeExtender1)
         );
     }
 }

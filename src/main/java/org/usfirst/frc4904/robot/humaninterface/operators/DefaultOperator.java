@@ -27,14 +27,13 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
-				new RunFor(new Shoot(RobotMap.Component.robotUDP), 5),
+				new RunFor(new Shoot(RobotMap.Component.robotUDP), 4),
 				new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2),
 				new ShooterBrake(),
 				new IndexerOff()));
 		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberUp());
 		RobotMap.HumanInput.Operator.joystick.button8.whenPressed(new ClimberDown());
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new ClimberOff());
-		RobotMap.HumanInput.Operator.joystick.button2
-				.whenPressed(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
+		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
 	}
 }
