@@ -19,6 +19,7 @@ public final class LocalizationUpdate implements Unpackable {
 
     @Override
     public void unpack(MessageUnpacker unpacker) throws IOException {
+        unpacker.unpackArrayHeader();
         goalDistance = unpacker.unpackDouble();
         goalRelativeAngle = unpacker.unpackDouble();
     }
