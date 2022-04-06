@@ -17,8 +17,9 @@ public class Shoot extends ParallelCommandGroup {
 
         // from mar 24 23:26
         // https://discord.com/channels/898058908915073024/898059350772441148/956801260940566589
-        final double speed = (d - (29 * v) + 383) / 370;
+        final double speed = (d - (29 * v) + 383) / 370; // TODO cringe
 
+        // this.addCommands(new ShooterSetSpeed(0));
         this.addCommands(new ShooterSetSpeed(speed));
     }
 }

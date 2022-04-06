@@ -3,11 +3,12 @@ package org.usfirst.frc4904.robot.subsystems.net.messages;
 import java.io.IOException;
 
 import org.msgpack.core.MessageUnpacker;
+import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.subsystems.net.message.Unpackable;
 
 public final class LocalizationUpdate implements Unpackable {
-    private double goalDistance;
-    private double goalRelativeAngle;
+    private double goalDistance = 0;
+    private double goalRelativeAngle = Math.PI / 2;
 
     public double goalDistance() {
         return goalDistance;
@@ -22,5 +23,6 @@ public final class LocalizationUpdate implements Unpackable {
         unpacker.unpackArrayHeader();
         goalDistance = unpacker.unpackDouble();
         goalRelativeAngle = unpacker.unpackDouble();
+        // LogKitten.wtf("emacs?????????????? " + goalRelativeAngle +" "+  goalDistance);
     }
 }
