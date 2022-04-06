@@ -7,6 +7,7 @@ package org.usfirst.frc4904.robot.subsystems;
 
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
+import org.usfirst.frc4904.standard.LogKitten;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -22,6 +23,7 @@ public class Turret extends SubsystemBase {
 
     /** Creates a new Turret. */
     public Turret(PositionSensorMotor motor, CANTalonEncoder encoder) {
+        super();
         this.motor = motor;
         this.encoder = encoder;
     }

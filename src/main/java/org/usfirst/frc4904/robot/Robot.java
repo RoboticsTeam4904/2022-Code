@@ -32,6 +32,13 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopInitialize() {
+        final var odometrySend = new OdometrySend(
+            RobotMap.Component.robotUDP,
+            RobotMap.Component.sensorDrive,
+            RobotMap.Component.navx,
+            RobotMap.Component.turret);
+
+        odometrySend.schedule();
     }
 
     @Override
@@ -49,7 +56,7 @@ public class Robot extends CommandRobotBase {
                 RobotMap.Component.navx,
                 RobotMap.Component.turret);
 
-        odometrySend.schedule(false);
+        odometrySend.schedule();
     }
 
     @Override
@@ -78,15 +85,15 @@ public class Robot extends CommandRobotBase {
 
         final var odometryData = RobotMap.Component.robotUDP.getOdometryData();
 
-        final var pose = odometryData.pose().pose();
+        // final var pose = odometryData.pose().pose();
 
-        RobotMap.NetworkTables.Odometry.pose.setDoubleArray(new double[] {
-                pose.getRotation().getRadians(),
-                pose.getX(),
-                pose.getY(),
-        });
+        // RobotMap.NetworkTables.Odometry.pose.setDoubleArray(new double[] {
+        //         pose.getRotation().getRadians(),
+        //         pose.getX(),
+        //         pose.getY(),
+        // });
 
-        final var accel = odometryData.accel().pose();
+        // final var accel = odometryData.accel().pose();
     }
 
 }
