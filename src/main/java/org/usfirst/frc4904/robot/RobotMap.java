@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
+import org.usfirst.frc4904.robot.subsystems.Shooter;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
@@ -30,6 +31,7 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem.SolenoidState;
 import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 import org.usfirst.frc4904.robot.subsystems.Climber;
+
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
@@ -158,7 +160,7 @@ public class RobotMap {
         public static CANTalonFX turretMotor;
 
         public static CANTalonFX shooterTalon;
-        public static Motor shooterMotor;
+        public static Motor flywheelMotor;
 
         public static SolenoidShifters shifter;
         
@@ -168,6 +170,7 @@ public class RobotMap {
         public static CANTalonFX climberTalon;
         public static Motor climberMotor;
         public static Climber climber;
+        public static Shooter shooter;
     }
 
     public static class NetworkTables {
@@ -220,6 +223,8 @@ public class RobotMap {
         Component.climberTalon = new CANTalonFX(Port.CANMotor.CLIMBER_MOTOR);
         Component.climberMotor = new Motor("Climber Motor", false, Component.climberTalon);
         Component.climber = new Climber(Component.climberMotor, Component.climberTalon);
+        Component.flywheelMotor = new Motor("Shooter", true, Component.shooterTalon);
+        Component.shooter = new Shooter(Component.flywheelMotor, Component.shooterTalon);
 
         Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         
@@ -234,7 +239,6 @@ public class RobotMap {
         Component.turret = new Turret(turretPSM, Component.turretEncoder);
 
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
-        Component.shooterMotor = new Motor("Shooter", true, Component.shooterTalon);
 
         // UDP things
         try {

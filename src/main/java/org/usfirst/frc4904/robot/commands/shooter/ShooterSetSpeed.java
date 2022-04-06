@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot.commands.shooter;
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.subsystems.Shooter;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 
 public class ShooterSetSpeed extends MotorConstant {
@@ -12,6 +13,7 @@ public class ShooterSetSpeed extends MotorConstant {
    */
 
   public ShooterSetSpeed(double speed) {
-    super(RobotMap.Component.shooterMotor, speed);
+    super(RobotMap.Component.shooter.flywheel, Shooter.DEFAULT_SHOOTER_SPEED);
+
   }
 }

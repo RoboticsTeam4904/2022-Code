@@ -9,6 +9,6 @@ public class ShooterOff extends MotorIdle {
    * Set indexer motor speed to zero
    */
   public ShooterOff() {
-      super(RobotMap.Component.shooterMotor);
+      super(RobotMap.Component.shooter.flywheel);
   }
 }
