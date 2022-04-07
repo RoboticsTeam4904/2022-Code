@@ -22,6 +22,12 @@ public class TurnTurret extends MotorPositionConstant {
 	}
 
 	@Override
+	public void execute() {
+		super.execute();
+		RobotMap.Component.turretPID.setSetpoint(RobotMap.Component.turretPID.getSetpoint() + 2 * RobotMap.HumanInput.Operator.joystick.getZ()); // Manual adjustments to joystick
+	}
+
+	@Override
 	public boolean isFinished() {
 		if (turret.isLimitSwitchClosed()) {
 			return true;

@@ -36,6 +36,6 @@ public class DefaultOperator extends Operator {
 				new IndexerOff()));
 		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberBrake());
 		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
-		RobotMap.HumanInput.Operator.joystick.button5.whenPressed(new ShooterSetSpeed(0));
+		RobotMap.HumanInput.Operator.joystick.button5.whenPressed(new ShooterSetSpeed(0.1)); // Shoot ball at low velocity to miss goal intentionally
 	}
 }
