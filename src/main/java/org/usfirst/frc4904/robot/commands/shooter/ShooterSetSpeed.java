@@ -14,7 +14,7 @@ public class ShooterSetSpeed extends MotorVelocitySet {
    */
 
   public ShooterSetSpeed() {
-    super(RobotMap.Component.shooter.shooterMotor, Shooter.DEFAULT_VELOCITY);
+    super(RobotMap.Component.shooter.shooterMotor, Shooter.SHOOT_VELOCITY);
 
   }
 }
