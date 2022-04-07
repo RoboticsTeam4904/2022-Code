@@ -44,6 +44,7 @@ import org.usfirst.frc4904.standard.custom.sensors.NavX;
 import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
+import org.usfirst.frc4904.standard.subsystems.motor.VelocitySensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
 import org.usfirst.frc4904.robot.subsystems.net.RobotUDP;
 
@@ -131,6 +132,16 @@ public class RobotMap {
 
         }
 
+        public static class Shooter {
+            public static final double P = 9e-5; // TODO: TUNE (6e-5)
+            public static final double I = 0; // 3E-8
+            public static final double D = -5e-6; // (2e-6)
+            public static final double F = 0;
+            // public static final double tolerance = -1;
+            // public static final double dTolerance = -1;
+
+        }
+
     }
 
     public static class Component {
@@ -159,8 +170,11 @@ public class RobotMap {
         public static CANTalonEncoder turretEncoder;
         public static CANTalonFX turretMotor;
 
+        public static CANTalonEncoder shooterEncoder;    
         public static CANTalonFX shooterTalon;
-        public static Motor flywheelMotor;
+        public static Motor shooterMotor;
+        public static CustomPIDController shooterPID;
+
 
         public static SolenoidShifters shifter;
         
@@ -223,8 +237,16 @@ public class RobotMap {
         Component.climberTalon = new CANTalonFX(Port.CANMotor.CLIMBER_MOTOR);
         Component.climberMotor = new Motor("Climber Motor", false, Component.climberTalon);
         Component.climber = new Climber(Component.climberMotor, Component.climberTalon);
-        Component.flywheelMotor = new Motor("Shooter", true, Component.shooterTalon);
-        Component.shooter = new Shooter(Component.flywheelMotor, Component.shooterTalon);
+        
+        Component.turretEncoder = new CANTalonEncoder(Component.turretMotor);
+
+
+
+        Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
+        Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
+        Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
+        VelocitySensorMotor shooterPSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
+        Component.shooter = new Shooter(shooterPSM, Component.shooterEncoder);
 
         Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         
@@ -239,7 +261,6 @@ public class RobotMap {
         PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);
         Component.turret = new Turret(turretPSM, Component.turretEncoder);
 
-        Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
 
         // UDP things
         try {
