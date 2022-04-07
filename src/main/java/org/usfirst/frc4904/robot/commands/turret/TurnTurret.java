@@ -5,6 +5,7 @@ import org.usfirst.frc4904.robot.subsystems.Turret;
 import org.usfirst.frc4904.standard.custom.sensors.InvalidSensorException;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.motor.MotorBrake;
 import org.usfirst.frc4904.standard.commands.motor.MotorPositionConstant;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -21,11 +22,22 @@ public class TurnTurret extends MotorPositionConstant {
 	}
 
 	@Override
+	public void execute() {
+		super.execute();
+		RobotMap.Component.turretPID.setSetpoint(RobotMap.Component.turretPID.getSetpoint() + 2 * RobotMap.HumanInput.Operator.joystick.getZ()); // Manual adjustments to joystick
+	}
+
+	@Override
 	public boolean isFinished() {
 		if (turret.isLimitSwitchClosed()) {
 			return true;
 		}
 
 		return super.isFinished();
+	}
+
+	public void end(boolean interrupted) {
+		super.end(interrupted);
+		new MotorBrake(RobotMap.Component.turretMotor).schedule();
 	}
 }

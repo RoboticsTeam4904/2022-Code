@@ -7,6 +7,10 @@
 package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.auton.SimpleRoutine;
+import org.usfirst.frc4904.robot.commands.climber.ClimberBrake;
+import org.usfirst.frc4904.robot.commands.climber.ClimberDown;
+import org.usfirst.frc4904.robot.commands.climber.ClimberOff;
+import org.usfirst.frc4904.robot.commands.climber.ClimberUp;
 import org.usfirst.frc4904.robot.commands.net.OdometrySend;
 import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
@@ -43,6 +47,15 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopExecute() {
+        if(RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
+            new ClimberUp().schedule();
+        } else if(RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
+            new ClimberDown().schedule();
+        } else {
+            new ClimberOff().schedule();
+        }
+
+        LogKitten.wtf(RobotMap.Component.shooterTalon.get());
     }
 
     @Override
