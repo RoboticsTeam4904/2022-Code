@@ -256,6 +256,7 @@ public class RobotMap {
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
+        Component.turretPID.setAbsoluteTolerance(30);
         Component.turretPID.setMinimumNominalOutput(0.062);
         Component.turretPID.setOutputRange(-0.10, 0.10);
         PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);

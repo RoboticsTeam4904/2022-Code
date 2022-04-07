@@ -12,6 +12,7 @@ public class ShooterBrake extends MotorBrake {
    */
 
   public ShooterBrake() {
-    super("ShooterBrake", RobotMap.Component.shooter.encoder);
+    super("ShooterBrake", RobotMap.Component.shooterTalon);
+    new ShooterSetSpeed(0).schedule();
   }
 }
