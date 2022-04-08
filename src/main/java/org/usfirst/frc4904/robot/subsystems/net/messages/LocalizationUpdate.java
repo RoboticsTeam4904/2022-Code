@@ -8,7 +8,7 @@ import org.usfirst.frc4904.standard.subsystems.net.message.Unpackable;
 
 public final class LocalizationUpdate implements Unpackable {
     private double goalDistance = 0;
-    private double goalRelativeAngle = Math.PI / 2;
+    private double goalRelativeAngle = 0;
 
     public double goalDistance() {
         return goalDistance;

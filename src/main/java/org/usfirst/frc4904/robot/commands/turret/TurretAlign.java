@@ -21,16 +21,17 @@ public final class TurretAlign extends CommandBase {
 
     @Override
     public void initialize() {
+        super.initialize();
         final var angleGoal = turret.getAngle() + net.getLocalizationData().goalRelativeAngle();
-
+        // final var angleGoal = Math.PI/2;
         turnCommand = new TurnTurret(angleGoal, turret);
         turnCommand.schedule();
     }
 
-    @Override
-    public void execute() {
-        turnCommand.execute();
-    }
+    // @Override
+    // public void execute() {
+    //     turnCommand.execute();
+    // }
 
     @Override
     public boolean isFinished() {
@@ -39,6 +40,7 @@ public final class TurretAlign extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        super.end(interrupted);
         turnCommand.end(interrupted);
     }
 }

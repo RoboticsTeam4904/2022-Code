@@ -85,7 +85,7 @@ public class RobotMap {
         }
 
         public static class Pneumatics {
-            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 1, 2); //TODO: set port for drawbridge intake solenoid
+            public static final PCMPort INTAKE_EXTENDER_1 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 2, 1); //TODO: set port for drawbridge intake solenoid
             public static final PCMPort INTAKE_EXTENDER_2 = new PCMPort(0, PneumaticsModuleType.CTREPCM, 3, 4); //TODO: set port for drawbridge intake 
             public static final PCMPort SHIFTER = new PCMPort(0, PneumaticsModuleType.CTREPCM, 0, 7); // TODO fix these values maybe?
         }
@@ -133,9 +133,9 @@ public class RobotMap {
         }
 
         public static class Shooter {
-            public static final double P = 9e-5; // TODO: TUNE (6e-5)
+            public static final double P = 3e-5; // TODO: TUNE (6e-5)
             public static final double I = 0; // 3E-8
-            public static final double D = -5e-6; // (2e-6)
+            public static final double D = 0; // (2e-6)
             public static final double F = 0;
             // public static final double tolerance = -1;
             // public static final double dTolerance = -1;
@@ -153,13 +153,14 @@ public class RobotMap {
         public static Motor leftWheelA;
         public static Motor leftWheelB;
         public static SensorDrive sensorDrive;
-        public static TankDriveShifting chassis;
+        public static TankDrive chassis;
         public static CustomPIDController drivePID;
         public static NavX navx;
 
         public static Motor intakeAxleMotor;
         public static SolenoidSubsystem intakeExtender1;
         public static SolenoidSubsystem intakeExtender2;
+        public static SolenoidSubsystem chassisSolenoid;
 
         public static CANTalonFX indexerHolderTalon;
         public static CANTalonFX indexerBeltTalon;
@@ -176,7 +177,7 @@ public class RobotMap {
         public static CustomPIDController shooterPID;
 
 
-        public static SolenoidShifters shifter;
+        // public static SolenoidShifters shifter;
         
         public static RobotUDP robotUDP;
         public static Pose2d initialPose;
@@ -240,12 +241,13 @@ public class RobotMap {
 
 
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
-        Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
-        Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
-        VelocitySensorMotor shooterPSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
-        Component.shooter = new Shooter(shooterPSM, Component.shooterEncoder);
+        Component.shooterMotor = new Motor(true, Component.shooterTalon);
+        // Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
+        // Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
+        // VelocitySensorMotor shooterVSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
+        // Component.shooter = new Shooter(shooterVSM, Component.shooterEncoder);
 
-        Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
+        // Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
         Component.turretMotor.setSelectedSensorPosition(0);
@@ -253,7 +255,7 @@ public class RobotMap {
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
-        Component.turretPID.setAbsoluteTolerance(30);
+        Component.turretPID.setAbsoluteTolerance(2048);
         Component.turretPID.setMinimumNominalOutput(0.062);
         Component.turretPID.setOutputRange(-0.10, 0.10);
         PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);
@@ -296,8 +298,9 @@ public class RobotMap {
                 Component.rightWheelTalonEncoder);
 
         // General Chassis
-        Component.chassis = new TankDriveShifting("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
-                Component.rightWheelA, Component.rightWheelB, Component.shifter);
+        Component.chassisSolenoid = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.EXTEND, Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
+        Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
+                Component.rightWheelA, Component.rightWheelB);//, Component.shifter);
         Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
 
         // NetworkTables setup
