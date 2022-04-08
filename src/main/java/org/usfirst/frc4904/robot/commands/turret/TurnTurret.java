@@ -18,7 +18,7 @@ public class TurnTurret extends MotorPositionConstant {
 
 		this.turret = turret;
 
-		addRequirements(turret);
+		addRequirements(RobotMap.Component.turret); // TODO: cringe (zach)
 	}
 
 	@Override

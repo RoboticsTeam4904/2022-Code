@@ -15,8 +15,6 @@ public final class TurretAlign extends CommandBase {
     public TurretAlign(RobotUDP net, Turret turret) {
         this.net = net;
         this.turret = turret;
-
-        addRequirements(turret);
     }
 
     @Override
@@ -35,12 +33,14 @@ public final class TurretAlign extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return turnCommand.isFinished();
+        return true;
     }
 
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        turnCommand.end(interrupted);
+        if (interrupted) {
+            turnCommand.end(interrupted);
+        }
     }
 }

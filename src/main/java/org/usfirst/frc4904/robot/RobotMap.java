@@ -132,15 +132,15 @@ public class RobotMap {
 
         }
 
-        public static class Shooter {
-            public static final double P = 3e-5; // TODO: TUNE (6e-5)
-            public static final double I = 0; // 3E-8
-            public static final double D = 0; // (2e-6)
-            public static final double F = 0;
-            // public static final double tolerance = -1;
-            // public static final double dTolerance = -1;
+        // public static class Shooter {
+        //     public static final double P = 3e-5; // TODO: TUNE (6e-5)
+        //     public static final double I = 0; // 3E-8
+        //     public static final double D = 0; // (2e-6)
+        //     public static final double F = 0;
+        //     // public static final double tolerance = -1;
+        //     // public static final double dTolerance = -1;
 
-        }
+        // }
 
     }
 
@@ -241,7 +241,7 @@ public class RobotMap {
 
 
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
-        Component.shooterMotor = new Motor(true, Component.shooterTalon);
+        Component.shooterMotor = new Motor("ShooterMotor", true, Component.shooterTalon);
         // Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
         // Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
         // VelocitySensorMotor shooterVSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)

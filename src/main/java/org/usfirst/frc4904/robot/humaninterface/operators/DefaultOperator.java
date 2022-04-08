@@ -24,6 +24,7 @@ import org.usfirst.frc4904.standard.humaninput.Operator;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class DefaultOperator extends Operator {
 	public DefaultOperator() {
@@ -36,31 +37,28 @@ public class DefaultOperator extends Operator {
 
 	@Override
 	public void bindCommands() {
-		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
-				// new RunFor(new Shoot(RobotMap.Component.robotUDP), 4),
-				new KittenCommand("push", LogKitten.KittenLevel.WTF),
-				new ShooterCoast(),
-				new RunFor(new ShooterConstant(0.5), 4),
-				new KittenCommand("log log log lgo lg o glo", LogKitten.KittenLevel.WTF),
-				new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2),
-				new ShooterBrake(),
-				new IndexerOff()));
-		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberBrake());
-		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
+		// RobotMap.HumanInput.Operator.joystick.button1.whenPressed(new SequentialCommandGroup(
+		// 		// new RunFor(new Shoot(RobotMap.Component.robotUDP), 4),
+		// 		new KittenCommand("push", LogKitten.KittenLevel.WTF),
+		// 		new ShooterCoast(),
+		// 		new RunFor(new ShooterConstant(0.5), 4),
+		// 		new KittenCommand("log log log lgo lg o glo", LogKitten.KittenLevel.WTF),
+		// 		new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2),
+		// 		new ShooterBrake(),
+		// 		new IndexerOff()));
+		// RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberBrake());
+		// RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
 		RobotMap.HumanInput.Operator.joystick.button5.whenPressed(new RunFor(new ShooterConstant(0.5), 2)); // Shoot ball at low velocity to miss goal intentionally
 
 		RobotMap.HumanInput.Operator.joystick.button3.whenPressed(new ShooterCoast());
-		RobotMap.HumanInput.Operator.joystick.button6.whenPressed(
+		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(
 			new ParallelCommandGroup(
 				new SequentialCommandGroup(
-					new RunFor(new ShooterConstant(0.5), 5), 
-					new ShooterConstant(0)
-				),
-				new SequentialCommandGroup(
-					new RunFor(new Noop(), 2), 
+					new WaitCommand(0.7), 
 					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2), 
 					new IndexerOff()
-				)
+				),
+				new RunFor(new ShooterConstant(0.8), 5)
 			)
 		);
 	}
