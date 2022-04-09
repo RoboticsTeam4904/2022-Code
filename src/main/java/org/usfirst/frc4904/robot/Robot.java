@@ -44,6 +44,8 @@ public class Robot extends CommandRobotBase {
             RobotMap.Component.turret);
 
         odometrySend.schedule();
+
+        RobotMap.Component.turretMotor.setCoastMode();
     }
 
     @Override
@@ -76,6 +78,8 @@ public class Robot extends CommandRobotBase {
                 RobotMap.Component.turret);
 
         odometrySend.schedule();
+
+        RobotMap.Component.turretMotor.setCoastMode();
     }
 
     @Override

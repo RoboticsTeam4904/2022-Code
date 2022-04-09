@@ -21,6 +21,7 @@ import org.usfirst.frc4904.standard.commands.solenoid.SolenoidExtend;
 import org.usfirst.frc4904.standard.commands.solenoid.SolenoidRetract;
 import org.usfirst.frc4904.standard.humaninput.Driver;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
+import org.usfirst.frc4904.robot.commands.indexerIntakeTurret.BallReject;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -50,7 +51,7 @@ public class NathanGain extends Driver {
 		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 3.0));
 		RobotMap.HumanInput.Driver.xbox.rb.whenPressed(new ExtendIntake());
 		RobotMap.HumanInput.Driver.xbox.lb.whenPressed(new RetractIntake());
-		//RobotMap.HumanInput.Driver.xbox.x.whenPressed(new RunFor(new RejectBall(), 3.0));
+		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new RunFor(new BallReject(), 3.0));
 		// RobotMap.HumanInput.Driver.xbox.x.whenPressed(new MotorBrake(RobotMap.Component.shooterTalon));
 
 		// RobotMap.HumanInput.Driver.xbox.dPad.up.whenPressed(new TurnTurret(Math.PI / 2, RobotMap.Component.turret));
