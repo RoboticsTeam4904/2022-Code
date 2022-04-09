@@ -48,17 +48,18 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopExecute() {
-        if (RobotMap.HumanInput.Operator.joystick.getZ() != 0) {
-            new TurretMotorConstant(RobotMap.HumanInput.Operator.joystick.getZ()*-0.1).schedule();
+        double zgain = RobotMap.HumanInput.Operator.joystick.getZ();
+        if (zgain != 0) {
+            new TurretMotorConstant(Math.pow(Math.abs(zgain), 1.2) * -0.12 * Math.signum(zgain)).schedule();
         }
 
-        if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
-            new ClimberUp().schedule();
-        } else if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
-            new ClimberDown().schedule();
-        } else {
-            new ClimberOff().schedule();
-        }
+        // if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
+        //     new ClimberUp().schedule();
+        // } else if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
+        //     new ClimberDown().schedule();
+        // } else {
+        //     new ClimberOff().schedule();
+        // }
 
         // LogKitten.wtf(RobotMap.Component.shooterTalon.get());
     }

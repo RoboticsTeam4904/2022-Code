@@ -30,7 +30,7 @@ public class SimpleRoutine extends SequentialCommandGroup {
 					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2), 
 					new IndexerOff()
 				),
-				new RunFor(new ShooterConstant(0.8), 5)
+				new RunFor(new ShooterConstant(0.6), 5)
 			)
             //new RunFor(new ExtendIntake(), 2.2)
             //new TurnTurret(0.0),
