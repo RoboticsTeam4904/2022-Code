@@ -47,12 +47,12 @@ public class DefaultOperator extends Operator {
 		// 		new ShooterBrake(),
 		// 		new IndexerOff()));
 		// RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberBrake());
-		//RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
+		// RobotMap.HumanInput.Operator.joystick.button2.whileHeld(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
 		//RobotMap.HumanInput.Operator.joystick.button12.whenPressed(new TurnTurret(Math.PI / 12, RobotMap.Component.turret));
 		//RobotMap.HumanInput.Operator.joystick.button11.whenPressed(new TurnTurret(0, RobotMap.Component.turret));
-		RobotMap.HumanInput.Operator.joystick.button5.whenPressed(			new ParallelCommandGroup(
+		RobotMap.HumanInput.Operator.joystick.button5.whenPressed(new ParallelCommandGroup(
 			new SequentialCommandGroup(
-				new WaitCommand(1), 
+			new WaitCommand(1),
 				new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2), 
 				new IndexerOff()
 			),

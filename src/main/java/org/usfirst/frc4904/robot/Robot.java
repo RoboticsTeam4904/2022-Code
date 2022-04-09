@@ -52,14 +52,13 @@ public class Robot extends CommandRobotBase {
     public void teleopExecute() {
         double zgain = RobotMap.HumanInput.Operator.joystick.getZ();
         if (zgain != 0) {
-            new TurretMotorConstant(Math.pow(Math.abs(zgain), 1.2) * -0.12 * Math.signum(zgain)).schedule();
+            new TurretMotorConstant(Math.pow(Math.abs(zgain), 0.8) * -0.1 * Math.signum(zgain)).schedule();
         }
 
-        // if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
-        //     new ClimberUp().schedule();
-        // } else 
-        if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
+        if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
             new ClimberDown().schedule();
+        } else if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
+            new ClimberUp().schedule();
         } else {
             new ClimberOff().schedule();
         }
