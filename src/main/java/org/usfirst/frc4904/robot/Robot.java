@@ -57,11 +57,12 @@ public class Robot extends CommandRobotBase {
 
         // if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
         //     new ClimberUp().schedule();
-        // } else if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
-        //     new ClimberDown().schedule();
-        // } else {
-        //     new ClimberOff().schedule();
-        // }
+        // } else 
+        if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
+            new ClimberDown().schedule();
+        } else {
+            new ClimberOff().schedule();
+        }
 
         // LogKitten.wtf(RobotMap.Component.shooterTalon.get());
     }
