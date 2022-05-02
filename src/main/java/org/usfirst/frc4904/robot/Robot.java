@@ -55,13 +55,13 @@ public class Robot extends CommandRobotBase {
             new TurretMotorConstant(Math.pow(Math.abs(zgain), 0.8) * -0.1 * Math.signum(zgain)).schedule();
         }
 
-        if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
-            new ClimberDown().schedule();
-        } else if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
-            new ClimberUp().schedule();
-        } else {
-            new ClimberOff().schedule();
-        }
+        // if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
+        //     new ClimberDown().schedule();
+        // } else if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
+        //     new ClimberUp().schedule();
+        // } else {
+        //     new ClimberOff().schedule();
+        // }
 
         // LogKitten.wtf(RobotMap.Component.shooterTalon.get());
     }

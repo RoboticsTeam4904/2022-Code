@@ -67,8 +67,15 @@ public class DefaultOperator extends Operator {
 					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2), 
 					new IndexerOff()
 				),
-				new RunFor(new ShooterConstant(0.5), 5)
+				new RunFor(new ShooterConstant(0.48), 5)
 			)
 		);
+
+		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberUp());
+		RobotMap.HumanInput.Operator.joystick.button7.whenReleased(new ClimberOff());
+
+		RobotMap.HumanInput.Operator.joystick.button8.whenPressed(new ClimberDown());
+		RobotMap.HumanInput.Operator.joystick.button8.whenReleased(new ClimberOff());
+
 	}
 }

@@ -23,14 +23,14 @@ public class SimpleRoutine extends SequentialCommandGroup {
         // first backup, then shoot
         this.addCommands(
 
-            new ChassisConstant(RobotMap.Component.chassis, 0, -0.43, 0, 0.4), // TODO: tune num of seconds, currently 2
+            new ChassisConstant(RobotMap.Component.chassis, 0, -0.45, 0, 0.4), // TODO: tune num of seconds, currently 2
             new ParallelCommandGroup(
 				new SequentialCommandGroup(
 					new WaitCommand(4), 
 					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2), 
 					new IndexerOff()
 				),
-				new RunFor(new ShooterConstant(0.6), 5)
+				new RunFor(new ShooterConstant(0.49), 5)
 			)
             //new RunFor(new ExtendIntake(), 2.2)
             //new TurnTurret(0.0),
