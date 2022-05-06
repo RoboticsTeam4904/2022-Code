@@ -13,7 +13,7 @@ public class RobotUDP extends UDPSocket {
     private SocketAddress localizationAddr;
 
     private OdometryUpdate odometryData;
-    private LocalizationUpdate localizationData;
+    private LocalizationUpdate localizationData = new LocalizationUpdate();
 
     public RobotUDP(SocketAddress localAddr, SocketAddress localizationAddr) throws IOException {
         super(localAddr);

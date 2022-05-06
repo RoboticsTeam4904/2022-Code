@@ -15,30 +15,32 @@ public final class TurretAlign extends CommandBase {
     public TurretAlign(RobotUDP net, Turret turret) {
         this.net = net;
         this.turret = turret;
-
-        addRequirements(turret);
     }
 
     @Override
     public void initialize() {
-        final var angleGoal = turret.getAngle() + net.getLocalizationData().goalRelativeAngle();
-
+        super.initialize();
+        final var angleGoal = turret.getAngle() + net.getLocalizationData().goalRelativeAngle()*-1;
+        // final var angleGoal = Math.PI/2;
         turnCommand = new TurnTurret(angleGoal, turret);
         turnCommand.schedule();
     }
 
-    @Override
-    public void execute() {
-        turnCommand.execute();
-    }
+    // @Override
+    // public void execute() {
+    //     turnCommand.execute();
+    // }
 
     @Override
     public boolean isFinished() {
-        return turnCommand.isFinished();
+        return true;
     }
 
     @Override
     public void end(boolean interrupted) {
-        turnCommand.end(interrupted);
+        super.end(interrupted);
+        if (interrupted) {
+            turnCommand.end(interrupted);
+        }
     }
 }

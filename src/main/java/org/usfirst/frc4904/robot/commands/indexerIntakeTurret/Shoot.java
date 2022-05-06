@@ -15,6 +15,7 @@ public class Shoot extends ParallelCommandGroup {
         final double d = net.getLocalizationData().goalDistance();
         final double v = RobotController.getBatteryVoltage();
 
+        // final double d = 150;
         // from mar 24 23:26
         // https://discord.com/channels/898058908915073024/898059350772441148/956801260940566589
         final double speed = (d - (29 * v) + 383) / 370; // TODO cringe

@@ -6,6 +6,6 @@ import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 
 public class ClimberUp extends MotorConstant {
     public ClimberUp() {
-        super("ClimberOn", RobotMap.Component.climber.climberMotor, Climber.DEFAULT_CLIMBER_SPEED);
+        super("ClimberOn", RobotMap.Component.climber.climberMotor, -0.5);
     }
 }

@@ -18,13 +18,13 @@ public class TurnTurret extends MotorPositionConstant {
 
 		this.turret = turret;
 
-		addRequirements(turret);
+		addRequirements(RobotMap.Component.turret); // TODO: cringe (zach)
 	}
 
 	@Override
-	public void execute() {
-		super.execute();
-		RobotMap.Component.turretPID.setSetpoint(RobotMap.Component.turretPID.getSetpoint() + 2 * RobotMap.HumanInput.Operator.joystick.getZ()); // Manual adjustments to joystick
+	public void initialize() {
+		super.initialize();
+		RobotMap.Component.turretMotor.setCoastMode();
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class TurnTurret extends MotorPositionConstant {
 
 	public void end(boolean interrupted) {
 		super.end(interrupted);
-		new MotorBrake(RobotMap.Component.turretMotor).schedule();
+		RobotMap.Component.turretMotor.setBrakeMode();
 	}
 }

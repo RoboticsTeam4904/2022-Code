@@ -13,6 +13,7 @@ import org.usfirst.frc4904.robot.commands.climber.ClimberOff;
 import org.usfirst.frc4904.robot.commands.climber.ClimberUp;
 import org.usfirst.frc4904.robot.commands.net.OdometrySend;
 import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
+import org.usfirst.frc4904.robot.commands.turret.TurretMotorConstant;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
@@ -43,19 +44,26 @@ public class Robot extends CommandRobotBase {
             RobotMap.Component.turret);
 
         odometrySend.schedule();
+
+        RobotMap.Component.turretMotor.setCoastMode();
     }
 
     @Override
     public void teleopExecute() {
-        if(RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
-            new ClimberUp().schedule();
-        } else if(RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
-            new ClimberDown().schedule();
-        } else {
-            new ClimberOff().schedule();
+        double zgain = RobotMap.HumanInput.Operator.joystick.getZ();
+        if (zgain != 0) {
+            new TurretMotorConstant(Math.pow(Math.abs(zgain), 0.8) * -0.1 * Math.signum(zgain)).schedule();
         }
 
-        LogKitten.wtf(RobotMap.Component.shooterTalon.get());
+        // if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
+        //     new ClimberDown().schedule();
+        // } else if (RobotMap.HumanInput.Operator.joystick.getAxis(3) > 0.95) {
+        //     new ClimberUp().schedule();
+        // } else {
+        //     new ClimberOff().schedule();
+        // }
+
+        // LogKitten.wtf(RobotMap.Component.shooterTalon.get());
     }
 
     @Override
@@ -70,6 +78,8 @@ public class Robot extends CommandRobotBase {
                 RobotMap.Component.turret);
 
         odometrySend.schedule();
+
+        RobotMap.Component.turretMotor.setCoastMode();
     }
 
     @Override

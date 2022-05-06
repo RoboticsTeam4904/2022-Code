@@ -4,11 +4,11 @@ import org.usfirst.frc4904.robot.commands.indexer.IndexerSet;
 import org.usfirst.frc4904.robot.commands.intake.AxleIntakeOn;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 
-public class StoreBall extends ParallelCommandGroup {
-    public StoreBall() {
+public class BallReject extends ParallelCommandGroup {
+    public BallReject() {
         this.addCommands(
-            new IndexerSet(Indexer.DEFAULT_INTAKE_SPEED, Indexer.DEFAULT_INTAKE_SPEED * 1.5),
-            new AxleIntakeOn()
+            new IndexerSet(-Indexer.DEFAULT_INTAKE_SPEED, -Indexer.DEFAULT_INTAKE_SPEED),
+            new AxleIntakeOn(true)
         );
     }
 }

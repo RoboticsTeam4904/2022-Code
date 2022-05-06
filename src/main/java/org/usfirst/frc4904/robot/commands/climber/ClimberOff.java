@@ -6,6 +6,5 @@ import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 public class ClimberOff extends MotorIdle {
     public ClimberOff() {
         super("ClimberOff", RobotMap.Component.climber.climberMotor);
-        LogKitten.wtf("test");
     }
 }
