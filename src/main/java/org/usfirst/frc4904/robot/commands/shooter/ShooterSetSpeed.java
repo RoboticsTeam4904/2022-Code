@@ -13,13 +13,8 @@ public class ShooterSetSpeed extends MotorVelocitySet {
    * @param speed  The speed to spin the shooter up to
    */
 
-<<<<<<< HEAD
   public ShooterSetSpeed() {
     super(RobotMap.Component.shooter.shooterMotor, Shooter.SHOOT_VELOCITY);
 
-=======
-  public ShooterSetSpeed(double velocity) {
-    super(RobotMap.Component.shooter.shooterMotor, velocity);
->>>>>>> 0ce18e41c62be4c27bf4a2b1ada972ce18032880
   }
 }

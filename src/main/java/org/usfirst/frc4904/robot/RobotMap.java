@@ -76,6 +76,8 @@ public class RobotMap {
             public static final int CLIMBER_MOTOR = 9; // TODO: set port
 
             public static final int SHOOTER_MOTOR = 8; // TODO: set port
+
+            
         }
 
         public static class PWM {
