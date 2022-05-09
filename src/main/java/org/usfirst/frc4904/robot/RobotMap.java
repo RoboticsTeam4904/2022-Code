@@ -244,6 +244,7 @@ public class RobotMap {
 
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
         Component.shooterMotor = new Motor("ShooterMotor", true, Component.shooterTalon);
+        Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
         // Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
         // Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
         // VelocitySensorMotor shooterVSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
