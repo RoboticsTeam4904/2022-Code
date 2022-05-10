@@ -53,8 +53,13 @@ public class NathanGain extends Driver {
 		RobotMap.HumanInput.Driver.xbox.a.whenPressed(new RunFor(new StoreBall(), 3.0));
 		RobotMap.HumanInput.Driver.xbox.rb.whenPressed(new ExtendIntake());
 		RobotMap.HumanInput.Driver.xbox.lb.whenPressed(new RetractIntake());
+<<<<<<< HEAD
 		// RobotMap.HumanInput.Driver.xbox.x.whenPressed(new RunFor(new BallReject(), 3.0));
 		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new ShooterSetSpeed(Shooter.SHOOT_VELOCITY));
+=======
+		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new RunFor(new BallReject(), 3.0));
+		RobotMap.HumanInput.Driver.xbox.x.whenPressed(new ShooterSetSpeed());
+>>>>>>> 67fc2e7589a82473e0e196146f08b029f58e2334
 		RobotMap.HumanInput.Driver.xbox.b.whenPressed(new GetShooterVelocity());
 		// RobotMap.HumanInput.Driver.xbox.x.whenPressed(new MotorBrake(RobotMap.Component.shooterTalon));
 
