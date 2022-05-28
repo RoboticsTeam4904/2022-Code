@@ -17,6 +17,7 @@ import org.usfirst.frc4904.robot.subsystems.Indexer;
 import org.usfirst.frc4904.robot.subsystems.Shooter;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -25,6 +26,8 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+import org.usfirst.frc4904.standard.commands.chassis.SimpleSplines.AutoConstants;
+import org.usfirst.frc4904.standard.commands.chassis.SimpleSplines.DriveConstants;
 import org.usfirst.frc4904.standard.custom.PCMPort;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
@@ -43,6 +46,7 @@ import org.usfirst.frc4904.standard.custom.sensors.NavX;
 
 import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
+import org.usfirst.frc4904.standard.subsystems.chassis.SplinesDrive;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.standard.subsystems.motor.VelocitySensorMotor;
 import org.usfirst.frc4904.robot.subsystems.Turret;
@@ -154,6 +158,7 @@ public class RobotMap {
         public static Motor leftWheelB;
         public static SensorDrive sensorDrive;
         public static TankDrive chassis;
+        public static SplinesDrive splinesDrive;
         public static CustomPIDController drivePID;
         public static NavX navx;
 
@@ -217,6 +222,24 @@ public class RobotMap {
             public static CustomJoystick joystick;
         }
     }
+
+    // public static class AutoConstants {
+    //     public static final double kMaxSpeedMetersPerSecond = -1;
+    //     public static final double kMaxAccelerationMetersPerSecondSquared = -1;
+    //     public static final double kRamseteB = -1;
+    //     public static final double kRamseteZeta = -1;
+    // }
+
+    // public static class DriveConstants {
+    //     public static final boolean kGyroReversed = false;
+    //     public static final double ksVolts = -1;
+    //     public static final double kvVoltSecondsPerMeter = -1;
+    //     public static final double kaVoltSecondsSquaredPerMeter = -1;
+    //     public static final double kTrackwidthMeters = -1;
+    //     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+    //             kTrackwidthMeters);
+    //     public static final double kPDriveVel = -1;
+    // }
 
     public RobotMap() {
         Component.navx = new NavX(SerialPort.Port.kMXP);
@@ -302,6 +325,8 @@ public class RobotMap {
         Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
                 Component.rightWheelA, Component.rightWheelB);//, Component.shifter);
         Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
+
+        Component.splinesDrive = new SplinesDrive(Component.chassis, new AutoConstants(-1, -1, -1, -1), new DriveConstants(-1, -1, -1, -1, -1), Component.leftWheelTalonEncoder, Component.rightWheelTalonEncoder, Component.navx, Component.initialPose);  // TODO: tune drive constants
 
         // NetworkTables setup
     }

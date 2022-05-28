@@ -19,6 +19,7 @@ import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.KittenCommand;
 import org.usfirst.frc4904.standard.commands.Noop;
 import org.usfirst.frc4904.standard.commands.RunFor;
+import org.usfirst.frc4904.standard.commands.chassis.SimpleSplines;
 import org.usfirst.frc4904.standard.commands.motor.MotorBrake;
 import org.usfirst.frc4904.standard.humaninput.Operator;
 
@@ -77,5 +78,6 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button8.whenPressed(new ClimberDown());
 		RobotMap.HumanInput.Operator.joystick.button8.whenReleased(new ClimberOff());
 
+		RobotMap.HumanInput.Operator.joystick.button12.whenPressed(new SimpleSplines()));
 	}
 }
