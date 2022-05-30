@@ -11,6 +11,7 @@ import java.net.SocketAddress;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import org.usfirst.frc4904.robot.commands.shooter.SetDefaultShooterVelocity;
 import org.usfirst.frc4904.robot.commands.shooter.ShooterBrake;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
@@ -80,6 +81,8 @@ public class RobotMap {
             public static final int CLIMBER_MOTOR = 9; // TODO: set port
 
             public static final int SHOOTER_MOTOR = 8; // TODO: set port
+
+            
         }
 
         public static class PWM {
@@ -191,6 +194,8 @@ public class RobotMap {
         public static Motor climberMotor;
         public static Climber climber;
         public static Shooter shooter;
+
+        public static VelocitySensorMotor shooterVSM;
     }
 
     public static class NetworkTables {
@@ -265,10 +270,11 @@ public class RobotMap {
 
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
         Component.shooterMotor = new Motor("ShooterMotor", true, Component.shooterTalon);
+        Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
         // Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
         // Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
-        // VelocitySensorMotor shooterVSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
-        // Component.shooter = new Shooter(shooterVSM, Component.shooterEncoder);
+        Component.shooterVSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
+        Component.shooter = new Shooter(Component.shooterVSM, Component.shooterEncoder, new SetDefaultShooterVelocity(Component.shooterVSM));
 
         // Component.shifter = new SolenoidShifters(Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         

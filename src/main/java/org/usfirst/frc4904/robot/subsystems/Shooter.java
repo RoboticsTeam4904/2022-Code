@@ -5,12 +5,14 @@
 
 package org.usfirst.frc4904.robot.subsystems;
 
+import org.usfirst.frc4904.standard.commands.Noop;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonFX;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import org.usfirst.frc4904.standard.subsystems.motor.VelocitySensorMotor;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
@@ -18,10 +20,15 @@ public class Shooter extends SubsystemBase {
     public VelocitySensorMotor shooterMotor;
     public CANTalonEncoder shooterEncoder;
 
-    public Shooter(VelocitySensorMotor shooterMotor, CANTalonEncoder shooterEncoder) {
+    public Shooter(VelocitySensorMotor shooterMotor, CANTalonEncoder shooterEncoder, Command defaultCommand) {
         super();
+        super.setDefaultCommand(defaultCommand);
         this.shooterMotor = shooterMotor;
         this.shooterEncoder = shooterEncoder;
+    }
+
+    public Shooter(VelocitySensorMotor shooterMotor, CANTalonEncoder shooterEncoder) {
+        this(shooterMotor, shooterEncoder, new Noop());
     }
 
 
