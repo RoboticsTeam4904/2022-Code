@@ -34,7 +34,7 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (counter % 5 == 0) {
+        if (counter == 5) {
             double currentVelocity = RobotMap.Component.shooterTalon.getSelectedSensorVelocity();
             double outputPercent = RobotMap.Component.shooterTalon.getMotorOutputPercent();
             System.out.println(String.format("velocity %f and outpute percent %f", currentVelocity, outputPercent));
@@ -44,6 +44,7 @@ public class Shooter extends SubsystemBase {
             } else {
                 armed = false;
             }
+            counter = 0;
         }
     }
 }
