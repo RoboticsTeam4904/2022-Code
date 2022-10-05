@@ -33,7 +33,7 @@ public class Shooter extends SubsystemBase {
     }
 
     @Override
-    public void periodic() {
+    public void periodic() { // we cannot set a custom frequency for our subsystem periodic
         if (counter == 5) {
             double currentVelocity = RobotMap.Component.shooterTalon.getSelectedSensorVelocity();
             double outputPercent = RobotMap.Component.shooterTalon.getMotorOutputPercent();
