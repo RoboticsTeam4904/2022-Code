@@ -63,11 +63,11 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(
 			new ParallelCommandGroup(
 				new SequentialCommandGroup(
-					new WaitCommand(3), 
-					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2), 
+					new WaitCommand(4), 
+					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 4), 
 					new IndexerOff()
 				),
-				new RunFor(new ShooterConstant(0.48), 5)
+				new RunFor(new ShooterConstant(0.8), 6) // 0.48
 			)
 		);
 

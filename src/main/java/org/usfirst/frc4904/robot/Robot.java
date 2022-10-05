@@ -50,7 +50,7 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void teleopExecute() {
-        double zgain = RobotMap.HumanInput.Operator.joystick.getZ();
+        double zgain = RobotMap.HumanInput.Operator.joystick.getZ() * 2;
         if (zgain != 0) {
             new TurretMotorConstant(Math.pow(Math.abs(zgain), 0.8) * -0.1 * Math.signum(zgain)).schedule();
         }
