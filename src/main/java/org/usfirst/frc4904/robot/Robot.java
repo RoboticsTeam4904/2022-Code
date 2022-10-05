@@ -19,6 +19,7 @@ import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import org.usfirst.frc4904.standard.commands.KittenCommand;
@@ -54,6 +55,8 @@ public class Robot extends CommandRobotBase {
         if (zgain != 0) {
             new TurretMotorConstant(Math.pow(Math.abs(zgain), 0.8) * -0.1 * Math.signum(zgain)).schedule();
         }
+
+        SmartDashboard.putBoolean("Armed", RobotMap.Component.shooter.armed);
 
         // if (RobotMap.HumanInput.Operator.joystick.getAxis(3) < -0.95) {
         //     new ClimberDown().schedule();

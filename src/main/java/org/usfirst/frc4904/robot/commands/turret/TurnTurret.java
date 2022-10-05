@@ -38,6 +38,6 @@ public class TurnTurret extends MotorPositionConstant {
 
 	public void end(boolean interrupted) {
 		super.end(interrupted);
-		RobotMap.Component.turretMotor.setBrakeMode();
+		//RobotMap.Component.turretMotor.setBrakeMode();
 	}
 }
