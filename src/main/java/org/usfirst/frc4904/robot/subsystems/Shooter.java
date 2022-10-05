@@ -46,5 +46,6 @@ public class Shooter extends SubsystemBase {
             }
             counter = 0;
         }
+        counter += 1;
     }
 }
