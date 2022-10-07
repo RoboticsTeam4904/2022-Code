@@ -67,7 +67,7 @@ public class DefaultOperator extends Operator {
 					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 4), 
 					new IndexerOff()
 				),
-				new RunFor(new ShooterConstant(0.8), 6) // 0.48
+				new RunFor(new ShooterConstant(0.55), 10)//6) // 0.48
 			)
 		);
 

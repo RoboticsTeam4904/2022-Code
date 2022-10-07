@@ -157,6 +157,7 @@ public class RobotMap {
         public static CustomPIDController drivePID;
         public static NavX navx;
 
+        public static CANTalonFX intakeAxleTalon;
         public static Motor intakeAxleMotor;
         public static SolenoidSubsystem intakeExtender1;
         public static SolenoidSubsystem intakeExtender2;
@@ -223,14 +224,22 @@ public class RobotMap {
 
         HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
-        
 
+        Component.intakeAxleTalon = new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR);
+        Component.intakeAxleTalon.configVoltageCompSaturation(11);
+        Component.intakeAxleTalon.enableVoltageCompensation(true);
 
         Component.intakeExtender1 = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.RETRACT, Port.Pneumatics.INTAKE_EXTENDER_1.buildDoubleSolenoid()); //TODO: check if CANTalonFX or SRX
-        Component.intakeAxleMotor = new Motor("Intake Motor", true, new CANTalonFX(Port.CANMotor.INTAKE_AXLE_MOTOR)); // TODO: check if CANTalonFX
+        Component.intakeAxleMotor = new Motor("Intake Motor", true, Component.intakeAxleTalon);
 
         Component.indexerHolderTalon = new CANTalonFX(Port.CANMotor.INDEXER_HOLDER_MOTOR);
+        Component.indexerHolderTalon.configVoltageCompSaturation(11);
+        Component.indexerHolderTalon.enableVoltageCompensation(true);
+
         Component.indexerBeltTalon = new CANTalonFX(Port.CANMotor.INDEXER_BELT_MOTOR);
+        Component.indexerBeltTalon.configVoltageCompSaturation(11);
+        Component.indexerBeltTalon.enableVoltageCompensation(true);
+
         Motor indexerHolderMotor = new Motor("Indexer 1", false, Component.indexerHolderTalon);
         Motor indexerBeltMotor = new Motor("Indexer 2", false, Component.indexerBeltTalon);
         Component.indexer = new Indexer(indexerHolderMotor, indexerBeltMotor);
@@ -242,6 +251,8 @@ public class RobotMap {
 
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
         Component.shooterMotor = new Motor("ShooterMotor", true, Component.shooterTalon);
+        Component.shooterTalon.configVoltageCompSaturation(10);
+        Component.shooterTalon.enableVoltageCompensation(true);
         // Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
         // Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
         // VelocitySensorMotor shooterVSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
