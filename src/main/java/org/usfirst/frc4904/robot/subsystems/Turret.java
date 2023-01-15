@@ -15,7 +15,7 @@ public class Turret extends SubsystemBase {
     public static final double TICKS_PER_REVM = 2048;
     public static final double RADIANS_PER_REV = 2 * Math.PI;
     public static final double BIG_GEAR_RADIUS = 120;
-    public static final double SMALL_GEAR_RADIUS = 24;
+    public static final double SMALL_GEAR_RADIUS = 2; // previously 24
     public static final double MOTOR_REV_PER_TURRET_REV = BIG_GEAR_RADIUS/SMALL_GEAR_RADIUS;
 
     public PositionSensorMotor motor;

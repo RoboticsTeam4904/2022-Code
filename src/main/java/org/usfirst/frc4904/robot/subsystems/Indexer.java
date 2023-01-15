@@ -8,7 +8,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
 
 public class Indexer extends SubsystemBase {
-  public static final double DEFAULT_INDEXER_SPEED = 0.5; //TODO: Set value
+  public static final double DEFAULT_INDEXER_SPEED = 0.13; //TODO: Set value
   public static final double DEFAULT_INTAKE_SPEED = 0.5;
   public final Motor holderMotor;
   public final Motor beltMotor;

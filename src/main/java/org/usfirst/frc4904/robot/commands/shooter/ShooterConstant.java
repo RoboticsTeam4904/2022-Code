@@ -17,11 +17,4 @@ public class ShooterConstant extends MotorConstant {
   public ShooterConstant(double speed) {
     super(RobotMap.Component.shooterMotor, speed);
   }
-
-  @Override
-  public void end(boolean interrupted) {
-    super.end(interrupted);
-
-    LogKitten.wtf("wtf");
-  }
 }

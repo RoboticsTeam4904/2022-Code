@@ -16,11 +16,14 @@ import org.usfirst.frc4904.robot.commands.turret.TurnTurret;
 import org.usfirst.frc4904.robot.commands.turret.TurretAlign;
 import org.usfirst.frc4904.robot.subsystems.Indexer;
 import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.LogKitten.KittenLevel;
 import org.usfirst.frc4904.standard.commands.KittenCommand;
 import org.usfirst.frc4904.standard.commands.Noop;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.motor.MotorBrake;
 import org.usfirst.frc4904.standard.humaninput.Operator;
+
+import org.usfirst.frc4904.robot.commands.ParralelCommandTest;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -48,8 +51,8 @@ public class DefaultOperator extends Operator {
 		// 		new IndexerOff()));
 		// RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new ClimberBrake());
 		// RobotMap.HumanInput.Operator.joystick.button2.whileHeld(new TurretAlign(RobotMap.Component.robotUDP, RobotMap.Component.turret));
-		//RobotMap.HumanInput.Operator.joystick.button12.whenPressed(new TurnTurret(Math.PI / 12, RobotMap.Component.turret));
-		//RobotMap.HumanInput.Operator.joystick.button11.whenPressed(new TurnTurret(0, RobotMap.Component.turret));
+		// RobotMap.HumanInput.Operator.joystick.button12.whenPressed(new TurnTurret(Math.PI / 2, RobotMap.Component.turret));
+		// RobotMap.HumanInput.Operator.joystick.button11.whenPressed(new TurnTurret(0, RobotMap.Component.turret));
 		RobotMap.HumanInput.Operator.joystick.button5.whenPressed(new ParallelCommandGroup(
 			new SequentialCommandGroup(
 			new WaitCommand(1),
@@ -61,13 +64,24 @@ public class DefaultOperator extends Operator {
 
 		RobotMap.HumanInput.Operator.joystick.button3.whenPressed(new ShooterCoast());
 		RobotMap.HumanInput.Operator.joystick.button1.whenPressed(
-			new ParallelCommandGroup(
+			new ParralelCommandTest(
 				new SequentialCommandGroup(
-					new WaitCommand(3), 
-					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED), 2), 
-					new IndexerOff()
+					new WaitCommand(5),
+					new KittenCommand("emacs1skdvjbskjdvnksjdvnkjsbdvkjsbdvkjsbdvkjbsdvkjbsdkvjbsdk\nemacs1skdvjbskjdvnksjdvnkjsbdvkjsbdvkjsbdvkjbsdvkjbsdkvjbsdk\nemacs1skdvjbskjdvnksjdvnkjsbdvkjsbdvkjsbdvkjbsdvkjbsdkvjbsdk\nemacs1skdvjbskjdvnksjdvnkjsbdvkjsbdvkjsbdvkjbsdvkjbsdkvjbsdk\n", KittenLevel.WTF),
+					new KittenCommand("emacs1", KittenLevel.WTF),
+					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED, -Indexer.DEFAULT_INDEXER_SPEED*1.5), 5), 
+					// new IndexerOff(),
+					new KittenCommand("emacs1.5", KittenLevel.WTF),
+					new WaitCommand(1),
+					new KittenCommand("emacs2", KittenLevel.WTF),
+
+					new RunFor(new IndexerSet(Indexer.DEFAULT_INDEXER_SPEED+0.27, -Indexer.DEFAULT_INDEXER_SPEED-0.27), 0.1), 
+					new IndexerOff(),
+					new KittenCommand("emacs3", KittenLevel.WTF),
+
+					new WaitCommand(10)
 				),
-				new RunFor(new ShooterConstant(0.48), 5)
+				new RunFor(new ShooterConstant(0.48), 100)
 			)
 		);
 

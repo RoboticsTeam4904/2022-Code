@@ -68,18 +68,18 @@ public class Robot extends CommandRobotBase {
 
     @Override
     public void autonomousInitialize() {
-        final var routine = new SimpleRoutine(RobotMap.Component.turret);
-        routine.schedule();
+        // final var routine = new SimpleRoutine(RobotMap.Component.turret);
+        // routine.schedule();
 
-        final var odometrySend = new OdometrySend(
-                RobotMap.Component.robotUDP,
-                RobotMap.Component.sensorDrive,
-                RobotMap.Component.navx,
-                RobotMap.Component.turret);
+        // final var odometrySend = new OdometrySend(
+        //         RobotMap.Component.robotUDP,
+        //         RobotMap.Component.sensorDrive,
+        //         RobotMap.Component.navx,
+        //         RobotMap.Component.turret);
 
-        odometrySend.schedule();
+        // odometrySend.schedule();
 
-        RobotMap.Component.turretMotor.setCoastMode();
+        // RobotMap.Component.turretMotor.setCoastMode();
     }
 
     @Override

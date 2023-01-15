@@ -62,8 +62,8 @@ public class RobotMap {
 
         public static class CANMotor {
             public static final int RIGHT_DRIVE_A = 2; // TODO: Check chassis motor IDs
-            public static final int RIGHT_DRIVE_B = 3;
-            public static final int LEFT_DRIVE_A = 4;
+            public static final int RIGHT_DRIVE_B = 4;
+            public static final int LEFT_DRIVE_A = 3;
             public static final int LEFT_DRIVE_B = 5;
 
             public static final int INTAKE_AXLE_MOTOR = 7; // TODO: set port for axel intake motor
@@ -123,9 +123,9 @@ public class RobotMap {
         }
 
         public static class Turret {
-            public static final double P = 1e-4; // TODO: TUNE (6e-5)
+            public static final double P = 2.5e-5; // TODO: TUNE (6e-5)
             public static final double I = 0; // 3E-8
-            public static final double D = -5e-6; // (2e-6)
+            public static final double D = 0; // (2e-6)
             public static final double F = 0;
             // public static final double tolerance = -1;
             // public static final double dTolerance = -1;
@@ -241,8 +241,10 @@ public class RobotMap {
 
 
         Component.shooterTalon = new CANTalonFX(Port.CANMotor.SHOOTER_MOTOR);
+        Component.shooterTalon.configVoltageCompSaturation(10);
+        Component.shooterTalon.enableVoltageCompensation(true);
         Component.shooterMotor = new Motor("ShooterMotor", true, Component.shooterTalon);
-        // Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
+        Component.shooterEncoder = new CANTalonEncoder(Component.shooterTalon);
         // Component.shooterPID = new CustomPIDController(PID.Shooter.P, PID.Shooter.I, PID.Shooter.D, PID.Shooter.F, Component.shooterEncoder);
         // VelocitySensorMotor shooterVSM = new VelocitySensorMotor("Turret", Component.shooterPID, Component.shooterTalon); //TODO: cringe (zach)
         // Component.shooter = new Shooter(shooterVSM, Component.shooterEncoder);
@@ -251,13 +253,15 @@ public class RobotMap {
         
         Component.turretMotor = new CANTalonFX(Port.CANMotor.TURRET_MOTOR);
         Component.turretMotor.setSelectedSensorPosition(0);
+        Component.turretMotor.configVoltageCompSaturation(10);
+        Component.turretMotor.enableVoltageCompensation(false);
         Component.turretEncoder = new CANTalonEncoder(Component.turretMotor);
         Component.turretPID = new CustomPIDController(PID.Turret.P,
                 PID.Turret.I, PID.Turret.D, PID.Turret.F,
                 Component.turretEncoder);
         Component.turretPID.setAbsoluteTolerance(2048);
-        Component.turretPID.setMinimumNominalOutput(0.065); // formerly 0.07
-        Component.turretPID.setOutputRange(-0.10, 0.10);
+        // Component.turretPID.setMinimumNominalOutput(0.085); // formerly 0.07
+        Component.turretPID.setOutputRange(-0.2, 0.2);
         PositionSensorMotor turretPSM = new PositionSensorMotor("Turret", Component.turretPID, Component.turretMotor);
         Component.turret = new Turret(turretPSM, Component.turretEncoder);
 
@@ -288,7 +292,7 @@ public class RobotMap {
         // Wheel Encoders
         Component.leftWheelTalonEncoder = new CANTalonEncoder("leftWheel", leftWheelATalon, true,
                 Metrics.Chassis.METERS_PER_TICK);
-        Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, true,
+        Component.rightWheelTalonEncoder = new CANTalonEncoder("rightWheel", rightWheelATalon, false,
                 Metrics.Chassis.METERS_PER_TICK);
         Component.initialPose = new Pose2d(); // TODO double x, double y, rotation2d
         Component.sensorDrive = new SensorDrive(Component.chassis, Component.leftWheelTalonEncoder,
