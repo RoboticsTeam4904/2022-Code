@@ -33,6 +33,10 @@ import org.usfirst.frc4904.standard.subsystems.SolenoidSubsystem;
 import org.usfirst.frc4904.robot.subsystems.Climber;
 
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
+import org.usfirst.frc4904.standard.subsystems.chassis.SplinesDrive;
+import org.usfirst.frc4904.standard.commands.chassis.SimpleSplines;
+import org.usfirst.frc4904.standard.commands.chassis.SimpleSplines.AutoConstants;
+import org.usfirst.frc4904.standard.commands.chassis.SimpleSplines.DriveConstants;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
@@ -40,6 +44,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDrive;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.custom.sensors.NavX;
+import org.usfirst.frc4904.standard.custom.sensors.IMU;
 
 import org.usfirst.frc4904.standard.subsystems.chassis.SensorDrive;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
@@ -154,6 +159,10 @@ public class RobotMap {
         public static Motor leftWheelB;
         public static SensorDrive sensorDrive;
         public static TankDrive chassis;
+        public static SplinesDrive SplinesDrive;
+        public static AutoConstants splineConst;
+        public static DriveConstants driveConst;
+        public static NavX gyro;
         public static CustomPIDController drivePID;
         public static NavX navx;
 
@@ -305,6 +314,10 @@ public class RobotMap {
         Component.chassisSolenoid = new SolenoidSubsystem("Intake Extender 1", false, SolenoidState.EXTEND, Port.Pneumatics.SHIFTER.buildDoubleSolenoid());
         Component.chassis = new TankDrive("2022-Chassis", Component.leftWheelA, Component.leftWheelB,
                 Component.rightWheelA, Component.rightWheelB);//, Component.shifter);
+        Component.gyro = new NavX(SerialPort.Port.kMXP); //needs to change to port of gyro | also uses serialport, could change to i2c
+        Component.splineConst = new AutoConstants(1 ,2,3,4); //need tuning
+        Component.driveConst = new DriveConstants(1,2,3,4,5); //need tuning
+        Component.SplinesDrive = new SplinesDrive(Component.chassis,Component.splineConst,Component.driveConst,Component.leftWheelTalonEncoder,Component.rightWheelTalonEncoder, Component.gyro,Component.initialPose);
         Component.chassis.setDefaultCommand(new ChassisMove(Component.chassis, new NathanGain()));
 
         // NetworkTables setup
